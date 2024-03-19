@@ -4,8 +4,6 @@ import { app, BrowserWindow, Menu } from 'electron'
 // =======
 const template: (Electron.MenuItemConstructorOptions | Electron.MenuItem)[] = []
 
-// Module
-// ======
 export default (mainWindow: BrowserWindow) => {
   const isDevelopment = process.env.NODE_ENV === 'development'
   if (process.platform === 'darwin') {
