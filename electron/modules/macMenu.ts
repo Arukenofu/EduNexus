@@ -1,7 +1,5 @@
 import { app, BrowserWindow, Menu } from 'electron'
 
-// Helpers
-// =======
 const template: (Electron.MenuItemConstructorOptions | Electron.MenuItem)[] = []
 
 export default (mainWindow: BrowserWindow) => {
