@@ -19,9 +19,9 @@ function createWindow() {
   console.log('System info', { isProduction, platform, architucture })
   const mainWindow = new BrowserWindow({
     height: 600,
-    width: 850,
+    width: 100,
     minHeight: 600,
-    minWidth: 850,
+    minWidth: 1000,
     titleBarStyle: "hidden",
         titleBarOverlay: {
         color: '#0f0f0f',

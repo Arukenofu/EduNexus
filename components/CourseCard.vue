@@ -88,13 +88,13 @@ interface card {
     p {
       padding: var(--card-padding);
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 33px;
     }
 
     .type {
       display: block;
       position: absolute;
-      bottom: 21px;
+      bottom: 15px;
       left: 12px;
       font-size: .8rem;
       color: var(--text-secondary);
