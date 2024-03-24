@@ -18,7 +18,7 @@
    </nuxt-link>
 
    <nuxt-link to="/home/certificate">
-     Получить сертификат
+     Мои Сертификаты
    </nuxt-link>
 
  </nav>

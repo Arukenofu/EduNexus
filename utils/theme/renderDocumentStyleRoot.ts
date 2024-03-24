@@ -13,7 +13,7 @@ export default function () {
     }
 
     else {
-        documentElementSetProperty('--bg', '#FFFFFF');
+        documentElementSetProperty('--bg', '#f1f0e8');
         documentElementSetProperty('--text', '#171717');
         documentElementSetProperty('--bg-secondary', '#dedede');
         documentElementSetProperty('--text-secondary', '#3d3d3d');

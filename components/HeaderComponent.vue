@@ -134,7 +134,7 @@ header {
     border-radius: 6px;
     margin-left: 12px;
     border: none;
-    background-color: #e85454;
+    background-color: var(--red);
     color: #FFFFFF;
   }
 }

@@ -38,6 +38,7 @@
       user-select: none;
       transition: font-size 0.2s ease;
       cursor: pointer;
+      color: var(--bg);
 
       &:hover {
         font-size: 1.6rem;
