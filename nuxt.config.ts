@@ -5,10 +5,7 @@ export default defineNuxtConfig({
 	typescript: {
 		shim: false,
 	},
-	modules: [
-        '@nuxtjs/google-fonts',
-        'nuxt-icon'
-    ],
+	modules: ['@nuxtjs/google-fonts', 'nuxt-icon', "@nuxt/image"],
 	devtools: { enabled: false },
 	ssr: false,
 	googleFonts: {

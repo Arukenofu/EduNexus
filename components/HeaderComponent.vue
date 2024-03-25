@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import toggleTheme from "~/utils/theme/toggleTheme";
+import ProjectIcon from "~/components/ProjectIcon.vue";
 
 const themeConditionalState = (): string => {
   const theme = useState('theme', () => 'light');
@@ -20,9 +21,7 @@ const isLogged = ref(true);
 <template>
   <header>
 
-    <div class="icon">
-      EduNexus
-    </div>
+    <ProjectIcon />
 
     <div class="input-outer">
       <Icon name="iconoir:search" class="search" size="2rem" />
@@ -42,7 +41,7 @@ const isLogged = ref(true);
       <span>Личный Кабинет</span>
     </button>
 
-    <button class="exit" v-if="isLogged">
+    <button class="exit" @click="$router.push('/login')" v-if="isLogged">
       <Icon name="iconoir:log-out" size="1.4rem" />
     </button>
 
@@ -57,12 +56,6 @@ header {
   display: flex;
   align-items: center;
   padding: var(--content-padding);
-
-  .icon {
-    font-size: 1.8rem;
-    font-weight: 900;
-    user-select: none;
-  }
 
   .input-outer {
     margin-left: 33px;

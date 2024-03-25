@@ -48,17 +48,16 @@ const values = ref<object[]>([{
       <h1>Текущие задания</h1>
 
       <div class="tasks-wrap">
-        <div class="task" v-for="task in 4">
+        <div class="task" v-for="task in 5">
 
           <div class="image" />
 
           <div class="text">
             <p>Computer Science</p>
-            <span>Сделать задание 5 до 21 Фев. 2024</span>
+            <span>Тест: до 21 Фев. 2024</span>
           </div>
 
           <Icon class="enter" name="iconoir:arrow-right-circle" size="1.9em" />
-
         </div>
       </div>
     </div>

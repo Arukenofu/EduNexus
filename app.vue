@@ -2,6 +2,7 @@
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
 
 const theme = useState('theme', () => {
+
   if (localStorage.getItem('theme')) {
     return localStorage.getItem('theme')
   }
@@ -9,6 +10,8 @@ const theme = useState('theme', () => {
   else {
     return 'light'
   }
+
+
 })
 
 onMounted(() => {
@@ -30,8 +33,8 @@ const {isElectron} = useUpdater();
 </template>
 
 <style lang="scss">
-#app {
-  display: flex;
-  flex-direction: column;
+.app {
+  position: relative;
+  min-height: calc(100dvh - 30px);
 }
 </style>
