@@ -41,7 +41,7 @@ const isLogged = ref(true);
       <span>Личный Кабинет</span>
     </button>
 
-    <button class="exit" @click="$router.push('/login')" v-if="isLogged">
+    <button class="exit" @click="$router.push('/auth')" v-if="isLogged">
       <Icon name="iconoir:log-out" size="1.4rem" />
     </button>
 

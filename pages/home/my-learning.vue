@@ -31,7 +31,7 @@ const values = ref<object[]>([{
             8.7 / 10
           </div>
 
-          <button class="current" v-if="true">
+          <button @click="$router.push('/learn/main')" class="current" v-if="true">
             Войти
           </button>
 

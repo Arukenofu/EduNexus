@@ -1,6 +1,8 @@
 @import 'style/variables/dark-light-mode';
 @import 'style/variables/spacing';
 @import 'style/variables/main';
+@import 'transitions';
+@import 'stoke-width';
 
 * {
   margin: 0;
@@ -38,6 +40,12 @@ button {
 
   &:focus-visible {
     outline: var(--text) 2px solid;
+  }
+}
+
+input {
+  &:focus-visible {
+    outline: none;
   }
 }
 
