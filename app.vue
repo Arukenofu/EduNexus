@@ -1,19 +1,6 @@
 <script setup>
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
 
-const theme = useState('theme', () => {
-
-  if (localStorage.getItem('theme')) {
-    return localStorage.getItem('theme')
-  }
-
-  else {
-    return 'light'
-  }
-
-
-})
-
 onMounted(() => {
 
   renderDocumentStyleRoot();

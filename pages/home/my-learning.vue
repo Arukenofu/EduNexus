@@ -166,7 +166,7 @@ article {
         }
 
         .certificated {
-          background-color: #fff551;
+          background-color: var(--yellow);
           color: #0f0f0f;
         }
       }

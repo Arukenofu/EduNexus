@@ -11,8 +11,10 @@ export default defineNuxtConfig({
 	googleFonts: {
         download: true,
         families: {
-            'Nunito Sans': '200..900',
-            'DM Sans': '200..900'
+          'Nunito Sans': '200..900',
+          'DM Sans': '200..900',
+          'Rubik': '300..900',
+          'Manrope': '200..900'
         }
     },
 });

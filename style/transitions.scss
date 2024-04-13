@@ -11,3 +11,32 @@
   transform: translateX(20px);
   opacity: 0;
 }
+
+
+
+.work-enter-active {
+  transition: all 0.4s ease-out;
+}
+
+.work-leave-active {
+  position: relative;
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.work-enter-from,
+.work-leave-to {
+  opacity: 0;
+}
+
+.expand-enter-active {
+  transition: all 1s ease-in;
+}
+
+.expand-leave-active {
+
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  opacity: 0;
+}

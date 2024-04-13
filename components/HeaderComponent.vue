@@ -1,18 +1,7 @@
 <script setup lang="ts">
 import toggleTheme from "~/utils/theme/toggleTheme";
 import ProjectIcon from "~/components/ProjectIcon.vue";
-
-const themeConditionalState = (): string => {
-  const theme = useState('theme', () => 'light');
-
-  if (theme.value === 'dark') {
-    return 'iconoir:sun-light'
-  }
-
-  else {
-    return 'iconoir:half-moon'
-  }
-}
+import themeConditionalState from "~/utils/theme/themeConditionalState";
 
 const isLogged = ref(true);
 
@@ -28,9 +17,7 @@ const isLogged = ref(true);
       <input type="text" placeholder="Поиск...">
     </div>
 
-    <button class="toggleTheme" @click="toggleTheme()">
-      <Icon class="icon" size="1.4rem" :name="themeConditionalState()" />
-    </button>
+    <button1x1 class="toggleTheme control" title="Переключить тему" :iconName="themeConditionalState()" @click="toggleTheme()" />
 
     <button v-if="!isLogged" class="login">
       Авторизация
@@ -41,9 +28,13 @@ const isLogged = ref(true);
       <span>Личный Кабинет</span>
     </button>
 
-    <button class="exit" @click="$router.push('/auth')" v-if="isLogged">
-      <Icon name="iconoir:log-out" size="1.4rem" />
-    </button>
+    <button1x1 class="exit"
+               title="Выйти"
+               iconName="iconoir:log-out"
+               color="var(--red)"
+               text="#FFFFFF"
+               @click="$router.push('/auth')"
+    />
 
   </header>
 </template>
