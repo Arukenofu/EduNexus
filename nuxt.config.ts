@@ -5,6 +5,9 @@ export default defineNuxtConfig({
 	typescript: {
 		shim: false,
 	},
+  plugins: [
+    '~/plugins/click-outside.client.ts'
+  ],
 	modules: ['@nuxtjs/google-fonts', 'nuxt-icon', "@nuxt/image"],
 	devtools: { enabled: false },
 	ssr: false,

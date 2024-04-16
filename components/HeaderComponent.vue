@@ -2,8 +2,7 @@
 import toggleTheme from "~/utils/theme/toggleTheme";
 import ProjectIcon from "~/components/ProjectIcon.vue";
 import themeConditionalState from "~/utils/theme/themeConditionalState";
-
-const isLogged = ref(true);
+import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
 </script>
 
@@ -19,11 +18,7 @@ const isLogged = ref(true);
 
     <button1x1 class="toggleTheme control" title="Переключить тему" :iconName="themeConditionalState()" @click="toggleTheme()" />
 
-    <button v-if="!isLogged" class="login">
-      Авторизация
-    </button>
-
-    <button v-else class="login logged"  >
+    <button @click="$router.push('/profile')" class="login logged">
       <Icon name="iconoir:user-circle" size="1.4rem" />
       <span>Личный Кабинет</span>
     </button>

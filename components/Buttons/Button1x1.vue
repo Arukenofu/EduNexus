@@ -6,6 +6,7 @@ interface Props {
   text?: string | void;
   size?: string;
   title?: string;
+  leftSideText?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,8 +19,14 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <button :title="title" :style="`background-color: ${color}`">
+  <button :title="title" :style="`background-color: ${color}`" :class="leftSideText && 'hasLeftSideText'">
+
     <Icon class="icon" :size="size" :name="iconName" :style="`color: ${text}`" />
+
+    <span v-if="leftSideText">
+      {{leftSideText}}
+    </span>
+
   </button>
 </template>
 
@@ -29,7 +36,22 @@ button {
   border: none;
   cursor: pointer;
   height: 40px;
+  max-height: 40px;
   aspect-ratio: 1/1;
   border-radius: 6px;
+}
+
+.hasLeftSideText {
+  aspect-ratio: unset;
+  min-width: 40px;
+  padding: 0 12px;
+
+  span {
+    color: var(--text);
+    position: relative;
+    top: 2px;
+    margin-left: 6px;
+    font-weight: 600;
+  }
 }
 </style>

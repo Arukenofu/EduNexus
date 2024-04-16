@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import toggleTheme from "~/utils/theme/toggleTheme";
-import themeConditionalState from "~/utils/theme/themeConditionalState";
 import { mixRGB } from "#imports";
+import LearnHeaderLayout from "~/layouts/LearnHeaderLayout.vue";
+import LearnAsideLayout from "~/layouts/LearnAsideLayout.vue";
+import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
 const isMenuActive = ref<boolean>(false);
 
@@ -11,21 +12,16 @@ const success = [84, 232, 86];
 </script>
 
 <template>
-  <div class="header">
-
-    <h1>Главная</h1>
-
-    <div class="options">
-
-      <button1x1 class="control" title="Переключить тему" :iconName="themeConditionalState()" @click="toggleTheme()" />
-
-      <button1x1 class="control" title="Выйти" icon-name="iconoir:log-out" @click="$router.push('/home/main')" />
-
-      <button1x1 class="control menu" title="Меню" icon-name="iconoir:menu" @click="isMenuActive =! isMenuActive" />
-
-    </div>
-
-  </div>
+  <LearnHeaderLayout text="Главная">
+    <template v-slot:last>
+      <button1x1
+        class="control menu"
+        title="Меню"
+        icon-name="iconoir:menu"
+        @click="isMenuActive =! isMenuActive"
+      />
+    </template>
+  </LearnHeaderLayout>
 
   <div class="content-wrapper">
     <div class="main">
@@ -65,7 +61,9 @@ const success = [84, 232, 86];
       </div>
     </div>
 
-    <LearnMainAside v-model:is-menu-active="isMenuActive" />
+    <LearnAsideLayout v-model:is-menu-active="isMenuActive">
+      <LearnMainAside />
+    </LearnAsideLayout>
   </div>
 </template>
 
@@ -225,6 +223,10 @@ const success = [84, 232, 86];
       }
     }
   }
+}
+
+.menu {
+  display: none;
 }
 
 @media screen and (max-width: 1200px) {

@@ -1,23 +1,17 @@
 <script setup lang="ts">
-import themeConditionalState from "~/utils/theme/themeConditionalState";
-import toggleTheme from "~/utils/theme/toggleTheme";
 import AssignmentComponent from "~/components/Assignments/AssignmentComponent.vue";
+import LearnHeaderLayout from "~/layouts/LearnHeaderLayout.vue";
+
+const buttonState = ref<number>(0);
+
 </script>
 
 <template>
-  <div class="header">
-
-    <h1>Лекции</h1>
-
-    <div class="options">
-
-      <button1x1 class="control" title="Переключить тему" :iconName="themeConditionalState()" @click="toggleTheme()" />
-
-      <button1x1 class="control" title="Выйти" icon-name="iconoir:log-out" @click="$router.push('/home/main')" />
-
-    </div>
-
-  </div>
+  <LearnHeaderLayout text="Лекции">
+    <template v-slot:first>
+      <ButtonsSort v-model:state="buttonState" />
+    </template>
+  </LearnHeaderLayout>
 
   <div class="content-wrapper">
     <AssignmentComponent type="Лекция" name="Современное программирование" date="2 Ноября" />

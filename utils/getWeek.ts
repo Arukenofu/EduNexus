@@ -1,6 +1,6 @@
-import type { week } from "~/interfaces/week";
+import type { Week } from "~/interfaces/week";
 
-export default function(): week[] {
+export default function(): Week[] {
   const date: Date = new Date();
 
   const countDayOnMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -10,7 +10,7 @@ export default function(): week[] {
   const month: number = date.getMonth();
 
   const weeks: string[] = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Cб', 'Вс'];
-  const result: week[] = []
+  const result: Week[] = []
 
   let countMonthDay: number;
 

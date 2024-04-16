@@ -1,4 +1,4 @@
-export interface week {
+export interface Week {
   week: string;
   day: number;
 }
