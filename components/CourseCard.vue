@@ -43,7 +43,7 @@ interface card {
   .card {
     flex: 1;
     border-radius: 15px;
-    border: 2px solid var(--bg-secondary);
+    border: 2px solid var(--border);
     aspect-ratio: 1/1.1;
     padding: 9px;
     transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);

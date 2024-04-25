@@ -41,6 +41,7 @@ defineProps<{
 
   .options {
     margin-left: auto;
+    display: flex;
 
     .control {
       margin-left: 9px;

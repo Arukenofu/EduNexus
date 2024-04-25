@@ -31,12 +31,8 @@ const values = ref<object[]>([{
             8.7 / 10
           </div>
 
-          <button @click="$router.push('/learn/main')" class="current" v-if="true">
+          <button @click="$router.push('/learn/main')" class="current">
             Войти
-          </button>
-
-          <button class="certificated" v-else>
-            Сертификат
           </button>
 
         </div>
@@ -69,7 +65,7 @@ const values = ref<object[]>([{
 
 <style scoped lang="scss">
 article {
-  margin-top: 21px;
+  margin-top: 81px;
   display: flex;
   flex-wrap: wrap;
   column-gap: 21px;
@@ -93,7 +89,6 @@ article {
         color: var(--text);
       }
 
-
       .course {
         width: 100%;
         height: 100px;
@@ -107,7 +102,7 @@ article {
         .image {
           height: 100%;
           aspect-ratio: 1.4/1;
-          background-color: #0f0f0f;
+          background-color: var(--bg);
           border-radius: 6px;
           cursor: default;
         }
@@ -161,13 +156,8 @@ article {
         }
 
         .current {
-          background-color: var(--main);
-          color: #FFFFFF;
-        }
-
-        .certificated {
-          background-color: var(--yellow);
-          color: #0f0f0f;
+          background-color: var(--bg);
+          color: var(--text);
         }
       }
     }
@@ -178,30 +168,28 @@ article {
     width: 100%;
 
     .tasks-wrap {
-      height: 500px;
-      background-color: var(--bg-secondary);
+      min-height: 500px;
       border-radius: 9px;
-      padding: 18px;
 
       .task {
         width: 100%;
         height: 75px;
-        background-color: var(--bg);
+        background-color: var(--bg-secondary);
         border-radius: 6px;
-        padding: 9px 15px;
+        padding: 10px 12px;
         display: flex;
         align-items: center;
         margin-bottom: 6px;
 
         .image {
-          height: 80%;
+          height: 100%;
           aspect-ratio: 1/1;
-          background-color: var(--main);
+          background-color: var(--bg);
           border-radius: 5px;
         }
 
         .text {
-          margin-left: 6px;
+          margin-left: 12px;
           display: flex;
           justify-content: center;
           flex-direction: column;
@@ -221,11 +209,13 @@ article {
 
         .enter {
           margin-left: auto;
+          margin-right: 12px;
           cursor: pointer;
-          transition: color 0.2s ease ;
+          transition: color 0.2s ease;
+          color: var(--text-secondary);
 
           &:hover {
-            color: var(--main);
+            color: var(--text);
           }
         }
       }

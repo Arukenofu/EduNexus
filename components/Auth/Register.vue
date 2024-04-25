@@ -1,53 +1,68 @@
 <script setup lang="ts">
 
-const registrationStep = defineModel<number>('registrationStep');
+interface Registration {
+  login: string,
+  password: string,
+  confirmPassword: string
+}
 
-const isFemale = ref<boolean | null>(null);
+const form = ref<Registration>({
+  login: '',
+  password: '',
+  confirmPassword: ''
+});
+
+const response = ref<string>('');
+
+const submit = async () => {
+  if (!(form.value.password && form.value.login && form.value.confirmPassword)) {
+    return response.value = 'Заполните все поля'
+  }
+
+  if (form.value.password !== form.value.confirmPassword) {
+    return response.value = 'Введённые пароли не совпадают'
+  }
+
+  if (form.value.password?.length < 8) {
+    return response.value = 'Длина пароля меньше 8'
+  }
+
+  if (form.value.login?.length < 8) {
+    return response.value = 'Длина email меньше 8'
+  }
+
+  if (form.value.password?.length > 16) {
+    return response.value = 'Длина пароля больше 16'
+  }
+
+  if (form.value.login?.length > 32) {
+    return response.value = 'Длина email больше 32'
+  }
+
+  await fetch('http://16.171.182.88/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `login=${form.value.login}&password=${form.value.password}`
+  })
+
+  response.value = 'OK!'
+}
 
 </script>
 
 <template>
-  <form @submit.prevent="registrationStep!++" v-if="registrationStep === 0">
-    <input type="text" name="email" placeholder="Ваша Почта">
+  <form @submit.prevent="submit()">
+    <input type="text" name="email" placeholder="Ваша Почта" v-model="form.login">
 
-    <input type="password" name="password" placeholder="Ваш Пароль">
+    <input type="password" name="password" placeholder="Ваш Пароль" v-model="form.password">
 
-    <input type="password" name="password" placeholder="Подтвердить Пароль">
+    <input type="password" name="password" placeholder="Подтвердить Пароль" v-model="form.confirmPassword">
+
 
     <button type="submit">
       Далее
-    </button>
-  </form>
-
-  <form @submit.prevent="$router.push('/home/main')" v-else>
-    <input type="text" name="firstname" placeholder="Имя">
-
-    <input type="text" name="lastname" placeholder="Фамилия">
-
-    <input type="text" name="father-name" placeholder="Отчество">
-
-      <input type="number" name="age" placeholder="Возраст">
-
-    <div class="select-gender">
-
-      <div class="slider" :style="isFemale && 'right: 0'" />
-
-      <div class="gender" :class="!isFemale && 'active'" @click="isFemale = false">
-        Мужчина
-      </div>
-
-      <div class="gender" :class="isFemale && 'active'" @click="isFemale = true">
-        Женщина
-      </div>
-
-    </div>
-
-    <button type="submit">
-      Подтвердить
-    </button>
-
-    <button type="submit" class="skip">
-      Пропустить
     </button>
   </form>
 </template>

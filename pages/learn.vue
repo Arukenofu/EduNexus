@@ -28,7 +28,7 @@ onMounted(() => {
     padding-right: 21px;
     width: 100%;
     min-height: calc(100dvh - 30px);
-    background-color: var(--bg-third);
+    background-color: var(--bg);
 
     .content {
       padding: 0 21px;

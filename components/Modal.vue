@@ -1,0 +1,52 @@
+<script setup lang="ts">
+
+const isOpen = defineModel<boolean>('isOpen')
+
+</script>
+
+<template>
+  <transition name="bg">
+    <div class="modal-bg" v-if="isOpen" @click="isOpen =! isOpen">
+
+    </div>
+  </transition>
+</template>
+
+<style scoped lang="scss">
+
+.modal-bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.76);
+  z-index: 2;
+
+  .val {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #00dc82;
+    width: 400px;
+    aspect-ratio: 1/1;
+  }
+}
+
+
+.bg-enter-active {
+  animation: enter 0.15s;
+}
+.bg-leave-active {
+  animation: exit;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, -48%) scale3d(.95, .95, .95) rotate(0);
+  }
+}
+
+</style>

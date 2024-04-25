@@ -26,23 +26,27 @@
 
 <style scoped lang="scss">
   nav {
-    padding: var(--content-padding);
-    width: 100%;
     display: flex;
     align-items: center;
-    gap: 15px;
+    margin-left: 15px;
 
     a {
-      display: block;
-      padding: 15px;
       text-decoration: none;
-      color: var(--main);
-      font-weight: 700;
+      color: var(--text-secondary);
+      font-weight: 600;
       box-sizing: border-box;
+      transition: color .2s ease;
+      margin-left: 21px;
+      font-size: .9em;
+
+      &:focus-visible {
+        color: var(--text);
+        outline: var(--text) 2px solid;
+      }
     }
 
     a:hover, .router-link-active {
-      box-shadow: 0 -3px 0 var(--main) inset;
+      color: var(--text);
     }
   }
 

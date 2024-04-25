@@ -4,11 +4,10 @@ import Register from "~/components/Auth/Register.vue";
 
 const isLogin = ref<boolean>(true);
 
-const registrationStep = ref<number>(0);
-
 const toggleLogin = () => {
   isLogin.value =! isLogin.value;
 }
+
 
 </script>
 
@@ -19,19 +18,15 @@ const toggleLogin = () => {
 
     <p>{{isLogin ? 'Добро пожаловать' : 'Регистрация'}}</p>
 
-    <transition name="slide" v-if="isLogin">
-      <Login v-if="isLogin" />
-    </transition>
+    <Login v-if="isLogin" />
 
-    <transition name="slide" v-else>
-      <Register v-model:registration-step="registrationStep"/>
-    </transition>
+    <Register v-else />
 
     <div class="no-account" v-if="isLogin">
       Нету аккаунта? <button @click="toggleLogin()">Зарегестрироваться</button>
     </div>
 
-    <div class="no-account" v-else-if="registrationStep === 0">
+    <div class="no-account" v-else>
       Уже есть аккаунт? <button @click="toggleLogin()">Войти</button>
     </div>
 
@@ -95,10 +90,13 @@ const toggleLogin = () => {
         display: flex;
         align-items: center;
 
-        span {
+        button {
           margin-left: 3px;
           font-size: .8em;
           color: #0f0f0f;
+          height: auto;
+          background: none;
+          font-weight: 600;
         }
       }
 

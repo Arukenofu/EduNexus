@@ -8,6 +8,11 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/click-outside.client.ts'
   ],
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.APIBASE
+    }
+  },
 	modules: ['@nuxtjs/google-fonts', 'nuxt-icon', "@nuxt/image"],
 	devtools: { enabled: false },
 	ssr: false,
@@ -19,5 +24,10 @@ export default defineNuxtConfig({
           'Rubik': '300..900',
           'Manrope': '200..900'
         }
-    },
+  },
+  routeRules : {
+    '/': {
+
+    }
+  },
 });

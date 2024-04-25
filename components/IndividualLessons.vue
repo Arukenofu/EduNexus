@@ -55,7 +55,7 @@
 
   .teacher {
     flex: 1;
-    border-radius: 6px;
+    border-radius: 15px;
     border: 1px solid var(--bg-secondary);
     aspect-ratio: 1/0.7;
     transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
@@ -64,8 +64,8 @@
 
     .teacher-image {
       height: 100%;
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
       background-color: var(--bg-secondary);
       aspect-ratio: 60/100;
     }

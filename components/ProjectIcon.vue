@@ -10,7 +10,7 @@
 
 <style scoped lang="scss">
 .icon {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight: 900;
   user-select: none;
 }

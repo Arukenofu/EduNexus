@@ -4,6 +4,15 @@ import ProjectIcon from "~/components/ProjectIcon.vue";
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
+
+const exitFromAccount = () => {
+  useCookie('token').value = null;
+
+  useRouter().push('/auth');
+}
+
+const isModalOpen = ref<boolean>(false);
+
 </script>
 
 <template>
@@ -11,70 +20,105 @@ import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
     <ProjectIcon />
 
-    <div class="input-outer">
-      <Icon name="iconoir:search" class="search" size="2rem" />
-      <input type="text" placeholder="Поиск...">
+    <NavBar />
+
+    <div class="input-outer" @click="isModalOpen =! isModalOpen">
+      <Icon name="iconoir:search" class="search" size="1.1em" />
+      <span>Поиск...</span>
     </div>
 
-    <button1x1 class="toggleTheme control" title="Переключить тему" :iconName="themeConditionalState()" @click="toggleTheme()" />
+    <button1x1
+      class="toggleTheme control header-button"
+      title="Переключить тему"
+      :iconName="themeConditionalState()"
+      @click="toggleTheme()"
+      hover-color="var(--bg)"
+      color="none"
+    />
 
-    <button @click="$router.push('/profile')" class="login logged">
-      <Icon name="iconoir:user-circle" size="1.4rem" />
-      <span>Личный Кабинет</span>
-    </button>
+    <button1x1
+      title="Аккаунт"
+      class="header-button"
+      @click="$router.push('/profile')"
+      icon-name="iconoir:user"
+      hover-color="var(--bg)"
+      color="none"
+    />
 
-    <button1x1 class="exit"
-               title="Выйти"
-               iconName="iconoir:log-out"
-               color="var(--red)"
-               text="#FFFFFF"
-               @click="$router.push('/auth')"
+    <button1x1
+      class="exit header-button str2"
+      title="Выйти"
+      iconName="iconoir:log-out"
+      text="var(--red)"
+      @click="exitFromAccount()"
+      hover-color="var(--bg)"
+      color="none"
     />
 
   </header>
+
+  <Modal v-model:is-open="isModalOpen" />
 </template>
 
 <style scoped lang="scss">
 header {
+  top: 0;
+  position: fixed;
   width: 100%;
-  height: 80px;
-  background-color: var(--bg-secondary);
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  height: 60px;
   display: flex;
   align-items: center;
-  padding: var(--content-padding);
+  padding: 0 92px;
+  border-bottom: var(--border) 1px solid;
 
   .input-outer {
-    margin-left: 33px;
+    margin-left: auto;
     padding: 0 9px;
-    width: 200px;
+    width: 220px;
     height: 40px;
-    border: var(--text-secondary) 2px solid;
-    border-radius: 12px;
+    border: var(--border) 1px solid;
+    border-radius: 8px;
     display: flex;
     align-items: center;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    background-color: var(--bg);
+
+    &:hover {
+      background-color: var(--border);
+
+      input {
+        color: var(--text);
+
+        &::placeholder {
+          color: var(--text);
+        }
+      }
+    }
 
     .search {
       color: var(--text-secondary);
     }
 
-    input {
-      font-family: "Nunito Sans", sans-serif;
+    span {
+      font-size: .85em;
       margin-left: 9px;
-      border: none;
-      background: none;
-      outline: none;
-      font-weight: 500;
-      color: var(--text);
-      height: 100%;
+      color: var(--text-secondary);
+      user-select: none;
     }
   }
 
+  .header-button {
+    margin-left: 6px;
+    height: 40px;
+  }
+
   .toggleTheme {
-    margin-left: auto;
     background-color: var(--bg);
     border: none;
     cursor: pointer;
-    height: 40px;
     aspect-ratio: 1/1;
     border-radius: 6px;
 
@@ -84,37 +128,26 @@ header {
   }
 
   .login {
-    height: 40px;
-    padding: 0 21px;
+    aspect-ratio: 1/1;
     border-radius: 6px;
-    margin-left: 12px;
     border: none;
     background-color: var(--main);
     color: #FFFFFF;
     font-weight: 700;
-    font-size: .9rem;
     cursor: pointer;
   }
 
-  .logged {
-    display: flex;
-    align-items: center;
-    padding: 0 14px;
-    gap: 5px;
-
-    span {
-      display: block;
-    }
-  }
-
   .exit {
-    height: 40px;
     aspect-ratio: 1/1;
     border-radius: 6px;
-    margin-left: 12px;
     border: none;
-    background-color: var(--red);
     color: #FFFFFF;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  header {
+    padding: var(--content-padding);
   }
 }
 </style>

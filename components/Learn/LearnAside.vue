@@ -45,17 +45,16 @@
     position: fixed;
     min-height: 100dvh;
     width: 25%;
-    background-color: var(--bg-third);
+    background-color: var(--bg);
     display: flex;
     flex-direction: column;
-    border-right: 2px solid var(--border);
+    border-right: 1px solid var(--border);
 
     .course {
       height: 90px;
       width: 100%;
       display: flex;
       align-items: center;
-      box-shadow: 0 -2px 0 var(--border) inset;
 
       .avatar {
         margin-left: 33px;

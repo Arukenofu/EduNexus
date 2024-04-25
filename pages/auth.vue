@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+
+
 </script>
 
 <template>
@@ -22,7 +24,7 @@
 
 .bg {
   position: absolute;
-  height: calc(100dvh - 30px);
+  height: calc(100dvh);
   width: 100vw;
   background: linear-gradient(to right, #cce4ff 50%, #1e1f6f 50%);
 }

@@ -4,24 +4,24 @@ export default function () {
     const theme = useState('theme')
 
     if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark') {
-        documentElementSetProperty('--bg', '#171717');
-        documentElementSetProperty('--text', '#e8eaed');
-        documentElementSetProperty('--bg-secondary', '#2d2d2d');
-        documentElementSetProperty('--text-secondary', '#9d9d9d');
+        documentElementSetProperty('--bg', '#09090B');
+        documentElementSetProperty('--text', '#FAFAFA');
+        documentElementSetProperty('--bg-secondary', '#27272A');
+        documentElementSetProperty('--text-secondary', '#A1A1AA');
         documentElementSetProperty('--bg-third', '#101010')
-        documentElementSetProperty('--border', '#2d2d2d')
+        documentElementSetProperty('--border', '#1f1f22')
         documentElementSetProperty('--ui-secondary', '#171717')
 
         theme.value = 'dark';
     }
 
     else {
-        documentElementSetProperty('--bg', '#efefeb');
-        documentElementSetProperty('--text', '#171717');
-        documentElementSetProperty('--bg-secondary', '#d7d7d7');
-        documentElementSetProperty('--text-secondary', '#3d3d3d');
+        documentElementSetProperty('--bg', '#FFFFFF');
+        documentElementSetProperty('--text', '#09090b');
+        documentElementSetProperty('--bg-secondary', '#f4f4f5');
+        documentElementSetProperty('--text-secondary', '#71717A');
         documentElementSetProperty('--bg-third', '#ffffff')
-        documentElementSetProperty('--border', '#e0e0e0');
+        documentElementSetProperty('--border', '#e7e7ea');
         documentElementSetProperty('--ui-secondary', '#efefeb')
 
         theme.value = 'light';
