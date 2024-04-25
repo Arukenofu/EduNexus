@@ -9,7 +9,12 @@ const isMenuActive = defineModel<boolean>('isMenuActive');
 <template>
   <div class="aside" :class="isMenuActive && 'menu-active'">
 
-    <button1x1 icon-name="iconoir:menu" class="aside-menu" title="Меню" @click="isMenuActive =! isMenuActive" />
+    <button1x1
+      icon-name="iconoir:menu"
+      class="aside-menu"
+      title="Меню"
+      @click="isMenuActive =! isMenuActive"
+    />
 
     <slot />
 
@@ -38,7 +43,7 @@ const isMenuActive = defineModel<boolean>('isMenuActive');
     background-color: var(--bg);
     min-height: calc(100vh - 30px);
     position: fixed;
-    top: 30px;
+    top: 0;
     right: -35%;
     width: 35%;
     transition: right 0.5s ease-out;

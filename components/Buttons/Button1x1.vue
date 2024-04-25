@@ -18,6 +18,14 @@ const props = withDefaults(defineProps<Props>(), {
   hoverColor: ''
 })
 
+const hover = computed(() => {
+  if (!props.hoverColor) {
+    return props.color
+  } else {
+    return props.hoverColor
+  }
+})
+
 
 </script>
 
@@ -48,7 +56,7 @@ button {
   border-radius: 6px;
 
   &:hover {
-    background-color: v-bind(hoverColor) !important;
+    background-color: v-bind(hover) !important;
   }
 }
 

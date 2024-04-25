@@ -25,6 +25,7 @@ const closeDropdownMenu = () => {
       icon-name="iconoir:calendar"
       title="По дате..."
       :left-side-text="timeLines[currentChoose!]"
+      color="var(--bg-secondary)"
       @click="state =! state"
     />
 

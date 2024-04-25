@@ -52,7 +52,5 @@ const buttonState = ref<number>(0);
   }
 }
 
-.content-wrapper {
-  width: 100%;
-}
+
 </style>

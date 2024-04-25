@@ -2,6 +2,16 @@
 
 export default defineNuxtConfig({
   css: ['~/style/global.scss'],
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'icon',
+          href: '/icon.png'
+        }
+      ]
+    }
+  },
 	typescript: {
 		shim: false,
 	},

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { mixRGB } from "#imports";
 import LearnHeaderLayout from "~/layouts/LearnHeaderLayout.vue";
 import LearnAsideLayout from "~/layouts/LearnAsideLayout.vue";
 import Button1x1 from "~/components/Buttons/Button1x1.vue";
+import mixRGB from "~/utils/colors/mixRGB";
 
 const isMenuActive = ref<boolean>(false);
 
@@ -19,6 +19,7 @@ const success = [84, 232, 86];
         title="Меню"
         icon-name="iconoir:menu"
         @click="isMenuActive =! isMenuActive"
+        color="var(--bg-secondary)"
       />
     </template>
   </LearnHeaderLayout>
@@ -82,7 +83,6 @@ const success = [84, 232, 86];
     margin-left: auto;
 
     .control {
-      margin-left: 9px;
       background-color: var(--bg);
       border: none;
       cursor: pointer;

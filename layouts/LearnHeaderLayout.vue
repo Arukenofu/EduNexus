@@ -17,9 +17,22 @@ defineProps<{
 
       <slot name="first" />
 
-      <button1x1 class="control" title="Переключить тему" :iconName="themeConditionalState()" @click="toggleTheme()" />
+      <button1x1
+        class="control"
+        title="Переключить тему"
+        :iconName="themeConditionalState()"
+        @click="toggleTheme()"
+        color="var(--bg-secondary)"
+      />
 
-      <button1x1 class="control str2" title="Выйти" icon-name="iconoir:log-out" text="var(--red)" @click="$router.push('/home/main')" />
+      <button1x1
+        class="control str2"
+        title="Выйти"
+        icon-name="iconoir:log-out"
+        text="var(--red)"
+        color="var(--bg-secondary)"
+        @click="$router.push('/home/main')"
+      />
 
       <slot name="last" />
 
@@ -42,9 +55,9 @@ defineProps<{
   .options {
     margin-left: auto;
     display: flex;
+    gap: 4px;
 
     .control {
-      margin-left: 9px;
       background-color: var(--bg);
       border: none;
       cursor: pointer;

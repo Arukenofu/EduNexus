@@ -33,6 +33,7 @@ const setIconState = () => {
     :icon-name="getSortedIcon()"
     title="Сортировать..."
     @click="setIconState()"
+    color="var(--bg-secondary)"
   />
 </template>
 

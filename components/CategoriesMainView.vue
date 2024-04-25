@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import axios, { type AxiosResponse } from "axios";
+import decimalToHex from "~/utils/colors/decimalToHex";
 
 interface Categories {
   categories: {
