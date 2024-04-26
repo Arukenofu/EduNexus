@@ -13,6 +13,7 @@ const exitFromAccount = () => {
 
 const isModalOpen = ref<boolean>(false);
 
+
 </script>
 
 <template>
@@ -22,7 +23,7 @@ const isModalOpen = ref<boolean>(false);
 
     <NavBar />
 
-    <div class="input-outer" @click="isModalOpen =! isModalOpen">
+    <div class="input-outer" @click="isModalOpen =! isModalOpen" >
       <Icon name="iconoir:search" class="search" size="1.1em" />
       <span>Поиск...</span>
     </div>
@@ -62,7 +63,7 @@ const isModalOpen = ref<boolean>(false);
 
 <style scoped lang="scss">
 header {
-  top: 0;
+  top: var(--electron);
   position: fixed;
   width: 100%;
   backdrop-filter: blur(8px);

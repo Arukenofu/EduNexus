@@ -7,7 +7,8 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'icon',
-          href: '/icon.png'
+          href: '/icon32x32.png',
+          sizes: '32x32'
         }
       ]
     }

@@ -15,7 +15,7 @@ const model = defineModel<string>('model')
 .input-outer {
   padding: 0 9px;
   width: 100%;
-  height: 40px;
+  height: 45px;
   border: var(--border) 1px solid;
   border-radius: 8px;
   display: flex;

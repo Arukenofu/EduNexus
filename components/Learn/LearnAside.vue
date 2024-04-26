@@ -159,7 +159,7 @@
 
   @media screen and (max-width: 1200px) {
     aside {
-      top: 30px;
+      top: var(--electron);
       width: 30%;
 
       .course {

@@ -35,13 +35,13 @@ const state = defineModel<number>('state');
 
 <style scoped lang="scss">
 .recent {
-  height: 40px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--bg);
   padding: 4px 4px;
-  border-radius: 9px;
+  border-radius: 8px;
   gap: 2px;
   animation: 1s;
   border: 1px solid var(--border);

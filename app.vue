@@ -5,6 +5,12 @@ onMounted(() => {
 
   renderDocumentStyleRoot();
 
+  if (isElectron) {
+    document.documentElement.style.setProperty('--electron', '30px');
+  } else {
+    document.documentElement.style.setProperty('--electron', '0px');
+  }
+
 })
 
 const {isElectron} = useUpdater();

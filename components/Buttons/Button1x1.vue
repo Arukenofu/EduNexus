@@ -7,7 +7,8 @@ interface Props {
   size?: string;
   title?: string;
   leftSideText?: string,
-  hoverColor?: string
+  hoverColor?: string,
+  width?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -15,7 +16,8 @@ const props = withDefaults(defineProps<Props>(), {
   text: 'var(--text)',
   size: '1.4rem',
   title: '',
-  hoverColor: ''
+  hoverColor: '',
+  width: '40px'
 })
 
 const hover = computed(() => {
@@ -50,10 +52,11 @@ const hover = computed(() => {
 button {
   border: none;
   cursor: pointer;
-  height: 40px;
-  max-height: 40px;
+  width: v-bind(width);
+  max-width: v-bind(width);
   aspect-ratio: 1/1;
   border-radius: 6px;
+
 
   &:hover {
     background-color: v-bind(hover) !important;
@@ -62,15 +65,18 @@ button {
 
 .hasLeftSideText {
   aspect-ratio: unset;
-  min-width: 40px;
   padding: 0 12px;
+  width: auto;
+  height: v-bind(width);
+  max-width: none;
+  display: flex;
+  align-items: center;
 
   span {
     color: var(--text);
-    position: relative;
-    top: 2px;
     margin-left: 6px;
     font-weight: 600;
+    white-space: nowrap;
   }
 }
 </style>

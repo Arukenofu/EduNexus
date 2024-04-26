@@ -38,6 +38,7 @@ onMounted(() => {
 }
 
 @media screen and (max-width: 1200px) {
+
   .container main {
     padding-left: calc(30% + 21px);
   }
