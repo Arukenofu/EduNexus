@@ -23,7 +23,7 @@ const onError = (error: Error) => {
 export const useAPI: useFetchType = (path, options = {}) => {
   const config = useRuntimeConfig()
 
-  options.baseURL = config.public.apiBase;
+  options.baseURL = "http://localhost:8080/api";
   options.timeout = 7 * 1000;
   options.server = false;
 
