@@ -1,6 +1,7 @@
-import axios from "axios";
 
-export default defineNuxtRouteMiddleware((to, from) => {
+import getToken from "~/utils/getToken";
+
+export default defineNuxtRouteMiddleware(async (to, from) => {
     if (to.path === '/') {
         return navigateTo('/home/main')
     }
@@ -8,6 +9,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
     if (to.path !== '/auth' && !useCookie('token').value) {
 
         return navigateTo('/auth');
+
+    } else {
+
+
 
     }
 })

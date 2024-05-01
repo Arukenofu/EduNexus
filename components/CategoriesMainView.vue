@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import axios, { type AxiosResponse } from "axios";
 import decimalToHex from "~/utils/colors/decimalToHex";
+import { useAPI } from "~/composables/useAPI";
 
 interface Categories {
   categories: {
@@ -9,23 +9,14 @@ interface Categories {
   }[]
 }
 
-let response: Categories;
-
-try {
-  const {data}: AxiosResponse<Categories> = await axios.get('http://16.171.182.88/api/categories/')
-
-  response = data;
-} catch {}
-
-
+const {data: response, error} = await useAPI<Categories>('/categories/');
 </script>
 
 <template>
-
- <div class="categories-wrap" v-if="response">
+ <div class="categories-wrap" v-if="!error">
    <div
      class="category"
-     v-for="category in response.categories"
+     v-for="category in response!.categories"
      :style="`background-color: #${decimalToHex(category.color)}`"
    >
      <div class="category-text">

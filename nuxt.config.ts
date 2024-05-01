@@ -36,9 +36,5 @@ export default defineNuxtConfig({
           'Manrope': '200..900'
         }
   },
-  routeRules : {
-    '/': {
-
-    }
-  },
+  spaLoadingTemplate: false
 });

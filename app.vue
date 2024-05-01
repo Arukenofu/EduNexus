@@ -1,6 +1,8 @@
 <script setup>
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
 
+const isError = useState('isError', () => '')
+
 onMounted(() => {
 
   renderDocumentStyleRoot();
@@ -23,6 +25,8 @@ const {isElectron} = useUpdater();
   <div class="app">
     <nuxt-page />
   </div>
+
+  <ErrorToast />
 </template>
 
 <style lang="scss">
