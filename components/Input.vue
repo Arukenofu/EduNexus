@@ -20,7 +20,6 @@ const model = defineModel<string>('model')
   border-radius: 8px;
   display: flex;
   align-items: center;
-  transition: background-color 0.2s ease;
   cursor: pointer;
   background-color: var(--bg);
 
@@ -41,6 +40,7 @@ const model = defineModel<string>('model')
 
   &:hover {
     background-color: var(--border);
+    transition: background-color 0.2s ease;
 
     input {
       color: var(--text);

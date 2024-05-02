@@ -33,5 +33,6 @@ const {isElectron} = useUpdater();
 .app {
   top: 0;
   position: relative;
+  height: 100vh;
 }
 </style>
