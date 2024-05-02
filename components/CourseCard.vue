@@ -8,27 +8,36 @@ interface card {
   learning: string,
 }
 
+interface Courses{
+  courses:{
+  title: string,
+  organization_name:string
+  }[]
+}
+
+const {data: response, error} = await useAPI<Courses>('/courses/');
+
 </script>
 
 <template>
   <div class="cards-wrap">
-    <div class="card" v-for="a in 4">
+    <div class="card" v-for="course in response!.courses">
 
       <div class="image" />
 
       <div class="info">
         <div class="info-image" />
         <span class="info-text">
-          University of kazakhstan is great capital city of british
+          {{course.organization_name}}
         </span>
       </div>
 
       <p>
-        M.A. in International Relations, Security, and Strategy
+        {{ course.title }}
       </p>
 
       <span class="type">
-          Степень
+          Курс
       </span>
     </div>
   </div>
