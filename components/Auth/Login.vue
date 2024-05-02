@@ -43,7 +43,7 @@ const submit = async () => {
     return response.value = 'Длина email больше 32'
   }
 
-  const res = await fetch('http://16.171.182.88/api/login', {
+  const res = await fetch('http://localhost:8080/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

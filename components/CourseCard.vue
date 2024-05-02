@@ -8,11 +8,20 @@ interface card {
   learning: string,
 }
 
+interface Courses {
+  courses:{
+    title: string,
+    organization_name:string
+  }[]
+}
+
+// const {data: response, error} = await useAPI<Courses>('/courses/');
+
 </script>
 
 <template>
   <div class="cards-wrap">
-    <div class="card" v-for="a in 4">
+    <nuxt-link to="/home/course/googleAI" class="card" v-for="a in 4">
 
       <div class="image" />
 
@@ -28,9 +37,9 @@ interface card {
       </p>
 
       <span class="type">
-          Степень
+        Степень
       </span>
-    </div>
+    </nuxt-link>
   </div>
 </template>
 
@@ -49,7 +58,12 @@ interface card {
     transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
     cursor: pointer;
     position: relative;
+    text-decoration: none;
     --card-padding: 0 6px;
+
+    &:focus-visible {
+      outline: 3px solid var(--text);
+    }
 
     .image {
       background-color: var(--bg-secondary);
@@ -89,6 +103,7 @@ interface card {
       padding: var(--card-padding);
       font-weight: 700;
       margin-bottom: 33px;
+      color: var(--text);
     }
 
     .type {

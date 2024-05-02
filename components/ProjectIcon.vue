@@ -1,11 +1,17 @@
 <script setup lang="ts">
 
+const theme = useState('theme');
+
+const isDarkTheme = () => {
+  return theme.value === 'dark';
+}
+
 </script>
 
 <template>
   <div class="icon">
     <nuxt-img
-      src="/icon.png"
+      :src="isDarkTheme() ? '/icon.png' : '/icon-black.png'"
       width="28px"
       preload />
     <span>EduNexus</span>

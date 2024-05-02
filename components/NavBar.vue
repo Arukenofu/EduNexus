@@ -41,7 +41,7 @@
 
       &:focus-visible {
         color: var(--text);
-        outline: var(--text) 2px solid;
+        outline: none;
       }
     }
 
