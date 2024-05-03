@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { useAPI } from "~/composables/useAPI";
 interface card {
   image: string,
   universityImage: string,
