@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRoute } from "nuxt/app";
+import { useAPI } from "~../../../composables/useAPI";
 
 const route = useRoute();
 
@@ -6,18 +8,23 @@ interface Teacher {
   avatar: string,
   firstname: string,
   lastname: string,
-  university?: string,
+  //university?: string,
   numberOfStudy?: number
 }
 
 
 interface CourseDetailed {
-  course_modules: string[]
+  course_modules: string[],
+  enrolled:BigInt,
+  details: {
+    description:string,
+  },
+  teachers:string[],
 }
 
 const param = route.params.slug;
 
-const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}`);
+const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}/`);
 
 const getModulesLength = () => {
   let suffix: string;
@@ -31,6 +38,9 @@ const getModulesLength = () => {
   return `В этом курсе ${course.value?.course_modules?.length ?? 0} ${suffix}`;
 }
 
+console.log(course.value ,`/courses/${param}/`
+)
+const Today = "11 Semptember";
 
 </script>
 
@@ -49,20 +59,20 @@ const getModulesLength = () => {
         </div>
 
         <h1>
-          Introduction to Generative AI
+          {{param}}
         </h1>
 
         <p>
-          Курс "Введение в Разработку Искусственного Интеллекта" призван предоставить студентам фундаментальное понимание основных концепций, методов и инструментов, используемых в современной разработке искусственного интеллекта (ИИ). Этот курс сочетает в себе теоретические знания с практическими навыками, необходимыми для создания инновационных ИИ-решений.
+          {{course.details.description}}
         </p>
 
         <button>
           <span class="enter">Участвовать</span>
-          <span class="date">Начинается 2 мая</span>
+          <span class="date">Начинается {{Today}}</span>
         </button>
 
         <div class="info">
-          <strong>305 055</strong> уже зарегистрированы
+        <strong>{{course.enrolled}}</strong> уже зарегистрированы
         </div>
       </div>
 
@@ -76,7 +86,10 @@ const getModulesLength = () => {
           <div class="teacher-info">
             <div class="avatar" />
 
-            Преподаватели: &nbsp; <nuxt-link to="/">Алексей Шевцов</nuxt-link>
+            Преподаватели: &nbsp; 
+            <div v-for="teacher in course.teachers">
+            <nuxt-link to="/">{{teacher}}</nuxt-link>&nbsp; 
+            </div>
           </div>
         </div>
       </div>
@@ -84,7 +97,7 @@ const getModulesLength = () => {
 
     <div class="other-info" v-if="course?.course_modules?.length">
       <h2>{{getModulesLength()}}</h2>
-      <p>Это курс микрообучения вводного уровня, целью которого является объяснение того, что такое генеративный ИИ, как он используется и чем он отличается от традиционных методов машинного обучения. В нем также рассматриваются инструменты Google, которые помогут вам разрабатывать собственные приложения Gen AI.</p>
+      <p>{additional shitty info}</p>
 
       <div class="grid">
         <div class="chapters">
