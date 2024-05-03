@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { useAPI } from "~/composables/useAPI";
 
-const values = ref<object[]>([{
+interface Courses{
+  courses:{
+  title: string,
+  organization_name:string
+  }[]
+}
 
-}])
+const {data: response, error} = await useAPI<Courses>('/learning');
 
 </script>
 
@@ -11,19 +17,19 @@ const values = ref<object[]>([{
     <div class="main">
       <h1>Моё обучение</h1>
 
-      <section v-if="!values.length">
+      <section v-if="false ">
         <p>У вас нет текущих курсов. Пожалуйста, выберите себе онлайн-обучение. :P</p>
       </section>
 
       <section v-else>
 
-        <div class="course" v-for="course in 3">
+        <div class="course" v-for="course in response!.courses">
 
           <div class="image" />
 
           <div class="text">
-            <p>Machine Learning: Regression</p>
-            <span>Feb 4, 2024 - Feb 18, 2024</span>
+            <p>{{ course.title }}</p>
+            <span>{Period of study}</span>
           </div>
 
           <div class="rate">
