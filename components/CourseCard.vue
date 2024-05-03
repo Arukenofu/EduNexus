@@ -1,39 +1,31 @@
 <script setup lang="ts">
+import type { Courses } from "~/interfaces/Courses";
 
-interface card {
-  image: string,
-  universityImage: string,
-  universityText: string,
-  universityName: string,
-  learning: string,
-}
+const props = defineProps<Courses>();
 
-interface Courses {
-  courses:{
-    title: string,
-    organization_name:string
-  }[]
-}
-
-// const {data: response, error} = await useAPI<Courses>('/courses/');
 
 </script>
 
 <template>
   <div class="cards-wrap">
-    <nuxt-link to="/home/course/googleAI" class="card" v-for="a in 4">
+    <nuxt-link
+      class="card"
+      v-for="course in courses"
+      :key="course.organization_name"
+      :to="`/home/course/${course.title}`"
+    >
 
       <div class="image" />
 
       <div class="info">
         <div class="info-image" />
         <span class="info-text">
-          University of kazakhstan is great capital city of british
+          {{course.organization_name}}
         </span>
       </div>
 
       <p>
-        M.A. in International Relations, Security, and Strategy
+        {{ course.title }}
       </p>
 
       <span class="type">

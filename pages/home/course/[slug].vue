@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const router = useRoute();
+const route = useRoute();
 
 interface Teacher {
   avatar: string,
@@ -10,32 +10,42 @@ interface Teacher {
   numberOfStudy?: number
 }
 
-interface Module {
-  name: string,
-  description: string
+
+interface CourseDetailed {
+  course_modules: string[]
 }
 
-interface Props {
-  icon: string,
-  courseName: string,
-  description: string,
-  startDate: Date | string,
-  numberOfRegisteredUsers: number,
-  teachers: Teacher[],
-  modulesDescription: string,
-  modules: Module[]
+const param = route.params.slug;
+
+const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}`);
+
+const getModulesLength = () => {
+  let suffix: string;
+
+  if (course.value?.course_modules?.length! < 5) {
+    suffix = 'модуля'
+  } else {
+    suffix = 'модулей'
+  }
+
+  return `В этом курсе ${course.value?.course_modules?.length ?? 0} ${suffix}`;
 }
 
 
 </script>
 
 <template>
+
   <div class="layout">
+
     <section>
       <div class="course">
 
         <div class="image">
-          <img src="https://pngimg.com/uploads/google/google_PNG19644.png" alt="" />
+          <NuxtImg
+            src="https://pngimg.com/uploads/google/google_PNG19644.png"
+            alt=""
+          />
         </div>
 
         <h1>
@@ -72,17 +82,18 @@ interface Props {
       </div>
     </section>
 
-    <div class="other-info">
-      <h2>В этом курсе 1 модуль</h2>
+    <div class="other-info" v-if="course?.course_modules?.length">
+      <h2>{{getModulesLength()}}</h2>
       <p>Это курс микрообучения вводного уровня, целью которого является объяснение того, что такое генеративный ИИ, как он используется и чем он отличается от традиционных методов машинного обучения. В нем также рассматриваются инструменты Google, которые помогут вам разрабатывать собственные приложения Gen AI.</p>
 
       <div class="grid">
         <div class="chapters">
-          <div class="chapter" v-for="a in 2">
-            <h3>Раздел 1: Ознакомление</h3>
+          <div class="chapter" v-for="(module, index) in course?.course_modules" :key="index">
+            <h3>{{module}}</h3>
+
             <span>
 
-              Модуль 1 • 10 часов до завершения
+              Модуль {{index + 1}}
 
             </span>
           </div>

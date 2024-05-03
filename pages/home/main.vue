@@ -1,14 +1,22 @@
 <script setup lang="ts">
-
 import CategoriesMainView from "~/components/CategoriesMainView.vue";
+import type { Courses } from "~/interfaces/Courses";
+
+const {data: courses, error: coursesError} = await useAPI<Courses>('/courses/');
+
+const {data} = await useAPI('/learning', {
+  method: 'GET'
+})
+
 </script>
 
 <template>
+
   <article>
 
-    <section>
-      <h2>Оффлайн обучение</h2>
-      <CourseCard />
+    <section v-if="!coursesError">
+      <h2>Базовые Курсы</h2>
+      <CourseCard :courses="courses?.courses" />
     </section>
 
     <section>
@@ -17,24 +25,10 @@ import CategoriesMainView from "~/components/CategoriesMainView.vue";
     </section>
 
     <section>
-      <h2>Популярное</h2>
-      <CourseCard />
-    </section>
-
-    <section>
-      <h2>Основываясь на ваших предпочтениях</h2>
-      <CourseCard />
-    </section>
-
-    <section>
       <h2>Категории</h2>
       <CategoriesMainView />
     </section>
 
-    <section>
-      <h2>Программирование</h2>
-      <CourseCard />
-    </section>
 
   </article>
 </template>
