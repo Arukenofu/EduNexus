@@ -27,7 +27,7 @@
       <div class="avatar" />
       <div class="text">
         <p>Ерсултан Г.</p>
-        <span>
+          <span>
             Ученик
           </span>
       </div>

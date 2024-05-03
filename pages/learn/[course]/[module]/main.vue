@@ -9,6 +9,8 @@ const isMenuActive = ref<boolean>(false);
 const failure = [232, 84, 84];
 const success = [84, 232, 86];
 
+
+
 </script>
 
 <template>

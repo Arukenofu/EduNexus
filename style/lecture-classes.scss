@@ -1,0 +1,19 @@
+.my-1 {
+  margin: 16px 0;
+}
+.my-2 {
+  margin: 24px 0;
+}
+.my-3 {
+  margin: 32px 0;
+}
+
+@for $i from 1 through 8 {
+  .mb-#{$i} {
+    margin-bottom: #{$i * 4}px;
+  }
+}
+
+b {
+  font-weight: 700;
+}

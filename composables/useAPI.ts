@@ -37,8 +37,7 @@ export const useAPI: useFetchType = (path, options = {}) => {
 
   options.headers = {
     ...options.headers,
-     Authorization: "Bearer dh1wbmBtWmRfHTUsJx1wbmBtWm1qZ2AdNR1wbmBtHXg=",
-    // Add any other headers you need
+     Authorization: "Bearer " + getToken(),
   };
   
 

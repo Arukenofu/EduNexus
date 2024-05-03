@@ -1,30 +1,32 @@
 <script setup lang="ts">
 
+const {module, course} = useRoute().params;
+
 </script>
 
 <template>
   <nav>
-    <NuxtLink to="/learn/main">
+    <NuxtLink :to="`/learn/${course}/${module}/main`">
       <Icon class="icon str2" size="1.4em" name="iconoir:home-alt" />
       <div>Главная</div>
     </NuxtLink>
 
-    <NuxtLink to="/learn/lectures">
+    <NuxtLink :to="`/learn/${course}/${module}/lectures`">
       <Icon class="icon str2" size="1.4em" name="iconoir:book" />
       <div>Лекции</div>
     </NuxtLink>
 
-    <NuxtLink to="/learn/assignments">
+    <NuxtLink :to="`/learn/${course}/${module}/assignments`">
       <Icon class="icon str2" size="1.4em" name="iconoir:learning" />
       <div>Задания</div>
     </NuxtLink>
 
-    <NuxtLink to="/learn/messages">
+    <NuxtLink :to="`/learn/${course}/${module}/messages`">
       <Icon class="icon str2" size="1.4em" name="iconoir:message-text" />
       <div>Сообщения</div>
     </NuxtLink>
 
-    <NuxtLink to="/learn/forum">
+    <NuxtLink :to="`/learn/$course//$moduleforum`">
       <Icon class="icon str2" size="1.4em" name="iconoir:group" />
       <div>Форум</div>
     </NuxtLink>

@@ -4,9 +4,7 @@ import type { Courses } from "~/interfaces/Courses";
 
 const {data: courses, error: coursesError} = await useAPI<Courses>('/courses/');
 
-const {data} = await useAPI('/learning', {
-  method: 'GET'
-})
+
 
 </script>
 

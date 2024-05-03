@@ -3,8 +3,8 @@ import { useAPI } from "~/composables/useAPI";
 
 interface Courses{
   courses:{
-  title: string,
-  organization_name:string
+    title: string,
+    organization_name:string
   }[]
 }
 
