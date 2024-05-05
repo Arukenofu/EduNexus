@@ -1,25 +1,22 @@
 <script setup lang="ts">
 import { useRoute } from "nuxt/app";
-import { useAPI } from "~../../../composables/useAPI";
 
 const route = useRoute();
 
-interface Teacher {
-  avatar: string,
-  firstname: string,
-  lastname: string,
-  //university?: string,
-  numberOfStudy?: number
-}
-
-
 interface CourseDetailed {
-  course_modules: string[],
-  enrolled:BigInt,
+  modules: string[],
+
+  teachers: {
+    firstname: string,
+    surname: string
+  }[],
+
   details: {
-    description:string,
+    description: string,
+    id: number
   },
-  teachers:string[],
+
+  enrolled: bigint
 }
 
 const param = route.params.slug;
@@ -29,18 +26,14 @@ const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}/`);
 const getModulesLength = () => {
   let suffix: string;
 
-  if (course.value?.course_modules?.length! < 5) {
+  if (course.value?.modules?.length! < 5) {
     suffix = 'модуля'
   } else {
     suffix = 'модулей'
   }
 
-  return `В этом курсе ${course.value?.course_modules?.length ?? 0} ${suffix}`;
+  return `В этом курсе ${course.value?.modules?.length ?? 0} ${suffix}`;
 }
-
-console.log(course.value ,`/courses/${param}/`
-)
-const Today = "11 Semptember";
 
 </script>
 
@@ -49,6 +42,7 @@ const Today = "11 Semptember";
   <div class="layout">
 
     <section>
+
       <div class="course">
 
         <div class="image">
@@ -59,7 +53,7 @@ const Today = "11 Semptember";
         </div>
 
         <h1>
-          {{param}}
+          {{param[0]}}
         </h1>
 
         <p>
@@ -68,7 +62,7 @@ const Today = "11 Semptember";
 
         <button>
           <span class="enter">Участвовать</span>
-          <span class="date">Начинается {{Today}}</span>
+          <span class="date">Начинается</span>
         </button>
 
         <div class="info">
@@ -86,22 +80,22 @@ const Today = "11 Semptember";
           <div class="teacher-info">
             <div class="avatar" />
 
-            Преподаватели: &nbsp; 
-            <div v-for="teacher in course.teachers">
-            <nuxt-link to="/">{{teacher}}</nuxt-link>&nbsp; 
+            Преподаватели: &nbsp;
+            <div v-for="teacher in course?.teachers">
+            <nuxt-link to="/">{{teacher.firstname}}</nuxt-link>&nbsp;
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="other-info" v-if="course?.course_modules?.length">
+    <div class="other-info" v-if="course?.modules?.length">
       <h2>{{getModulesLength()}}</h2>
       <p>{additional shitty info}</p>
 
       <div class="grid">
         <div class="chapters">
-          <div class="chapter" v-for="(module, index) in course?.course_modules" :key="index">
+          <div class="chapter" v-for="(module, index) in course?.modules" :key="index">
             <h3>{{module}}</h3>
 
             <span>
