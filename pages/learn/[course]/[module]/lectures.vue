@@ -4,9 +4,16 @@ import LearnHeaderLayout from "~/layouts/LearnHeaderLayout.vue";
 
 const buttonState = ref<number>(0);
 
+const course = useRoute().params.course;
+
+const {data, error} = await useAPI(`/learning/${course}`);
+
+
 </script>
 
 <template>
+  {{data}}
+
   <LearnHeaderLayout text="Лекции">
     <template v-slot:first>
       <ButtonsSort v-model:state="buttonState" />

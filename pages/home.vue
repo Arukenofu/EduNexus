@@ -5,7 +5,9 @@
 </script>
 
 <template>
-  <HeaderComponent />
+  <HeaderComponent>
+    <NavBar />
+  </HeaderComponent>
 
   <NuxtLoadingIndicator color="var(--text)" :height="2" style="top: calc(60px + var(--electron))" />
 

@@ -16,11 +16,13 @@ const response = ref<string>('');
 
 const submit = async () => {
   const setToken = (value: any): void => {
-    isNotSession.value ?
-      useCookie('token', {}).value = value :
-      useCookie('token', {
-        maxAge: 28 * 24 * 60 * 60 * 1000
-      }).value = value;
+
+    if (isNotSession.value) {
+      localStorage.setItem('token', value)
+    } else {
+      sessionStorage.setItem('token', value)
+    }
+
   }
 
   if (!(form.value.password && form.value.login)) {
@@ -43,7 +45,7 @@ const submit = async () => {
     return response.value = 'Длина email больше 32'
   }
 
-  const res = await fetch('http://localhost:8080/api/login', {
+  const {data} = await useAPI<{token: string}>('/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -51,13 +53,11 @@ const submit = async () => {
     body: `login=${form.value.login}&password=${form.value.password}`
   })
 
-  const value = await res.json();
-
-  if (!value) {
+  if (!data.value) {
     return response.value = 'Ошибка сервера';
   }
 
-  setToken(value.token);
+  setToken(data.value.token);
 
   await useRouter().push('/home/main')
 }

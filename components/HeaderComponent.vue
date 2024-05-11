@@ -6,12 +6,14 @@ import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
 
 const exitFromAccount = () => {
-  useCookie('token').value = null;
+  localStorage.removeItem('token');
 
   useRouter().push('/auth');
 }
 
 const isModalOpen = ref<boolean>(false);
+
+
 
 
 </script>
@@ -21,7 +23,7 @@ const isModalOpen = ref<boolean>(false);
 
     <ProjectIcon />
 
-    <NavBar />
+    <slot />
 
     <div class="input-outer" @click="isModalOpen =! isModalOpen" >
       <Icon name="iconoir:search" class="search" size="1.1em" />

@@ -35,6 +35,15 @@ const getModulesLength = () => {
   return `В этом курсе ${course.value?.modules?.length ?? 0} ${suffix}`;
 }
 
+const subscribeToCourse = async () => {
+  const {data, error} = await useAPI(`/courses/${param}`, {
+    method: 'POST'
+  });
+
+  console.log('Data: ', data.value);
+  console.log('Error: ', error.value);
+}
+
 </script>
 
 <template>
@@ -60,7 +69,7 @@ const getModulesLength = () => {
           {{course.details.description}}
         </p>
 
-        <button>
+        <button @click="subscribeToCourse()">
           <span class="enter">Участвовать</span>
           <span class="date">Начинается</span>
         </button>

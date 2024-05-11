@@ -24,7 +24,7 @@ export default defineNuxtConfig({
       apiBase: process.env.APIBASE
     }
   },
-	modules: ['@nuxtjs/google-fonts', 'nuxt-icon', "@nuxt/image"],
+	modules: ['@nuxtjs/google-fonts', 'nuxt-icon', "@nuxt/image", "nuxt-tiptap-editor"],
 	devtools: { enabled: false },
 	ssr: false,
 	googleFonts: {
@@ -36,5 +36,8 @@ export default defineNuxtConfig({
           'Manrope': '200..900'
         }
   },
-  spaLoadingTemplate: false
+  spaLoadingTemplate: false,
+  tiptap: {
+    prefix: "Tiptap"
+  },
 });

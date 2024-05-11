@@ -1,5 +1,5 @@
+import is from "@sindresorhus/is";
 
-import getToken from "~/utils/getToken";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
     if (to.path === '/') {
@@ -8,9 +8,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     }
 
-    if (to.path !== '/auth' && !useCookie('token').value) {
+    if (to.path !== '/auth') {
 
-        return navigateTo('/auth');
+        const {data } = await useAPI<{courses: null | {}}>('/learning/', {});
 
     }
 

@@ -63,32 +63,6 @@
   line-height: 1.5;
   color: #dcdcdc;
 
-  h1 {
-    font-size: 2.75em;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 24px;
-  }
-
-  h2 {
-    font-size: 1.9em;
-    font-weight: 700;
-  }
-
-  h3 {
-    font-size: 1.5em;
-  }
-
-  p {
-    font-size: 1.1em;
-    line-height: 1.4;
-  }
-
-  img {
-    width: 100%;
-    border-radius: 8px;
-  }
-
 
 
 }

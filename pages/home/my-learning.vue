@@ -8,7 +8,11 @@ interface Courses{
   }[]
 }
 
-const {data: response, error} = await useAPI<Courses>('/learning');
+const {data: response} = await useAPI<Courses>('/learning');
+
+const toLearnPage = (param1: any, param2: any): void => {
+  useRouter().push(`/learn/${param1}/${param2}/main`)
+}
 
 </script>
 
@@ -17,7 +21,7 @@ const {data: response, error} = await useAPI<Courses>('/learning');
     <div class="main">
       <h1>Моё обучение</h1>
 
-      <section v-if="false ">
+      <section v-if="!response?.courses?.length">
         <p>У вас нет текущих курсов. Пожалуйста, выберите себе онлайн-обучение. :P</p>
       </section>
 
@@ -37,7 +41,7 @@ const {data: response, error} = await useAPI<Courses>('/learning');
             8.7 / 10
           </div>
 
-          <button @click="$router.push('/learn/main')" class="current">
+          <button @click="toLearnPage(course.title, 'asddasa')" class="current">
             Войти
           </button>
 
@@ -49,7 +53,7 @@ const {data: response, error} = await useAPI<Courses>('/learning');
     <div class="tasks-block">
       <h1>Текущие задания</h1>
 
-      <div class="tasks-wrap">
+      <div class="tasks-wrap" v-if="false">
         <div class="task" v-for="task in 5">
 
           <div class="image" />
@@ -62,6 +66,10 @@ const {data: response, error} = await useAPI<Courses>('/learning');
           <Icon class="enter" name="iconoir:arrow-right-circle" size="1.9em" />
         </div>
       </div>
+
+      <p>
+
+      </p>
     </div>
 
   </article>

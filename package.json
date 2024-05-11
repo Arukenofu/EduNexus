@@ -25,6 +25,7 @@
     "electron": "^23.2.1",
     "electron-builder": "^23.6.0",
     "nuxt": "^3.3.3",
+    "nuxt-tiptap-editor": "^1.1.2",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.2",
     "tsc-watch": "^6.0.0",

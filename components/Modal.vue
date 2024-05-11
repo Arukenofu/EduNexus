@@ -1,13 +1,31 @@
 <script setup lang="ts">
 
-const isOpen = defineModel<boolean>('isOpen')
+const isOpen = defineModel<boolean>('isOpen');
+
+const setBodyScroll = (value: 'hidden' | 'scroll') => {
+  document.body.style.overflow = value;
+}
+
+watch(isOpen, (value) => {
+  if (value) {
+    setBodyScroll('hidden')
+  } else {
+    setBodyScroll('scroll')
+  }
+})
+
+onUnmounted(() => {
+  setBodyScroll('scroll');
+})
+
+
 
 </script>
 
 <template>
   <transition name="bg">
-    <div class="modal-bg" v-if="isOpen" @click="isOpen =! isOpen">
-
+    <div class="modal-bg" v-if="isOpen" @click="isOpen =! isOpen" >
+      <slot />
     </div>
   </transition>
 </template>
@@ -39,11 +57,18 @@ const isOpen = defineModel<boolean>('isOpen')
   animation: enter 0.15s;
 }
 .bg-leave-active {
-  animation: exit;
+  animation: exit 0.15s;
 }
 
 @keyframes enter {
   0% {
+    opacity: 0;
+    transform: translate3d(-50%, -48%) scale3d(.95, .95, .95) rotate(0);
+  }
+}
+
+@keyframes exit {
+  100% {
     opacity: 0;
     transform: translate3d(-50%, -48%) scale3d(.95, .95, .95) rotate(0);
   }

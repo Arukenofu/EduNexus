@@ -1,3 +1,3 @@
 export default function() {
-  return useCookie('token').value;
+  return localStorage.getItem('token');
 }

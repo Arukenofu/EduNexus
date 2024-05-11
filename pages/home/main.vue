@@ -4,8 +4,6 @@ import type { Courses } from "~/interfaces/Courses";
 
 const {data: courses, error: coursesError} = await useAPI<Courses>('/courses/');
 
-console.log(courses.value);
-
 </script>
 
 <template>
@@ -15,11 +13,6 @@ console.log(courses.value);
     <section v-if="!coursesError">
       <h2>Базовые Курсы</h2>
       <CourseCard :courses="courses?.courses" />
-    </section>
-
-    <section>
-      <h2>Индивидуальные занятия</h2>
-      <IndividualLessons />
     </section>
 
     <section>
