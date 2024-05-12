@@ -26,7 +26,7 @@ const {module, course} = useRoute().params;
       <div>Сообщения</div>
     </NuxtLink>
 
-    <NuxtLink :to="`/learn/$course//$moduleforum`">
+    <NuxtLink :to="`/learn/${course}/${module}/forum`">
       <Icon class="icon str2" size="1.4em" name="iconoir:group" />
       <div>Форум</div>
     </NuxtLink>

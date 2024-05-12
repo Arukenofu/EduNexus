@@ -18,14 +18,18 @@ onUnmounted(() => {
   setBodyScroll('scroll');
 })
 
-
+const toggleModal = () => {
+  isOpen.value = false;
+}
 
 </script>
 
 <template>
   <transition name="bg">
-    <div class="modal-bg" v-if="isOpen" @click="isOpen =! isOpen" >
-      <slot />
+    <div v-if="isOpen" class="modal-bg" @click.self="toggleModal()" >
+      <div class="val">
+        <slot />
+      </div>
     </div>
   </transition>
 </template>
@@ -46,9 +50,6 @@ onUnmounted(() => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #00dc82;
-    width: 400px;
-    aspect-ratio: 1/1;
   }
 }
 

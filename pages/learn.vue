@@ -1,30 +1,6 @@
 <script setup lang="ts">
-import { useGsap } from "#imports";
-
-onMounted(() => {
-  const gsap = useGsap();
-})
 
 
-
-const courseParam = ref<string>();
-const updateCourseInjection = (value: string): void => {
-  courseParam.value = value
-}
-
-provide('course', {
-  courseParam,
-  updateCourseInjection
-})
-
-const moduleParam = ref<string | undefined>();
-const updateModuleInjection = (value: string): void => {
-  moduleParam.value = value;
-}
-provide('module', {
-  moduleParam,
-  updateModuleInjection
-})
 
 </script>
 
