@@ -139,6 +139,7 @@ const subscribeToCourse = async () => {
 
       .image {
         height: 55px;
+        margin-bottom: 7px;
 
         img {
           max-height: 55px;

@@ -34,8 +34,5 @@ useHead({
 </template>
 
 <style lang="scss">
-.app {
-  top: 0;
-  position: relative;
-}
+
 </style>
