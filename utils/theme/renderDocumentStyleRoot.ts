@@ -11,6 +11,7 @@ export default function () {
         documentElementSetProperty('--bg-third', '#101010');
         documentElementSetProperty('--border', '#1f1f22');
         documentElementSetProperty('--ui-secondary', '#171717');
+        documentElementSetProperty('--text-soft', '#dcdcdc')
 
         theme.value = 'dark';
     }
@@ -22,7 +23,8 @@ export default function () {
         documentElementSetProperty('--text-secondary', '#71717A');
         documentElementSetProperty('--bg-third', '#ffffff')
         documentElementSetProperty('--border', '#e7e7ea');
-        documentElementSetProperty('--ui-secondary', '#efefeb')
+        documentElementSetProperty('--ui-secondary', '#efefeb');
+        documentElementSetProperty('--text-soft', '#171717')
 
         theme.value = 'light';
     }

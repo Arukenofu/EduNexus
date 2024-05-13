@@ -33,7 +33,7 @@ const {data: lecture, error} = await useAPI<Lecture>(`/learning/${course}/${id}`
   padding-left: 45px;
   padding-right: 240px;
   line-height: 1.5;
-  color: #dcdcdc;
+  color: var(--text-soft);
 
   :deep() {
     b {

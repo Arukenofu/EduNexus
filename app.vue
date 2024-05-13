@@ -37,6 +37,5 @@ useHead({
 .app {
   top: 0;
   position: relative;
-  height: 100vh;
 }
 </style>

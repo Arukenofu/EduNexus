@@ -10,6 +10,7 @@ interface Categories {
 }
 
 const {data: response, error} = await useAPI<Categories>('/categories/');
+
 </script>
 
 <template>

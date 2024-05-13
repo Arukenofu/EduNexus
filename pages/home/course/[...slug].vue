@@ -12,8 +12,9 @@ interface CourseDetailed {
   }[],
 
   details: {
+    id: number,
     description: string,
-    id: number
+    image: string
   },
 
   enrolled: bigint
@@ -22,6 +23,8 @@ interface CourseDetailed {
 const param = route.params.slug;
 
 const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}/`);
+
+console.log(course.value);
 
 const getModulesLength = () => {
   let suffix: string;
@@ -36,12 +39,9 @@ const getModulesLength = () => {
 }
 
 const subscribeToCourse = async () => {
-  const {data, error} = await useAPI(`/courses/${param}`, {
+  await useAPI(`/courses/${param}`, {
     method: 'POST'
   });
-
-  console.log('Data: ', data.value);
-  console.log('Error: ', error.value);
 }
 
 </script>
@@ -56,7 +56,7 @@ const subscribeToCourse = async () => {
 
         <div class="image">
           <NuxtImg
-            src="https://pngimg.com/uploads/google/google_PNG19644.png"
+            :src="course?.details.image"
             alt=""
           />
         </div>
@@ -66,7 +66,7 @@ const subscribeToCourse = async () => {
         </h1>
 
         <p>
-          {{course.details.description}}
+          {{course!.details!.description}}
         </p>
 
         <button @click="subscribeToCourse()">
@@ -143,6 +143,7 @@ const subscribeToCourse = async () => {
         img {
           max-height: 55px;
           height: 100%;
+          border-radius: 8px;
         }
       }
 

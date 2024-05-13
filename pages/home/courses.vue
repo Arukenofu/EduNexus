@@ -37,11 +37,14 @@ const paginationState = ref<number>(1);
     <h1>Найдите подходящую программу</h1>
 
     <div class="filters">
+
+
       <ButtonsDropdown
         :state="levelProgram.state"
         :items="levelProgram.options"
         icon="iconoir:edit-pencil"
         size="1.4em"
+        class="dropdown"
       />
 
       <ButtonsDropdown
@@ -49,13 +52,14 @@ const paginationState = ref<number>(1);
         :items="category.options"
         icon="iconoir:hashtag"
         size="1.4em"
+        class="dropdown"
       />
 
     </div>
 
     <CourseCard class="courses" :courses="courses?.courses" />
 
-    <Pagination :state="paginationState" :length="18" :limit="3" />
+    <Pagination :state="paginationState" :length="18" :limit="5" />
   </article>
 </template>
 
@@ -76,6 +80,10 @@ article {
 
   .courses {
     margin-bottom: 21px;
+  }
+
+  .dropdown {
+    padding: 0 12px;
   }
 }
 </style>

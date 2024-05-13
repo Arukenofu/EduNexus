@@ -44,15 +44,17 @@ const props = withDefaults(defineProps<Props>(), {
     />
 
 
-    <div class="dropdown-content" :class="state && 'show'">
-      <ul>
-        <li @click="currentChoose = index; closeDropdownMenu()" v-for="(time, index) in menuItems">
-          <button>
-            {{time}}
-          </button>
-        </li>
-      </ul>
-    </div>
+    <transition name="dropdown">
+      <div class="dropdown-content" v-if="state">
+        <ul>
+          <li @click="currentChoose = index; closeDropdownMenu()" v-for="(time, index) in menuItems">
+            <button>
+              {{time}}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -64,7 +66,6 @@ const props = withDefaults(defineProps<Props>(), {
   border-radius: 8px;
 
   .dropdown-content {
-    display: none;
     position: absolute;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
@@ -102,9 +103,19 @@ const props = withDefaults(defineProps<Props>(), {
       }
     }
   }
-
-  .show {
-    display: inline-block;
-  }
 }
+
+
+.dropdown-enter-active, .dropdown-leave-active {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .15s;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+}
+
+
 </style>
