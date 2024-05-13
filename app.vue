@@ -17,6 +17,10 @@ onMounted(() => {
 
 const {isElectron} = useUpdater();
 
+useHead({
+  title: 'EduNexus'
+})
+
 </script>
 
 <template>

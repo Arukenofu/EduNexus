@@ -8,9 +8,9 @@ export default function () {
         documentElementSetProperty('--text', '#FAFAFA');
         documentElementSetProperty('--bg-secondary', '#27272A');
         documentElementSetProperty('--text-secondary', '#A1A1AA');
-        documentElementSetProperty('--bg-third', '#101010')
-        documentElementSetProperty('--border', '#1f1f22')
-        documentElementSetProperty('--ui-secondary', '#171717')
+        documentElementSetProperty('--bg-third', '#101010');
+        documentElementSetProperty('--border', '#1f1f22');
+        documentElementSetProperty('--ui-secondary', '#171717');
 
         theme.value = 'dark';
     }

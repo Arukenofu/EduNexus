@@ -10,7 +10,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (to.path !== '/auth') {
 
-        const {data } = await useAPI<{courses: null | {}}>('/learning/', {});
 
     }
 

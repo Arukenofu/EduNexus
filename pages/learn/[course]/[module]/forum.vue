@@ -4,14 +4,28 @@ import LearnHeaderLayout from "~/layouts/LearnHeaderLayout.vue";
 const sortButtonState = ref<number>(0);
 const dateButtonState = ref<number>(5);
 
-
+const timeLines: string[] = [
+  'За последний час',
+  'Сегодня',
+  'За эту неделю',
+  'За этот месяц',
+  'За этот год',
+  'За всё время'
+]
 
 </script>
 
 <template>
   <LearnHeaderLayout text="Форум">
     <template v-slot:first>
-      <ButtonsDate v-model:state="dateButtonState" />
+      <ButtonsDropdown
+        :state="dateButtonState"
+        :items="timeLines"
+        icon="iconoir:calendar"
+        width="160px"
+        background="var(--bg-secondary)"
+        hover-color="var(--bg-third)"
+      />
       <ButtonsSort v-model:state="sortButtonState" />
     </template>
   </LearnHeaderLayout>

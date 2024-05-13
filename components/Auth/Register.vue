@@ -39,7 +39,7 @@ const submit = async () => {
     return response.value = 'Длина email больше 32'
   }
 
-  await fetch('http://localhost:8080/api/register', {
+  await useAPI('/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

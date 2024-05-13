@@ -56,7 +56,9 @@ button {
   max-width: v-bind(width);
   aspect-ratio: 1/1;
   border-radius: 6px;
-
+  transition-property: color,background-color,border-color,text-decoration-color,fill,stroke;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .15s;
 
   &:hover {
     background-color: v-bind(hover) !important;
@@ -65,7 +67,7 @@ button {
 
 .hasLeftSideText {
   aspect-ratio: unset;
-  padding: 0 12px;
+  padding: 0 6px;
   width: auto;
   height: v-bind(width);
   max-width: none;
@@ -75,6 +77,7 @@ button {
   span {
     color: var(--text);
     margin-left: 6px;
+    padding-right: 6px;
     font-weight: 600;
     white-space: nowrap;
   }
