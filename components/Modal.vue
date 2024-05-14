@@ -18,15 +18,13 @@ onUnmounted(() => {
   setBodyScroll('scroll');
 })
 
-const toggleModal = () => {
-  isOpen.value = false;
-}
+
 
 </script>
 
 <template>
   <transition name="bg">
-    <div v-if="isOpen" class="modal-bg" @click.self="toggleModal()" >
+    <div v-if="isOpen" class="modal-bg" @click.self="isOpen =! isOpen" >
       <div class="val">
         <slot />
       </div>

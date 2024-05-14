@@ -3,6 +3,16 @@ import { Editor } from "@tiptap/vue-3";
 
 const editor = defineModel<Editor>('editor');
 
+const isModalOpen = ref<boolean>(false);
+
+const setLanguage = (language: string) => {
+  editor.value!.chain().focus().setCodeBlock({
+    language: language
+  }).run();
+
+  isModalOpen.value = false;
+}
+
 </script>
 
 <template>
@@ -83,7 +93,7 @@ const editor = defineModel<Editor>('editor');
     />
 
     <EditorControlButton
-      @click="editor.chain().focus().toggleCodeBlock().run()"
+      @click="isModalOpen = true"
       :class="{ 'is-active': editor.isActive('codeBlock') }"
       icon="material-symbols:code-blocks-outline-sharp"
     />
@@ -125,7 +135,58 @@ const editor = defineModel<Editor>('editor');
       :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }"
     />
 
+    <EditorControlButton
+      icon="material-symbols:disabled-by-default-outline-sharp"
+      @click="editor.chain().focus().setMargin({ bottom: '0' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-0-25"
+      @click="editor.chain().focus().setMargin({ bottom: '.25rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-0-5"
+      @click="editor.chain().focus().setMargin({ bottom: '.5rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-0-75"
+      @click="editor.chain().focus().setMargin({ bottom: '.75rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:1x-mobiledata"
+      @click="editor.chain().focus().setMargin({ bottom: '1rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-1-25"
+      @click="editor.chain().focus().setMargin({ bottom: '1.25rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-1-5"
+      @click="editor.chain().focus().setMargin({ bottom: '1.5rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-1-75"
+      @click="editor.chain().focus().setMargin({ bottom: '1.75rem' }).run();"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:speed-2x"
+      @click="editor.chain().focus().setMargin({ bottom: '2rem' }).run();"
+    />
+
   </div>
+
+  <Modal v-model:is-open="isModalOpen">
+    <EditorModal
+      @setLanguage="setLanguage"
+    />
+  </Modal>
 
 </template>
 
@@ -151,5 +212,7 @@ const editor = defineModel<Editor>('editor');
   border-top-left-radius: 3px;
   border-bottom-left-radius: 6px;
 }
+
+
 
 </style>
