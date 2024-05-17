@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+import type { Success } from "~/interfaces/Success";
+
+const loginState = defineModel<boolean>('state')
+
 interface Registration {
   login: string,
   password: string,
@@ -39,15 +43,20 @@ const submit = async () => {
     return response.value = 'Длина email больше 32'
   }
 
-  await useAPI('/register', {
+  await useAPI<Success>('/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: `login=${form.value.login}&password=${form.value.password}`
+  }).then(res => {
+    if (res.data.value!.status === 'success') {
+      console.log('yes');
+
+      loginState.value = true;
+    }
   })
 
-  response.value = 'OK!'
 }
 
 </script>

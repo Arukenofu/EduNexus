@@ -2,9 +2,8 @@
 import CategoriesMainView from "~/components/CategoriesMainView.vue";
 import type { Courses } from "~/interfaces/Courses";
 
-const {data: courses, error: coursesError} = await useAPI<Courses>('/courses/');
+const {data: courses, error: coursesError} = await useAPI<Courses>('/courses?perPage=4&page=1');
 
-console.log(courses.value);
 
 </script>
 

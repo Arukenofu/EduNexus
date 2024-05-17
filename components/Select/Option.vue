@@ -13,6 +13,7 @@
 .option {
   padding: 6px 18px;
   background-color: var(--bg);
+  font-size: .9em;
 
   &:hover {
     background-color: var(--bg-secondary);

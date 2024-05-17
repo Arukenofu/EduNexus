@@ -12,7 +12,7 @@
 :global(.options) {
   display: inline-block;
   position: absolute;
-  top: 115%;
+  top: 110%;
   left: 0;
   width: 100%;
   list-style: none;
@@ -23,6 +23,7 @@
   overflow: scroll;
   scrollbar-width: none;
   background-color: var(--bg);
+  z-index: 2;
 
 }
 

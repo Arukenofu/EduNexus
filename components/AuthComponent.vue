@@ -20,7 +20,7 @@ const toggleLogin = () => {
 
     <Login v-if="isLogin" />
 
-    <Register v-else />
+    <Register v-model:state="isLogin" v-else />
 
     <div class="no-account" v-if="isLogin">
       Нету аккаунта? <button @click="toggleLogin()">Зарегестрироваться</button>

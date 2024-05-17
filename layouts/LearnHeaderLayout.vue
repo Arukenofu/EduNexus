@@ -13,7 +13,7 @@ defineProps<{
 
     <h1>{{text}}</h1>
 
-    <div class="options">
+    <div class="control-options">
 
       <slot name="first" />
 
@@ -46,13 +46,14 @@ defineProps<{
   display: flex;
   height: 90px;
   align-items: center;
+  max-width: 100dvw;
 
   h1 {
     display: flex;
     align-items: center;
   }
 
-  .options {
+  .control-options {
     margin-left: auto;
     display: flex;
     gap: 4px;

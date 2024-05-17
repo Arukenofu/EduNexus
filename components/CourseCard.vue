@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { Courses } from "~/interfaces/Courses";
 
-const props = defineProps<Courses>();
-
+defineProps<Courses>();
 
 </script>
 
@@ -15,7 +14,7 @@ const props = defineProps<Courses>();
       :to="`/home/course/${course.title}`"
     >
 
-      <div class="image" />
+      <div class="image" :style="`background-image: url('${course.image}')`" />
 
       <div class="info">
         <div class="info-image" />
@@ -63,6 +62,8 @@ const props = defineProps<Courses>();
       aspect-ratio: 16/10;
       border-radius: 12px;
       margin-bottom: 9px;
+      background-size: cover;
+      background-position: center;
     }
 
     .info {

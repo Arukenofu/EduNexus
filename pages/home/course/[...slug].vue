@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from "nuxt/app";
+import type { Success } from "~/interfaces/Success";
 
 const route = useRoute();
 
@@ -24,7 +25,6 @@ const param = route.params.slug;
 
 const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}/`);
 
-console.log(course.value);
 
 const getModulesLength = () => {
   let suffix: string;
@@ -39,9 +39,13 @@ const getModulesLength = () => {
 }
 
 const subscribeToCourse = async () => {
-  await useAPI(`/courses/${param}`, {
+  const {data} = await useAPI<Success>(`/courses/${param}`, {
     method: 'POST'
   });
+
+  if (data.value?.status === 'success') {
+    await useRouter().push(`/learn/${param}/module/main`)
+  }
 }
 
 </script>

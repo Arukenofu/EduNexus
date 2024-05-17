@@ -21,7 +21,7 @@ interface Categories {
 const {data: response} = await useAPI<Categories>('/categories/');
 
 const category = ref({
-  state: 1,
+  state: false,
   options: response.value?.categories.map(item => item.name)
 })
 
@@ -34,26 +34,24 @@ const paginationState = ref<number>(1);
 <template>
 
   <article>
-    <h1>Найдите подходящую программу</h1>
+    <h1>Найдите подходящую программу </h1>
 
     <div class="filters">
 
 
-      <ButtonsDropdown
-        :state="levelProgram.state"
-        :items="levelProgram.options"
-        icon="iconoir:edit-pencil"
-        size="1.4em"
-        class="dropdown"
-      />
+      <Select @click="category.state =! category.state">
+        <SelectContent class="select-content">
+          Категория
+        </SelectContent>
 
-      <ButtonsDropdown
-        :state="category.state"
-        :items="category.options"
-        icon="iconoir:hashtag"
-        size="1.4em"
-        class="dropdown"
-      />
+        <Transition name="select">
+          <SelectGroup v-if="category.state" class="select-group">
+            <SelectOption v-for="option in category.options" class="select-item">
+              {{option}}
+            </SelectOption>
+          </SelectGroup>
+        </Transition>
+      </Select>
 
     </div>
 
@@ -76,6 +74,19 @@ article {
     display: flex;
     gap: 15px;
     margin-bottom: 21px;
+
+    .select-content {
+      width: 120px;
+    }
+
+    .select-group {
+      width: 210px;
+      height: 210px;
+
+      .select-item {
+        padding: 9px 12px;
+      }
+    }
   }
 
   .courses {
@@ -86,4 +97,5 @@ article {
     padding: 0 12px;
   }
 }
+
 </style>

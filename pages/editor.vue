@@ -5,9 +5,10 @@ import { CodeBlock } from "@tiptap/extension-code-block";
 import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
 
-
 const editor = useEditor({
   content: "Напишите что то",
+  onUpdate: () => {
+  },
   extensions: [
     TiptapStarterKit.configure({
       codeBlock: false
@@ -44,7 +45,7 @@ onBeforeUnmount(() => {
         Заголовок
       </h1>
 
-      <TiptapEditorContent  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" :editor="editor" />
+      <TiptapEditorContent autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" :editor="editor" />
     </div>
   </div>
 </template>

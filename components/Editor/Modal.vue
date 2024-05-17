@@ -168,15 +168,4 @@ defineEmits(['setLanguage']);
 .select {
   width: 45%;
 }
-
-.select-enter-active, .select-leave-active {
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  transition-duration: .15s;
-}
-
-.select-enter-from,
-.select-leave-to {
-  opacity: 0;
-}
 </style>
