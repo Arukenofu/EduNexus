@@ -39,6 +39,7 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
     max-height: 30vh;
     background-color: var(--bg-secondary);
     border-radius: 6px;
+    text-decoration: none;
 
     .category-text {
       width: 100%;

@@ -2,11 +2,10 @@
 import AssignmentComponent from "~/components/Assignments/AssignmentComponent.vue";
 import LearnHeaderLayout from "~/layouts/LearnHeaderLayout.vue";
 import Button1x1 from "~/components/Buttons/Button1x1.vue";
+import getRemovedRouteParam from "~/utils/router/getRemovedRouteParam";
 
 const buttonState = ref<number>(0);
 
-
-const {course, module} = useRouteParams();
 
 
 </script>
@@ -24,7 +23,7 @@ const {course, module} = useRouteParams();
       type="Задание"
       name="Создание собственного приложения JavaScript"
       date="1 Апреля"
-      @click="$router.push(`/assignment/${course}/${module}/preview`)"
+      @click="$router.push(`${getRemovedRouteParam()}/assignment/1`)"
     />
 
   </div>

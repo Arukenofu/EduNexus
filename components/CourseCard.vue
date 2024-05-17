@@ -36,12 +36,12 @@ defineProps<Courses>();
 
 <style scoped lang="scss">
 .cards-wrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
   flex-wrap: wrap;
 
   .card {
-    flex: 1;
     border-radius: 15px;
     border: 2px solid var(--border);
     aspect-ratio: 1/1.1;

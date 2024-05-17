@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import type { Courses } from "~/interfaces/Courses";
 
 const name = useRouteParams('name');
 
-const {data, error} = await useAPI(`/categories/${name}`)
+const {data: courses} = await useAPI<Courses>(`/categories/${name}`)
+
 
 </script>
 
 <template>
   <div class="layout">
-    {{data}}
+    {{courses}}
   </div>
 </template>
 

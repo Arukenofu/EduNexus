@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { useAPI } from "~/composables/useAPI";
 
-interface Courses{
+interface Courses {
   courses:{
     title: string,
-    organization_name:string
+    organization_name:string,
+    image: string
   }[]
 }
 
 const {data: response} = await useAPI<Courses>('/learning');
+console.log(response.value);
 
 const toLearnPage = (param1: any, param2: any): void => {
   useRouter().push(`/learn/${param1}/${param2}/main`)
@@ -29,7 +30,7 @@ const toLearnPage = (param1: any, param2: any): void => {
 
         <div class="course" v-for="course in response!.courses">
 
-          <div class="image" />
+          <div class="image" :style="`background-image: url('${course.image}')`" />
 
           <div class="text">
             <p>{{ course.title }}</p>
@@ -119,6 +120,8 @@ article {
           background-color: var(--bg);
           border-radius: 6px;
           cursor: default;
+          background-position: center;
+          background-size: cover;
         }
 
         .text {

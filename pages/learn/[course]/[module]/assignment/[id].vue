@@ -3,12 +3,6 @@
 </script>
 
 <template>
-  <div class="left">
-    <button>
-      <Icon name="iconoir:nav-arrow-left" />
-    </button>
-  </div>
-
   <div class="layout">
     <h1>Решить алгоритмы с сортировкой</h1>
     <div class="assignment-data">
@@ -43,11 +37,10 @@
 
 <style scoped lang="scss">
 .layout {
-  padding-top: 92px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
+  padding-top: 72px;
+  margin-bottom: 72px;
+  margin-left: 45px;
+  width: 75%;
   height: calc(100dvh - 72px - var(--electron));
 
   h1 {
@@ -84,27 +77,6 @@
   width: 15%;
   position: absolute;
   right: 0;
-  top: 0;
-  display: grid;
-
-  button {
-    background: var(--bg);
-    border: none;
-    color: var(--text);
-    font-size: 2em;
-    transition: filter 0.2s ease;
-
-    &:hover {
-      filter: brightness(1.25);
-    }
-  }
-}
-
-.left {
-  height: 100%;
-  width: 15%;
-  position: absolute;
-  left: 0;
   top: 0;
   display: grid;
 

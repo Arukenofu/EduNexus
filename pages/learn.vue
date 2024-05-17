@@ -27,6 +27,7 @@
     min-height: calc(100dvh - 30px);
     background-color: var(--bg);
 
+
     .content {
       padding: 0 21px;
       min-height: 100vh;

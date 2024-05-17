@@ -4,7 +4,6 @@ import type { Courses } from "~/interfaces/Courses";
 
 const {data: courses, error: coursesError} = await useAPI<Courses>('/courses?perPage=4&page=1');
 
-
 </script>
 
 <template>

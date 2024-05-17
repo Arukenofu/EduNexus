@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+const {course} = useRouteParams();
+
 </script>
 
 <template>
@@ -9,7 +11,7 @@
 
       <div class="course-info">
         <p class="text">
-          Computer Science
+          {{course}}
         </p>
         <span>
             5 Неделя

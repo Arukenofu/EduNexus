@@ -8,7 +8,6 @@ import { useRouteParams } from "~/composables/getRouteParams";
 const buttonState = ref<number>(0);
 
 const course = useRouteParams('course')
-
 interface Lectures {
   lectures: {
     id: number,
@@ -16,11 +15,13 @@ interface Lectures {
     description: string,
     content: string,
     days: string,
-    assignment_type_id: number
+    assignment_type_id: number,
+    title: string
   }[]
 }
 
 const {data, error} = await useAPI<Lectures>(`/learning/${course}`);
+
 
 </script>
 
@@ -37,7 +38,7 @@ const {data, error} = await useAPI<Lectures>(`/learning/${course}`);
       v-for="assignment in data!.lectures"
       :key="assignment.id"
       type="Лекция"
-      name="Современное программирование"
+      :name="assignment.title"
       :date="assignment.days ?? ''"
       @click="$router.push(`${getRemovedRouteParam(1)}/lecture/${assignment.id}`)"
     />
