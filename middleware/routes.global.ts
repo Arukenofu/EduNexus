@@ -10,6 +10,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (to.path !== '/auth') {
 
+        if (!localStorage.getItem('token')) {
+            return navigateTo('/auth')
+        }
 
     }
 

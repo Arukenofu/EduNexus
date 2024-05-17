@@ -9,7 +9,6 @@ interface Courses {
 }
 
 const {data: response} = await useAPI<Courses>('/learning');
-console.log(response.value);
 
 const toLearnPage = (param1: any, param2: any): void => {
   useRouter().push(`/learn/${param1}/${param2}/main`)

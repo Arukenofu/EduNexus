@@ -1,7 +1,8 @@
-<script setup>
+<script lang="ts" setup>
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
+import type { Toast } from "~/interfaces/Toast";
 
-const isError = useState('isError', () => '')
+const toast = useState<Toast | string>('toast', () => '')
 
 onMounted(() => {
 
@@ -30,7 +31,7 @@ useHead({
     <nuxt-page />
   </div>
 
-  <ErrorToast />
+  <Toast />
 </template>
 
 <style lang="scss">

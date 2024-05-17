@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import type { Toast } from "~/interfaces/Toast";
 
-const message = useState('isError')
+const toast = useState<Toast>('toast');
 
 </script>
 
 <template>
   <Transition name="toast">
-    <div class="toast" v-if="message">
-      <div class="toast-item">
-        {{message}}
+    <div class="toast" v-if="toast">
+      <div class="toast-item" :class="toast.type === 'error' && 'error'">
+        <Icon
+          class="icon str2"
+          :name="toast.type === 'error' ? 'iconoir:warning-circle' : 'iconoir:info-circle'"
+          size="1.1em"
+        />
+        {{toast.message}}
       </div>
     </div>
   </Transition>
@@ -36,8 +42,17 @@ const message = useState('isError')
     border-radius: 8px;
     overflow: hidden;
     font-size: .9em;
-    font-weight: 600;
     backdrop-filter: hue-rotate(45deg);
+    font-weight: 700;
+
+    .icon {
+      margin-right: 5px;
+    }
+  }
+
+  .error {
+    color: var(--red);
+    position: relative;
   }
 }
 

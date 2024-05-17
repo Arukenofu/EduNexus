@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import type { Success } from "~/interfaces/Success";
+import type { Toast } from "~/interfaces/Toast";
 
 const loginState = defineModel<boolean>('state')
 
