@@ -1,7 +1,10 @@
 export interface Courses {
-  courses: {
-    title: string,
-    organization_name: string
-    image: string
-  }[]
+  courses: Course[],
+  pages?: number
+}
+
+export interface Course {
+  title: string,
+  organization_name: string
+  image: string
 }

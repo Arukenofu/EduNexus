@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import { useAPI } from "~/composables/useAPI";
 import type { Courses } from "~/interfaces/Courses";
-
-const levelProgram = {
-  state: 1,
-  options: [
-    'Бакалавр',
-    'Магистратура',
-    'Аспирантура'
-  ]
-};
+import { useAsyncData } from "#app";
 
 interface Categories {
   categories: {
@@ -25,16 +17,29 @@ const category = ref({
   options: response.value?.categories.map(item => item.name)
 })
 
-const {data: courses} = await useAPI<Courses>('/courses/');
-
 const paginationState = ref<number>(1);
+
+watch(paginationState, () => {
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  })
+})
+
+const {data: courses} = await useAsyncData<Courses>('courses',
+  () => $fetch(`/courses?perPage=8&page=${paginationState.value}`, {
+    baseURL: 'http://localhost:8080/api'
+  }), {
+    watch: [paginationState]
+  }
+)
 
 </script>
 
 <template>
-
   <article>
-    <h1>Найдите подходящую программу </h1>
+    <h1>Найдите подходящую программу</h1>
 
     <div class="filters">
 
@@ -55,9 +60,16 @@ const paginationState = ref<number>(1);
 
     </div>
 
-    <CourseCard class="courses" :courses="courses?.courses" />
+    <Grid :columns="4" :rows="2" gap="12px">
+      <CourseCard
+        v-for="course in courses?.courses"
+        :title="course.title"
+        :organization_name="course.organization_name"
+        :image="course.image"
+      />
+    </Grid>
 
-    <Pagination :state="paginationState" :length="18" :limit="5" />
+    <Pagination class="pag" v-model:state="paginationState" :length="courses?.pages" :limit="8" />
   </article>
 </template>
 
@@ -95,6 +107,11 @@ article {
 
   .dropdown {
     padding: 0 12px;
+  }
+
+  .pag {
+    margin-top: 21px;
+    margin-bottom: 101px;
   }
 }
 

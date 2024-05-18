@@ -2,7 +2,6 @@
 import { useRoute } from "nuxt/app";
 import type { Success } from "~/interfaces/Success";
 import type { Courses } from "~/interfaces/Courses";
-import { useStorage } from '@vueuse/core'
 
 const route = useRoute();
 
@@ -25,16 +24,12 @@ interface CourseDetailed {
   enrolled: bigint
 }
 
-const storage = useStorage<Courses>('courses', null);
-
 const {data: response} = await useAPI<Courses>('/learning');
-
-storage.value = response.value;
 
 
 const isSubscribed = computed<boolean>(() => {
-  for (let i = 0; i < storage.value.courses.length; i++) {
-    if (param[0] === storage.value.courses[i].title) {
+  for (let i = 0; i < response.value!.courses?.length; i++) {
+    if (param[0] === response.value!.courses[i].title) {
       return true
     }
   }
@@ -43,7 +38,6 @@ const isSubscribed = computed<boolean>(() => {
 });
 
 const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}/`);
-
 
 const getModulesLength = () => {
   let suffix: string;

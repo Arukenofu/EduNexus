@@ -13,7 +13,15 @@ const {data: courses, error: coursesError} = await useAPI<Courses>('/courses?per
 
     <section v-if="!coursesError">
       <h2>Базовые Курсы</h2>
-      <CourseCard :courses="courses?.courses" />
+      <Grid :columns="4" :rows="1" gap="15px">
+        <CourseCard
+          v-for="course in courses?.courses"
+          :key="course.title"
+          :title="course.title"
+          :image="course.image"
+          :organization_name="course.organization_name"
+        />
+      </Grid>
     </section>
 
     <section>
