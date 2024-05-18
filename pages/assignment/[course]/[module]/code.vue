@@ -358,7 +358,11 @@ const {course} = useRouteParams()
 const monaco = useMonaco();
 monaco?.editor.defineTheme('github', githubTheme)
 
-monaco?.editor.setTheme('github')
+monaco?.editor.setTheme('github');
+
+document.fonts.ready.then(() => {
+  monaco?.editor.remeasureFonts();
+})
 
 const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   theme: 'github',
@@ -367,7 +371,8 @@ const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   fontWeight: '700',
   minimap: {
     enabled: false
-  }
+  },
+  fontLigatures: ''
 }
 
 </script>
