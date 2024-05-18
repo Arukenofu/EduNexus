@@ -58,6 +58,12 @@ function onContinue() {
   isOpen.value = false;
 }
 
+function onTabPressed() {
+  if (editor.value?.isActive('codeBlock')) {
+    return editor.value?.commands.insertContent('\t')
+  }
+}
+
 </script>
 
 
@@ -69,7 +75,14 @@ function onContinue() {
         Заголовок
       </h1>
 
-      <TiptapEditorContent autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" :editor="editor" />
+      <TiptapEditorContent
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        :editor="editor"
+        @keydown.tab.prevent="onTabPressed"
+      />
     </div>
   </div>
 

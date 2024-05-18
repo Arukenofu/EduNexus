@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { useRoute } from "nuxt/app";
 import type { Success } from "~/interfaces/Success";
+import type { Courses } from "~/interfaces/Courses";
+import { useStorage } from '@vueuse/core'
 
 const route = useRoute();
+
+const param = route.params.slug;
 
 interface CourseDetailed {
   modules: string[],
@@ -21,7 +25,22 @@ interface CourseDetailed {
   enrolled: bigint
 }
 
-const param = route.params.slug;
+const storage = useStorage<Courses>('courses', null);
+
+const {data: response} = await useAPI<Courses>('/learning');
+
+storage.value = response.value;
+
+
+const isSubscribed = computed<boolean>(() => {
+  for (let i = 0; i < storage.value.courses.length; i++) {
+    if (param[0] === storage.value.courses[i].title) {
+      return true
+    }
+  }
+
+  return false
+});
 
 const {data: course} = await useAPI<CourseDetailed>(`/courses/${param}/`);
 
@@ -44,14 +63,13 @@ const subscribeToCourse = async () => {
   });
 
   if (data.value?.status === 'success') {
-    await useRouter().push(`/learn/${param}/module/main`)
+    await useRouter().push(`/learn/${param}/module/main`);
   }
 }
 
 </script>
 
 <template>
-
   <div class="layout">
 
     <section>
@@ -73,7 +91,12 @@ const subscribeToCourse = async () => {
           {{course!.details!.description}}
         </p>
 
-        <button @click="subscribeToCourse()">
+        <button @click="$router.push(`/learn/${param}/module/main`)" v-if="isSubscribed">
+          <span class="enter">Войти</span>
+          <span class="date">Вы уже участвуете</span>
+        </button>
+
+        <button @click="subscribeToCourse()" v-else>
           <span class="enter">Участвовать</span>
           <span class="date">Начинается</span>
         </button>
