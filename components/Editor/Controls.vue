@@ -13,6 +13,22 @@ const setLanguage = (language: string) => {
   isModalOpen.value = false;
 }
 
+const getBase64 = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+
+  if (input!.files) {
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+      editor.value!.commands.setImage({
+        src: e.target?.result as string
+      })
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 </script>
 
 <template>
@@ -119,16 +135,29 @@ const setLanguage = (language: string) => {
 
   <div class="controls right" v-if="editor">
 
+    <input
+      class="input"
+      type="file"
+      accept="image/*" @change="getBase64"
+    />
+
+    <EditorControlButton
+      icon="material-symbols:image-outline"
+    />
+
     <EditorControlButton
       icon="material-symbols:align-horizontal-left"
       @click="editor.chain().focus().setTextAlign('left').run()"
       :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }"
     />
+
     <EditorControlButton
       icon="material-symbols:align-horizontal-center"
       @click="editor.chain().focus().setTextAlign('center').run()"
       :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }"
     />
+
+
     <EditorControlButton
       icon="material-symbols:align-horizontal-right"
       @click="editor.chain().focus().setTextAlign('right').run()"
@@ -213,6 +242,13 @@ const setLanguage = (language: string) => {
   border-bottom-left-radius: 6px;
 }
 
-
+.input {
+  position: absolute;
+  height: 35px;
+  z-index: 2;
+  opacity: 0;
+  width: 35px;
+  cursor: pointer;
+}
 
 </style>

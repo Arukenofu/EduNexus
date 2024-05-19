@@ -51,6 +51,7 @@ defineEmits(['onExit', 'onContinue'])
       font-size: .9em;
       font-weight: 600;
       background-color: var(--text);
+      color: var(--bg);
       border: none;
       border-radius: 4px;
     }

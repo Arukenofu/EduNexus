@@ -6,6 +6,7 @@ import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
 import CacheModal from "~/components/Editor/CacheModal.vue";
 import MathExtension from "@aarkue/tiptap-math-extension";
+import { Image } from "@tiptap/extension-image";
 
 const editor = useEditor({
   content: "Напишите что то",
@@ -30,6 +31,9 @@ const editor = useEditor({
     }),
     CodeBlockLowlight.configure({
       lowlight: createLowlight(common)
+    }),
+    Image.configure({
+      allowBase64: true
     })
   ],
 });
@@ -68,10 +72,16 @@ function onTabPressed() {
 
 
 <template>
+  <EditorHeader />
+
   <div>
     <EditorControls :editor="editor" />
     <div class="editor">
-      <h1 contenteditable="true" spellcheck="false" @paste.prevent>
+      <h1
+        contenteditable="true"
+        spellcheck="false"
+        @paste.prevent
+      >
         Заголовок
       </h1>
 
@@ -86,7 +96,7 @@ function onTabPressed() {
     </div>
   </div>
 
-  <Modal  v-model:is-open="isOpen">
+  <Modal v-model:is-open="isOpen">
     <CacheModal @onExit="onExit" @onContinue="onContinue" />
   </Modal>
 </template>
@@ -94,6 +104,10 @@ function onTabPressed() {
 <style lang="scss" scoped>
 @import "style/lecture-classes";
 @import "style/syntax";
+
+body {
+  transition: background-color var(--transition-function) .15s;
+}
 
 .editor {
   padding: 72px 0 94px;
