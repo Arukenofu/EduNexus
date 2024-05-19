@@ -1,0 +1,1 @@
+export type exercise = 'Задание' | 'Quiz' | 'Кодинг' | 'Эссе';

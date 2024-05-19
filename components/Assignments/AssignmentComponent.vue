@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-type lecture = 'Лекция' | 'Видеолекция';
-type exercise = 'Задание' | 'Quiz' | 'Кодинг' | 'Эссе';
+import type { lecture } from "~/interfaces/lecture";
+import type { exercise } from "~/interfaces/exercise";
 
 interface Props {
   type: lecture | exercise,

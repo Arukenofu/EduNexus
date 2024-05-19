@@ -6,21 +6,24 @@ import github_light from '@/assets/github-light-theme.json'
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import toggleTheme from "~/utils/theme/toggleTheme";
 
-const getGithubTheme = computed(() => {
-  if (localStorage.getItem('theme') && useState('theme').value === 'dark') {
+const {course: courseRoute, module} = useRouteParams();
+
+
+const getGithubTheme = () => {
+  if (localStorage.getItem('theme') === 'dark') {
     return github_dark as Monaco.editor.IStandaloneThemeData
   } else {
     return github_light as Monaco.editor.IStandaloneThemeData
   }
-})
+}
 
-const model = ref('int main() {}');
+const model = ref('int main() {\n\t\n}');
 
 const {course} = useRouteParams()
 
 const monaco = useMonaco();
 
-monaco?.editor.defineTheme('github', getGithubTheme.value)
+monaco?.editor.defineTheme('github', getGithubTheme())
 
 monaco?.editor.setTheme('github');
 
@@ -30,7 +33,7 @@ document.fonts.ready.then(() => {
 
 const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   theme: 'github',
-  fontSize: 16,
+  fontSize: 20,
   fontFamily: 'JetBrains Mono',
   fontWeight: '700',
   minimap: {
@@ -42,7 +45,7 @@ const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
 const changeTheme = () => {
   toggleTheme();
 
-  monaco?.editor.defineTheme('github', getGithubTheme.value)
+  monaco?.editor.defineTheme('github', getGithubTheme())
 
   monaco?.editor.setTheme('github');
 }
@@ -51,37 +54,47 @@ const changeTheme = () => {
 
 <template>
   <header>
-
     <div class="text-info">
       <h1>Методы сортировки</h1>
       <p>{{course}}</p>
     </div>
 
-    <div class="options">
+    <div class="control">
       <ButtonsButton1x1
         title="Переключить тему"
         :iconName="themeConditionalState()"
         @click="changeTheme()"
-        hover-color="#09090B"
-        color="#09090B"
-        text="#FFFFFF"
+        hover-color="var(--text)"
+        color="var(--text)"
+        text="var(--bg)"
+        width="42px"
       />
 
       <button class="launch">
         Запуск
       </button>
+
+      <ButtonsButton1x1
+        title="Выйти"
+        icon-name="iconoir:log-out"
+        class="exit"
+        color="var(--red)"
+        text="#FFFFFF"
+        width="42px"
+        @click="$router.push(`/learn/${courseRoute}/${module}/main`)"
+      />
     </div>
   </header>
 
-  <MonacoEditor v-model:model-value="model" lang="cpp" class="editor" :options="options">
+  <LazyMonacoEditor v-model:model-value="model" lang="cpp" class="editor" :options="options">
     ...Loading
-  </MonacoEditor>
+  </LazyMonacoEditor>
 </template>
 
 <style scoped lang="scss">
 .editor {
   width: 100dvw;
-  height: calc(100dvh - 60px - 12px);
+  height: calc(100dvh - 75px - 12px);
   position: relative;
   top: 12px;
 }
@@ -90,7 +103,7 @@ header {
   position: sticky;
   top: 0;
   width: 100dvw;
-  height: 60px;
+  height: 75px;
   background-color: #0f0f0f;
   display: flex;
   padding-left: 70px;
@@ -102,32 +115,32 @@ header {
     justify-content: center;
 
     h1 {
-      font-size: 1.2em;
+      font-size: 1.5em;
       color: #FFFFFF;
     }
 
     p {
       color: #A1A1AA;
-      font-size: .8em;
+      font-size: .9em;
     }
 
   }
 
-  .options {
+  .control {
     height: 100%;
     margin-left: auto;
     display: flex;
     align-items: center;
+    gap: 9px;
 
     .launch {
-      height: 65%;
+      height: 42px;
       font-size: .9em;
       font-weight: 700;
-      padding: 0 24px;
+      padding: 0 30px;
       background-color: var(--green);
       border: none;
-      border-radius: 4px;
-      margin-left: 12px;
+      border-radius: 6px;
     }
   }
 }

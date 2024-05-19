@@ -29,7 +29,7 @@
   </div>
 
   <div class="go">
-    <button @click="$router.push('/assignment/C++ programming/asddasa/code')">
+    <button @click="$router.push('/assignment/C++ programming/asddasa/quiz?perpage=5')">
       <Icon name="iconoir:nav-arrow-right" />
     </button>
   </div>
