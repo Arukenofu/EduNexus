@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAPI } from "~/composables/useAPI";
 import type { Courses } from "~/interfaces/Courses";
-import { useAsyncData } from "#app";
+import type { LocationQueryValue } from "vue-router";
 
 interface Categories {
   categories: {
@@ -12,32 +12,65 @@ interface Categories {
 
 const {data: response} = await useAPI<Categories>('/categories/');
 
+const options = response.value?.categories.map(item => item.name);
+options?.unshift('');
+
 const category = ref({
   state: false,
-  options: response.value?.categories.map(item => item.name)
+  options: options
 })
 
-const paginationState = ref<number>(1);
+const categoryState = ref<string | LocationQueryValue[]>(useRoute().query.category || '');
 
-watch(paginationState, () => {
+const paginationState = ref<number>(Number(useRoute().query.page) || 1);
+
+watch(categoryState, (value) => {
+  useRouter().replace({
+    query: {
+      ...useRoute().query,
+      category: value
+    }
+  })
+
+  paginationState.value = 1;
+});
+
+watch(paginationState, (value) => {
+  useRouter().replace({
+    query: {
+      ...useRoute().query,
+      page: value
+    }
+  })
+
   window.scroll({
     top: 0,
     left: 0,
     behavior: 'smooth'
-  })
+  });
 })
 
 const {data: courses} = await useAsyncData<Courses>('courses',
-  () => $fetch(`/courses?perPage=8&page=${paginationState.value}`, {
-    baseURL: 'http://localhost:8080/api'
-  }), {
-    watch: [paginationState]
+  () => {
+    if (categoryState.value) {
+      return $fetch(`/categories/${categoryState.value}?pegPage=8&page=${paginationState.value}`, {
+        baseURL: 'http://localhost:8080/api'
+      })
+    }
+
+    return $fetch(`/courses?perPage=8&page=${paginationState.value}`, {
+      baseURL: 'http://localhost:8080/api'
+    })
+  },
+  {
+    watch: [paginationState, categoryState]
   }
 )
 
 </script>
 
 <template>
+
   <article>
     <h1>Найдите подходящую программу</h1>
 
@@ -46,13 +79,17 @@ const {data: courses} = await useAsyncData<Courses>('courses',
 
       <Select @click="category.state =! category.state">
         <SelectContent class="select-content">
-          Категория
+          {{categoryState || 'Категория'}}
         </SelectContent>
 
         <Transition name="select">
           <SelectGroup v-if="category.state" class="select-group">
-            <SelectOption v-for="option in category.options" class="select-item">
-              {{option}}
+            <SelectOption
+              v-for="option in category.options"
+              class="select-item"
+              @click="categoryState = option"
+            >
+              {{option || 'Все'}}
             </SelectOption>
           </SelectGroup>
         </Transition>
@@ -66,6 +103,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
         :title="course.title"
         :organization_name="course.organization_name"
         :image="course.image"
+        :organization_logo="course.organization_logo"
       />
     </Grid>
 
@@ -86,10 +124,6 @@ article {
     display: flex;
     gap: 15px;
     margin-bottom: 21px;
-
-    .select-content {
-      width: 120px;
-    }
 
     .select-group {
       width: 210px;

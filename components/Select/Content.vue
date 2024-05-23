@@ -20,9 +20,10 @@
   user-select: none;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 
   svg {
-    margin-left: auto;
+    margin-left: 11px;
     margin-right: 3px;
   }
 }

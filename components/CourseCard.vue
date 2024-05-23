@@ -10,11 +10,10 @@ defineProps<Course>();
       class="card"
       :to="`/home/course/${title}`"
     >
-      {{}}
       <div class="image" :style="`background-image: url('${image}')`" />
 
       <div class="info">
-        <div class="info-image" />
+        <div class="info-image" :style="`background-image: url('${organization_logo}')`" />
         <span class="info-text">
           {{organization_name}}
         </span>

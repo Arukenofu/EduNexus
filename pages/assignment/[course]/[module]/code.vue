@@ -17,7 +17,8 @@ const getGithubTheme = () => {
   }
 }
 
-const model = ref('int main() {\n\t\n}');
+const model = ref('const message: string = "I love Web";\n' +
+  'console.log(message);');
 
 const {course} = useRouteParams()
 
@@ -33,7 +34,7 @@ document.fonts.ready.then(() => {
 
 const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   theme: 'github',
-  fontSize: 20,
+  fontSize: 16,
   fontFamily: 'JetBrains Mono',
   fontWeight: '700',
   minimap: {
@@ -86,12 +87,14 @@ const changeTheme = () => {
     </div>
   </header>
 
-  <LazyMonacoEditor v-model:model-value="model" lang="cpp" class="editor" :options="options">
+  <LazyMonacoEditor v-model:model-value="model" lang="typescript" class="editor" :options="options">
     ...Loading
   </LazyMonacoEditor>
 </template>
 
 <style scoped lang="scss">
+
+
 .editor {
   width: 100dvw;
   height: calc(100dvh - 75px - 12px);

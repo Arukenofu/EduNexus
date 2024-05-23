@@ -53,6 +53,7 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
       transition: font-size 0.2s ease;
       cursor: pointer;
       color: var(--text);
+      font-weight: 800;
       text-transform: capitalize;
 
       &:hover {

@@ -1,6 +1,14 @@
 <script setup lang="ts">
 
+import type { User } from "~/interfaces/User";
+
 const isModalOpen = ref<boolean>(false);
+
+const user = ref<User>({
+  avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRti360Z7yNie-vn3gcK-X1j4RzqUTMyyvX6yGmcIx1JQ&s',
+  username: 'Бауыржан Алкенов',
+  description: 'Моё красивое описание, очень красвиое опсание, очень понятное внятное описание, самое крутое описание'
+})
 
 </script>
 
@@ -10,11 +18,11 @@ const isModalOpen = ref<boolean>(false);
       <div class="profile-card">
         <h2>Личные Данные</h2>
 
-        <div class="profile-avatar" />
+        <div class="profile-avatar" :style="`background-image: url('${user.avatar}')`" />
 
-        <h1>Бауыржан Алкенов</h1>
+        <h1>{{user.username}}</h1>
 
-        <p>Моё красивое описание, очень красвиое опсание, очень понятное внятное описание, самое крутое описание</p>
+        <p>{{user.description}}</p>
 
         <button class="edit" @click="isModalOpen =! isModalOpen">
           <Icon class="icon" name="iconoir:edit" size="1.2em" />
@@ -30,7 +38,7 @@ const isModalOpen = ref<boolean>(false);
 
 
   <Modal v-model:is-open="isModalOpen">
-    <ProfileModal v-model:is-open="isModalOpen" />
+    <ProfileModal v-model:is-open="isModalOpen" v-model:user="user" />
   </Modal>
 </template>
 
@@ -68,7 +76,6 @@ const isModalOpen = ref<boolean>(false);
         background-position: center;
         background-size: cover;
         border: 5px solid var(--border);
-        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRti360Z7yNie-vn3gcK-X1j4RzqUTMyyvX6yGmcIx1JQ&s");
       }
 
       h1 {

@@ -78,7 +78,6 @@ const {course} = useRouteParams();
           font-size: 1.3em;
           font-weight: 700;
           color: var(--text);
-          white-space: nowrap;
         }
 
         span {

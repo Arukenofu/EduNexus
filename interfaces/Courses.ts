@@ -5,6 +5,7 @@ export interface Courses {
 
 export interface Course {
   title: string,
-  organization_name: string
-  image: string
+  organization_name: string,
+  organization_logo: string,
+  image: string,
 }
