@@ -26,6 +26,7 @@ const options = {
   // "store" | "normal" | "maximum" - For testing builds, use 'store' to reduce build time significantly.
   compression: 'maximum',
   removePackageScripts: true,
+  icon: 'C:\\Users\\Admin\\Desktop\\public\\icon256x256.png',
 
   nodeGypRebuild: false,
   buildDependenciesFromSource: false,

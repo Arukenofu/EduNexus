@@ -6,6 +6,7 @@ import dynamicRenderer from './dynamicRenderer'
 import titleBarActionsModule from './modules/titleBarActions'
 import updaterModule from './modules/updater'
 import macMenuModule from './modules/macMenu'
+import {globalShortcut} from 'electron'
 
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
@@ -29,13 +30,14 @@ function createWindow() {
         height: 30,
     },
     autoHideMenuBar: true,
+    icon: 'C:\\Users\\Admin\\Desktop\\public\\icon32x32.png',
     webPreferences: {
       devTools: !isProduction,
       nodeIntegration: true,
       contextIsolation: false,
       preload: path.join(__dirname, 'preload.js')
     },
-    title: 'electron-nuxt3'
+    title: 'EduNexus'
   })
 
   if (singleInstance(app, mainWindow)) return
@@ -49,6 +51,7 @@ function createWindow() {
 }
 
 app.whenReady().then(async () => {
+
   if (!isProduction) {
     try {
       await session.defaultSession.loadExtension(path.join(__dirname, '../..', '__extensions', 'vue-devtools'))
@@ -72,6 +75,9 @@ app.whenReady().then(async () => {
   })
 
   console.log('[!] Loading modules: Done.' + '\r\n' + '-'.repeat(30))
+
+  globalShortcut.register('Control+R', () => {
+  });
 
   app.on('activate', function () {
     mainWindow.show()
