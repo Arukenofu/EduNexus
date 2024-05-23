@@ -23,7 +23,7 @@
   overflow: scroll;
   scrollbar-width: none;
   background-color: var(--bg);
-  z-index: 2;
+  z-index: 1;
 
 }
 

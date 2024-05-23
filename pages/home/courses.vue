@@ -13,7 +13,7 @@ interface Categories {
 const {data: response} = await useAPI<Categories>('/categories/');
 
 const options = response.value?.categories.map(item => item.name);
-options?.unshift('');
+options?.unshift('Все');
 
 const category = ref({
   state: false,
@@ -52,7 +52,7 @@ watch(paginationState, (value) => {
 
 const {data: courses} = await useAsyncData<Courses>('courses',
   () => {
-    if (categoryState.value) {
+    if (categoryState.value && categoryState.value !== 'Все') {
       return $fetch(`/categories/${categoryState.value}?pegPage=8&page=${paginationState.value}`, {
         baseURL: 'http://localhost:8080/api'
       })
@@ -79,17 +79,20 @@ const {data: courses} = await useAsyncData<Courses>('courses',
 
       <Select @click="category.state =! category.state">
         <SelectContent class="select-content">
-          {{categoryState || 'Категория'}}
+          {{categoryState || 'Все'}}
         </SelectContent>
 
         <Transition name="select">
-          <SelectGroup v-if="category.state" class="select-group">
+          <SelectGroup
+            v-if="category.state"
+            class="select-group"
+          >
             <SelectOption
               v-for="option in category.options"
               class="select-item"
               @click="categoryState = option"
             >
-              {{option || 'Все'}}
+              {{option}}
             </SelectOption>
           </SelectGroup>
         </Transition>

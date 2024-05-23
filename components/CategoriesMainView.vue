@@ -16,7 +16,7 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
 <template>
  <div class="categories-wrap" v-if="!error">
    <nuxt-link
-     :to="`/home/categories/${category.name}`"
+     :to="`/home/courses?category=${category.name}&page=1`"
      class="category"
      v-for="category in response!.categories"
      :style="`background-color: #${decimalToHex(category.color)}`"
