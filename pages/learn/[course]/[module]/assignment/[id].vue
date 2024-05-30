@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+const {module, course} = useRouteParams();
+
 </script>
 
 <template>
@@ -29,7 +31,7 @@
   </div>
 
   <div class="go">
-    <button @click="$router.push('/assignment/C++ programming/asddasa/quiz?perpage=5')">
+    <button @click="$router.push(`/assignment/${course}/${module}/code`)">
       <Icon name="iconoir:nav-arrow-right" />
     </button>
   </div>

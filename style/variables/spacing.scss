@@ -1,9 +1,11 @@
 :root {
   --content-padding: 0 92px;
+  --teaching-padding: 0 180px;
 }
 
 @media screen and (max-width: 1200px) {
   :root {
     --content-padding: 0 40px;
+    --teaching-padding: 0 60px;
   }
 }

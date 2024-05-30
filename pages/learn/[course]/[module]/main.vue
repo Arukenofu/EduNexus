@@ -232,8 +232,8 @@ const success = [84, 232, 86];
 }
 
 @media screen and (max-width: 1200px) {
-  .header .options .menu {
-    display: initial;
+  .menu {
+    display: block !important;
   }
 
   .welcome-card p {

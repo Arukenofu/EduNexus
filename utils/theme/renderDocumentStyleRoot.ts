@@ -12,6 +12,7 @@ export default function () {
         documentElementSetProperty('--border', '#1f1f22');
         documentElementSetProperty('--ui-secondary', '#171717');
         documentElementSetProperty('--text-soft', '#dcdcdc')
+        documentElementSetProperty('--bg-fourth', '#1e1e1e')
 
         theme.value = 'dark';
     }
@@ -25,6 +26,7 @@ export default function () {
         documentElementSetProperty('--border', '#e7e7ea');
         documentElementSetProperty('--ui-secondary', '#efefeb');
         documentElementSetProperty('--text-soft', '#171717')
+        documentElementSetProperty('--bg-fourth', '#f4f4f5')
 
         theme.value = 'light';
     }

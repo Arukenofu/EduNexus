@@ -34,9 +34,8 @@ document.fonts.ready.then(() => {
 
 const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   theme: 'github',
-  fontSize: 16,
   fontFamily: 'JetBrains Mono',
-  fontWeight: '700',
+  fontWeight: '600',
   minimap: {
     enabled: false
   },

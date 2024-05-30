@@ -204,8 +204,8 @@ const getBase64 = (event: Event) => {
         width: 240px;
         padding: 5px 12px;
         border-radius: 5px;
-        background-color: var(--bg-third);
-        outline: 2px solid var(--border);
+        background-color: var(--bg);
+        outline: 1px solid var(--border);
         border: none;
         color: var(--text);
         font-size: .9em;
@@ -213,7 +213,7 @@ const getBase64 = (event: Event) => {
         transition: background-color, outline var(--transition-function) .15s;
 
         &:focus {
-          outline: 2px solid var(--text);
+          outline: 1  px solid var(--text);
           background-color: var(--bg);
         }
 

@@ -29,6 +29,10 @@ const user = ref<User>({
         </button>
 
       </div>
+
+      <button @click="$router.push('/teaching')">
+        Перейти в режим преподавателя
+      </button>
     </section>
 
     <section class="main-info-panel">
@@ -50,6 +54,8 @@ const user = ref<User>({
 
   .profile-panel {
 
+
+
     .profile-card {
       width: 350px;
       border-radius: 8px;
@@ -60,6 +66,7 @@ const user = ref<User>({
       flex-direction: column;
       align-items: center;
       position: relative;
+      margin-bottom: 7px;
 
       h2 {
         font-size: 1.05em;
@@ -113,6 +120,21 @@ const user = ref<User>({
         }
       }
 
+    }
+
+
+    & > button {
+      width: 100%;
+      height: 50px;
+      border-radius: 8px;
+      background-color: var(--bg-third);
+      border: 1px solid var(--border);
+      color: var(--text);
+
+      &:hover {
+        background-color: var(--border);
+        transition: background-color 0.15s var(--transition-function);
+      }
     }
   }
 

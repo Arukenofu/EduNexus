@@ -14,8 +14,8 @@ const {course} = useRouteParams();
           {{course}}
         </p>
         <span>
-            5 Неделя
-          </span>
+          5 Неделя
+        </span>
       </div>
     </div>
 

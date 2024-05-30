@@ -43,7 +43,7 @@ const isMenuActive = defineModel<boolean>('isMenuActive');
     background-color: var(--bg);
     min-height: calc(100vh - 30px);
     position: fixed;
-    top: 0;
+    top: var(--electron);
     right: -35%;
     width: 35%;
     transition: right 0.5s ease-out;

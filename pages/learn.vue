@@ -1,22 +1,25 @@
 <script setup lang="ts">
 
 
-
 </script>
 
 <template>
-  <div class="container">
 
-    <LearnAside />
 
-    <main>
-      <nuxt-page />
-    </main>
+    <div class="container">
 
-  </div>
+      <LearnAside />
+
+      <main>
+        <nuxt-page />
+      </main>
+
+    </div>
+
 </template>
 
 <style scoped lang="scss">
+
 .container {
   display: flex;
 

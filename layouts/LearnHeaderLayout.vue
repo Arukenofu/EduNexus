@@ -70,10 +70,6 @@ defineProps<{
         color: var(--text);
       }
     }
-
-    .menu {
-      display: none;
-    }
   }
 }
 
