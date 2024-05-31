@@ -2,33 +2,44 @@
 
 const theme = useState('theme');
 
+defineProps<{
+  type: 'Learning' | 'Teaching'
+}>()
+
 const isDarkTheme = () => {
   return theme.value === 'dark';
 }
-
 
 </script>
 
 <template>
   <header>
-    <div class="logo">
+    <div
+      @click="$router.push('/home/main')"
+      class="logo"
+    >
       <nuxt-img
         :src="isDarkTheme() ? '/icon.png' : '/icon-black.png'"
         width="36px"
         class="icon"
-        preload />
+        preload
+      />
       <div class="text">
         <p>EduNexus</p>
-        <span>For Teaching</span>
+        <span>For {{type}}</span>
       </div>
     </div>
 
-    <div class="controls">
+    <div class="control">
       <div class="user">
         <div class="pfp" />
         <span>Алкенов Б.</span>
       </div>
+
+
     </div>
+
+
   </header>
 </template>
 
@@ -43,6 +54,7 @@ header {
   margin-top: 14px;
   align-items: center;
   margin-bottom: 21px;
+  box-shadow:  0 2px 6px 0 rgba(0,0,0,.1),0 3px 7px -1px rgba(0,0,0,.1);
 
   .logo {
     font-size: 1.3rem;
@@ -50,6 +62,7 @@ header {
     user-select: none;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     .icon {
       position: relative;
@@ -75,8 +88,14 @@ header {
     }
   }
 
-  .controls {
+  .control {
     margin-left: auto;
+    display: flex;
+    gap: 9px;
+
+    .button {
+      height: 100%;
+    }
 
     .user {
       display: flex;

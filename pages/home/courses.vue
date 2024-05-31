@@ -52,14 +52,16 @@ watch(paginationState, (value) => {
 
 const {data: courses} = await useAsyncData<Courses>('courses',
   () => {
+    const config = useRuntimeConfig().public.apiBase
+
     if (categoryState.value && categoryState.value !== 'Все') {
       return $fetch(`/categories/${categoryState.value}?pegPage=8&page=${paginationState.value}`, {
-        baseURL: 'http://localhost:8080/api'
+        baseURL: config
       })
     }
 
     return $fetch(`/courses?perPage=8&page=${paginationState.value}`, {
-      baseURL: 'http://localhost:8080/api'
+      baseURL: config
     })
   },
   {

@@ -52,6 +52,10 @@ input {
 
 a {
   -webkit-user-drag: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--text);
+  }
 }
 
 ::selection {

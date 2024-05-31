@@ -1,26 +1,27 @@
 <script setup lang="ts">
 
+const myProjects = [
+  'Python with database',
+];
+
+const route = useRouteParams();
+
 </script>
 
 <template>
   <div class="layout">
-    <TeachingHead />
-
-    <main>
+    <LearningHead type="Teaching" />
+    <section>
       <aside>
-        <div class="my-projects card">
-          <nuxt-link
-            class="project"
-            activeClass="active"
-            to="/teaching"
-          >
-            <Icon
-              name="material-symbols:event-note-outline-rounded"
-              class="icon"
-              size="1.2em"
-            />
-            <span>Мой Проект</span>
-          </nuxt-link>
+        <LearningCard class="my-projects">
+          <LearningLink
+            v-for="(project, index) in myProjects"
+            :key="index"
+            :class="project === route.course && 'active'"
+            icon="material-symbols:event-note-outline-rounded"
+            :text="project"
+            :to="`/teaching/${project}`"
+          />
 
           <button class="create">
             <Icon
@@ -30,64 +31,39 @@
             />
             <span>Создать</span>
           </button>
-        </div>
+        </LearningCard>
 
-        <div class="dailies card">
-          <nuxt-link
-            class="project"
-            activeClass="active"
-            to="/teaching/lectures"
-          >
-            <Icon
-              name="material-symbols:book-2"
-              class="icon"
-              size="1.2em"
-            />
-            <span>Лекции</span>
-          </nuxt-link>
-          <nuxt-link
-            class="project"
-            activeClass="active"
-            to="/teaching/assignments"
-          >
-            <Icon
-              name="material-symbols:assignment"
-              class="icon"
-              size="1.2em"
-            />
-            <span>Задания</span>
-          </nuxt-link>
-          <nuxt-link
-            class="project"
-            activeClass="active"
-            to="/teaching/actions"
-          >
-            <Icon
-              name="material-symbols:action-key"
-              class="icon"
-              size="1.2em"
-            />
-            <span>Действия</span>
-          </nuxt-link>
-          <nuxt-link
-            class="project"
-            activeClass="active"
-            to="/teaching/forum"
-          >
-            <Icon
-              name="material-symbols:forum"
-              class="icon"
-              size="1.2em"
-            />
-            <span>Форумы</span>
-          </nuxt-link>
-        </div>
+        <LearningCard class="dailies">
+          <LearningLink
+            :to="`/teaching/${route.course}/lectures`"
+            icon="material-symbols:book-2"
+            text="Лекции"
+          />
+
+          <LearningLink
+            :to="`/teaching/${route.course}/assignments`"
+            icon="material-symbols:assignment"
+            text="Задания"
+          />
+
+          <LearningLink
+            :to="`/teaching/${route.course}/actions`"
+            icon="material-symbols:action-key"
+            text="Действия"
+          />
+
+          <LearningLink
+            :to="`/teaching/${route.course}/forum`"
+            icon="material-symbols:forum"
+            text="Форумы"
+          />
+        </LearningCard>
       </aside>
 
-      <div class="content">
+      <main>
         <nuxt-page />
-      </div>
-    </main>
+      </main>
+    </section>
   </div>
 </template>
 
@@ -95,22 +71,15 @@
 .layout {
   padding: var(--teaching-padding );
 
-  main {
+  section {
     display: flex;
     gap: 21px;
 
     aside {
       width: 300px;
 
-      .my-projects {
+      .my-projects, .dailies {
         margin-bottom: 9px;
-      }
-
-      .card {
-        width: 100%;
-        border-radius: 14px;
-        background-color: var(--bg-fourth);
-        padding: 16px 16px;
 
         .create {
           width: 100%;
@@ -148,34 +117,12 @@
           }
         }
 
-        a {
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          width: 100%;
-          background: var(--bg-fourth);
-          border: none;
-          color: var(--text-secondary);
-
-          .icon {
-            margin-left: 12px;
-          }
-
-          span {
-            margin-left: 12px;
-            font-weight: 600;
-            font-size: .9em;
-          }
-        }
-
-        .active {
-          box-shadow: -2px 0px 0px 0px #6161cc;
-          color: var(--text);
-        }
       }
+
+
     }
 
-    .content {
+    main {
       flex: 1;
     }
   }

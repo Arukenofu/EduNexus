@@ -93,6 +93,7 @@ watchEffect(() => {
 
 <template>
   <section>
+    {{ userAnswer }}
     <div class="option">
       <span>
         Вопросы: {{ currentQuizId! + 1 }}/{{ questsLength! }}

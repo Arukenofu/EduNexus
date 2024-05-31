@@ -12,26 +12,22 @@ interface Lecture {
   }
 }
 
-const {course, id} = useRouteParams();
+const routes = useRouteParams();
 
-const {data: lecture, error} = await useAPI<Lecture>(`/learning/${course}/${id}`);
+const {data: lecture, error} = await useAPI<Lecture>(`/learning/${routes.value.course}/lectures/${routes.value.id}`);
+console.log(lecture.value);
 
 </script>
 
 <template>
-  <div class="layout" v-html="lecture?.content.content">
+  <div class="layout" v-html="lecture?.content?.content">
   </div>
 </template>
 
 <style scoped lang="scss">
-@import "style/lecture-classes";
-
+@import "../../../../style/lecture-classes";
 
 .layout {
-  margin-top: 72px;
-  margin-bottom: 72px;
-  padding-left: 45px;
-  padding-right: 240px;
   line-height: 1.5;
   color: var(--text-soft);
 

@@ -17,3 +17,6 @@ debug.log
 *.log
 debug.json
 errors.json
+
+# Other
+.idea

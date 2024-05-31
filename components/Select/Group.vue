@@ -9,7 +9,7 @@
 </template>
 
 <style scoped lang="scss">
-:global(.options) {
+.options {
   display: inline-block;
   position: absolute;
   top: 110%;

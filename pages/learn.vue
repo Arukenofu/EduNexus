@@ -1,47 +1,122 @@
 <script setup lang="ts">
 
+const {data: courses} = await useAPI<MyCourses>('/learning')
+
+const route = useRouteParams();
+
 
 </script>
 
 <template>
 
+  <div class="layout">
 
-    <div class="container">
+    <LearningHead type="Learning" />
 
-      <LearnAside />
+    <section>
+
+      <aside>
+        <LearningCard class="my-projects">
+          <LearningLink
+            v-for="(project, index) in courses!.courses"
+            :key="index"
+            :class="project.title === route.course && 'active'"
+            icon="material-symbols:event-note-outline-rounded"
+            :text="project.title"
+            :to="`/learn/${project.title}`"
+          />
+
+        </LearningCard>
+
+        <LearningCard class="dailies">
+          <LearningLink
+            :to="`/learn/${route.course}/lectures`"
+            icon="material-symbols:book-2"
+            text="Лекции"
+          />
+
+          <LearningLink
+            :to="`/learn/${route.course}/assignments`"
+            icon="material-symbols:assignment"
+            text="Задания"
+          />
+
+          <LearningLink
+            :to="`/learn/${route.course}/forum`"
+            icon="material-symbols:forum"
+            text="Форумы"
+          />
+        </LearningCard>
+      </aside>
+
 
       <main>
         <nuxt-page />
       </main>
+    </section>
 
-    </div>
+  </div>
 
 </template>
 
 <style scoped lang="scss">
+.layout {
+  padding: var(--teaching-padding);
 
-.container {
-  display: flex;
+  section {
+    display: flex;
+    gap: 21px;
 
-  main {
-    padding-left: calc(25% + 21px);
-    padding-right: 21px;
-    width: 100%;
-    min-height: calc(100dvh - 30px);
-    background-color: var(--bg);
+    aside {
+      width: 300px;
+
+      .my-projects, .dailies {
+        margin-bottom: 9px;
+
+        .create {
+          width: 100%;
+          background: var(--bg-fourth);
+          border: none;
+          display: flex;
+          align-items: center;
+          color: var(--text-secondary);
+          font-size: 1em;
+
+          .icon {
+            margin-left: 12px;
+          }
+
+          span {
+            margin-left: 12px;
+            font-weight: 600;
+            font-size: .9em;
+          }
+        }
+
+        .create {
+          height: 35px;
+
+          &:focus-visible {
+            outline: 2px solid var(--text);
+          }
+
+          &:hover {
+            color: var(--text);
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 6px;
+          }
+        }
+
+      }
 
 
-    .content {
-      padding: 0 21px;
-      min-height: 100vh;
     }
-  }
-}
 
-@media screen and (max-width: 1200px) {
-
-  .container main {
-    padding-left: calc(30% + 21px);
+    main {
+      flex: 1;
+    }
   }
 }
 </style>

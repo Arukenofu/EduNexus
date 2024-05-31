@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type * as Monaco from "monaco-editor";
 import { useMonaco, useRouteParams } from "#imports";
-import github_dark from '@/assets/github-dark-theme.json'
-import github_light from '@/assets/github-light-theme.json'
+import github_dark from 'assets/github-dark-theme.json'
+import github_light from 'assets/github-light-theme.json'
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import toggleTheme from "~/utils/theme/toggleTheme";
 

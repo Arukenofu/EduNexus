@@ -1,13 +1,8 @@
+import type { RouteParams } from "vue-router";
 
 
+export const useRouteParams = () => {
 
-
-export const useRouteParams = (paramName?: string): any  => {
-
-  if (paramName) {
-    return useRoute().params[paramName];
-  } else {
-    return useRoute().params
-  }
+    return computed<RouteParams>(() => useRoute().params);
 
 }

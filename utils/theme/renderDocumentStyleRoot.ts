@@ -26,7 +26,7 @@ export default function () {
         documentElementSetProperty('--border', '#e7e7ea');
         documentElementSetProperty('--ui-secondary', '#efefeb');
         documentElementSetProperty('--text-soft', '#171717')
-        documentElementSetProperty('--bg-fourth', '#f4f4f5')
+        documentElementSetProperty('--bg-fourth', '#FFFFFF')
 
         theme.value = 'light';
     }

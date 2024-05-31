@@ -14,10 +14,10 @@
   padding: 6px 18px;
   background-color: var(--bg);
   font-size: .9em;
+  border-radius: 4px;
 
   &:hover {
     background-color: var(--bg-secondary);
-    border-radius: 4px;
   }
 }
 

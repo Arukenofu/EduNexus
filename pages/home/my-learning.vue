@@ -1,17 +1,10 @@
 <script setup lang="ts">
 
-interface Courses {
-  courses:{
-    title: string,
-    organization_name:string,
-    image: string
-  }[]
-}
 
-const {data: response} = await useAPI<Courses>('/learning');
+const {data: response} = await useAPI<MyCourses>('/learning');
 
-const toLearnPage = (param1: any, param2: any): void => {
-  useRouter().push(`/learn/${param1}/${param2}/main`)
+const toLearnPage = (param1: string): void => {
+  useRouter().push(`/learn/${param1}/main`)
 }
 
 </script>
@@ -41,7 +34,7 @@ const toLearnPage = (param1: any, param2: any): void => {
             8.7 / 10
           </div>
 
-          <button @click="toLearnPage(course.title, 'asddasa')" class="current">
+          <button @click="toLearnPage(course.title)" class="current">
             Войти
           </button>
 
