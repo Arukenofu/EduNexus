@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouteParams } from "~/composables/getRouteParams";
 
 interface Lecture {
   content: {
@@ -14,7 +13,7 @@ interface Lecture {
 
 const route = useRouteParams();
 
-const {data: lecture} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
+const {data: lecture, pending} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
 let h1Content = lecture.value!?.content?.content.match(/<h1[^>]*>(.*?)<\/h1>/i)![0].replace(/<\/?h1>/gi, '')
 
 const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${Number(route.value.id) + 1}`)
@@ -22,7 +21,7 @@ const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.cours
 </script>
 
 <template>
-  <div class="outer">
+  <div class="outer" v-if="!pending">
     <div class="content">
       <p>
         <span @click="$router.push(`/learn/${route.course}/lectures`)">
@@ -75,7 +74,7 @@ const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.cours
       line-height: 1.5;
       color: var(--text-soft);
 
-      :deep() {
+      :deep(&) {
         b {
           font-weight: 700;
         }
@@ -97,7 +96,7 @@ const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.cours
         }
 
         p {
-          font-size: 1.1em;
+          font-size: 1em;
           line-height: 1.4;
         }
 
@@ -141,12 +140,17 @@ const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.cours
       flex-direction: column;
       font-size: 1em;
       font-weight: 600;
-      background-color: var(--ui-secondary);
+      background-color: var(--bg);
       color: var(--text);
-      border: 1px solid var(--border);
+      border: none;
       padding: 12px 21px;
       border-radius: 12px;
       line-height: 1;
+
+      &:hover {
+        transition: background-color .2s var(--transition-function);
+        background-color: var(--ui-secondary);
+      }
 
       span {
         margin-top: 3px;

@@ -1,27 +1,9 @@
 import { useFetch } from "#app"
 import type { ReturnType } from "birpc";
 import type { Toast } from "~/interfaces/Toast";
+import sendToast from "~/utils/sendToast";
 
 type useFetchType = typeof useFetch;
-
-let timeoutId: ReturnType<typeof setTimeout>;
-
-const onError = (error: Error) => {
-  const state = useState<Toast | ''>('toast')
-
-  if (timeoutId) {
-    clearTimeout(timeoutId);
-  }
-
-  state.value = {
-    type: 'error',
-    message: error || 'Произошла неизвестная ошибка.'
-  };
-
-  timeoutId = setTimeout(() => {
-    state.value = ''
-  }, 15 * 1000)
-}
 
 
 export const useAPI: useFetchType = (path, options = {}) => {
@@ -31,12 +13,12 @@ export const useAPI: useFetchType = (path, options = {}) => {
   options.timeout = 7 * 1000;
   options.server = false;
 
-  options.onResponseError = ({error}) => {
-    onError(error!)
+  options.onResponseError = (error) => {
+    sendToast({type: 'error', message: error.response['_data']?.error_message || 'Произошла неизвестная ошибка'})
   }
 
   options.onRequestError = ({error}) => {
-    onError(error!)
+    sendToast({type: 'error', message: error.response['_data']?.error_message || 'Произошла неизвестная ошибка'})
   }
 
   options.headers = {

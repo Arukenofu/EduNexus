@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 import type { Success } from "~/interfaces/Success";
-import type { Toast } from "~/interfaces/Toast";
 
 const loginState = defineModel<boolean>('state')
 
@@ -21,27 +20,51 @@ const response = ref<string>('');
 
 const submit = async () => {
   if (!(form.value.password && form.value.login && form.value.confirmPassword)) {
-    return response.value = 'Заполните все поля'
+    sendToast({
+      type: 'error',
+      message: 'Заполните все поля'
+    })
+    return;
   }
 
   if (form.value.password !== form.value.confirmPassword) {
-    return response.value = 'Введённые пароли не совпадают'
+    sendToast({
+      type: 'error',
+      message: 'Введённые пароли не совпадают'
+    })
+    return
   }
 
   if (form.value.password?.length < 8) {
-    return response.value = 'Длина пароля меньше 8'
+    sendToast({
+      type: 'error',
+      message: 'Длина пароля меньше 8'
+    })
+    return
   }
 
   if (form.value.login?.length < 8) {
-    return response.value = 'Длина email меньше 8'
+    sendToast({
+      type: 'error',
+      message: 'Длина email меньше 8'
+    })
+    return
   }
 
   if (form.value.password?.length > 16) {
-    return response.value = 'Длина пароля больше 16'
+    sendToast({
+      type: 'error',
+      message: 'Длина пароля больше 16'
+    })
+    return
   }
 
   if (form.value.login?.length > 32) {
-    return response.value = 'Длина email больше 32'
+    sendToast({
+      type: 'error',
+      message: 'Длина email больше 32'
+    })
+    return
   }
 
   await useAPI<Success>('/register', {
@@ -52,9 +75,17 @@ const submit = async () => {
     body: `login=${form.value.login}&password=${form.value.password}`
   }).then(res => {
     if (res.data.value!.status === 'success') {
-      console.log('yes');
+      sendToast({
+        type: 'notification',
+        message: 'Успешно зарегестрировано'
+      })
 
       loginState.value = true;
+    } else {
+      sendToast({
+        type: 'error',
+        message: 'Ошибка при регистрации'
+      })
     }
   })
 

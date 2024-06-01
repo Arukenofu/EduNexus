@@ -5,6 +5,17 @@ import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
 const isOpen = ref(false);
 
+const form = ref({
+  header: '',
+  description: ''
+});
+
+const onStart = () => {
+  form.value.header = document.getElementById('lectureHeader')?.textContent;
+
+  isOpen.value = true
+}
+
 </script>
 
 <template>
@@ -38,7 +49,7 @@ const isOpen = ref(false);
         icon-name="material-symbols:send-outline"
         color="var(--green)"
         text="#FFFFFF"
-        @click="isOpen = true"
+        @click="onStart()"
       />
     </div>
   </header>
@@ -52,12 +63,12 @@ const isOpen = ref(false);
       <label>
         Заголовок
       </label>
-      <input type="text" />
+      <input type="text" v-model="form.header" />
 
       <label>
         Описание
       </label>
-      <textarea maxlength="400" />
+      <textarea maxlength="400" v-model="form.description" placeholder="Введите ваше описание здесь..." />
 
       <div class="buttons">
         <button class="exit" @click="isOpen = false">

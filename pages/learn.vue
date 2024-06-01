@@ -3,8 +3,6 @@
 const {data: courses} = await useAPI<MyCourses>('/learning')
 
 const route = useRouteParams();
-
-
 </script>
 
 <template>
@@ -51,7 +49,7 @@ const route = useRouteParams();
 
 
       <main>
-        <nuxt-page />
+        <NuxtPage />
       </main>
     </section>
 
@@ -68,7 +66,12 @@ const route = useRouteParams();
     gap: 21px;
 
     aside {
+      align-self: flex-start;
+      position: sticky;
+      top: 14px;
+      overflow: hidden;
       width: 300px;
+      min-width: 300px;
 
       .my-projects, .dailies {
         margin-bottom: 9px;
@@ -111,6 +114,8 @@ const route = useRouteParams();
 
       }
 
+      .dailies {
+      }
 
     }
 
@@ -119,4 +124,6 @@ const route = useRouteParams();
     }
   }
 }
+
+
 </style>

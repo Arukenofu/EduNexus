@@ -1,34 +1,24 @@
 <script setup lang="ts">
-import type { lecture } from "~/interfaces/lecture";
-import type { exercise } from "~/interfaces/exercise";
 
 interface Props {
-  type: lecture | exercise,
-  name: string,
+  text: string,
+  date: string
 }
 
 const props = defineProps<Props>();
 
-
 </script>
 
 <template>
-
-  <nuxt-link to="/lecture">
-
+  <nuxt-link to="">
     <div class="text">
-      <p>{{type}}: {{name}}</p>
+      <p>{{text}}</p>
 
       <span>
-        Дата: 12 Ноября
+        Дата: {{date}}
       </span>
     </div>
-
-    <div class="control">
-      <Icon name="iconoir:nav-arrow-right" size="1.2em" class="str2" />
-    </div>
   </nuxt-link>
-
 </template>
 
 <style scoped lang="scss">
@@ -42,18 +32,6 @@ a {
   border-radius: 14px;
   color: var(--text);
   text-decoration: none;
-
-  &:hover .control {
-    transform: translateX(6px);
-  }
-
-  .logo {
-    height: 75%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-  }
 
   .text {
     margin-left: 12px;
@@ -78,15 +56,6 @@ a {
       font-weight: 500;
       color: var(--text-secondary);
     }
-  }
-
-  .control {
-    margin-left: auto;
-    height: 80%;
-    aspect-ratio: 1/1;
-    display: grid;
-    place-items: center;
-    transition: transform 0.3s ease-in;
   }
 }
 </style>

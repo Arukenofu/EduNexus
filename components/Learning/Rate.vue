@@ -1,75 +1,77 @@
 <script setup lang="ts">
 import type { lecture } from "~/interfaces/lecture";
 import type { exercise } from "~/interfaces/exercise";
+import mixRGB from "~/utils/colors/mixRGB";
 
 interface Props {
   type: lecture | exercise,
   name: string,
+  rate: number
 }
 
 const props = defineProps<Props>();
+
+const green = [80,255,61]
+const red = [255,61,61]
 
 
 </script>
 
 <template>
-
-  <nuxt-link to="/lecture">
+  <nuxt-link to="">
+    <div class="rate" :style="`background-color: ${mixRGB(green, red, rate / 100)}`">
+      {{rate}}
+    </div>
 
     <div class="text">
       <p>{{type}}: {{name}}</p>
 
       <span>
-        Дата: 12 Ноября
+        {{rate}} Баллов / 100
       </span>
     </div>
-
-    <div class="control">
-      <Icon name="iconoir:nav-arrow-right" size="1.2em" class="str2" />
-    </div>
   </nuxt-link>
-
 </template>
 
 <style scoped lang="scss">
 a {
+  background-color: var(--ui-secondary);
+  height: 65px;
   display: flex;
   align-items: center;
-  height: 70px;
-  background-color: var(--ui-secondary);
-  margin-bottom: 9px;
-  padding: 0 12px;
-  border-radius: 14px;
-  color: var(--text);
-  text-decoration: none;
+  border-radius: 9px;
+  cursor: pointer;
+  padding: 6px;
 
-  &:hover .control {
-    transform: translateX(6px);
+  &:hover {
+    .rate {
+      font-size: 1.5em;
+    }
   }
 
-  .logo {
-    height: 75%;
+  .rate {
+    height: 100%;
     aspect-ratio: 1/1;
-    border-radius: 50%;
     display: grid;
     place-items: center;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-weight: 700;
+    background-color: rgb(237.5,80.4,61);
+    transition: font-size .15s var(--transition-function);
   }
 
   .text {
     margin-left: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
+    line-height: 1.2;
 
     p {
       font-size: 1em;
       font-weight: 600;
-      max-width: 80%;
       text-overflow: ellipsis;
       overflow: hidden;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
     }
 
@@ -78,15 +80,6 @@ a {
       font-weight: 500;
       color: var(--text-secondary);
     }
-  }
-
-  .control {
-    margin-left: auto;
-    height: 80%;
-    aspect-ratio: 1/1;
-    display: grid;
-    place-items: center;
-    transition: transform 0.3s ease-in;
   }
 }
 </style>

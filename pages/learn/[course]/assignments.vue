@@ -3,17 +3,20 @@ const route = useRouteParams();
 
 const {data: assignments, pending} = await useAPI(`/learning/${route.value.course}/assignments`);
 
-const isSelectToggled = ref<boolean>(false);
+const moduleOptions = [
+  'Все модули',
+  'Модуль 1',
+  'Модуль 2'
+];
+const moduleState = ref(useRoute()?.query?.module || moduleOptions[0]);
 
-const selectState = ref<number>(0);
-
-const selectOptions = [
+const messageOptions = [
   'По убыванию',
   'По возрастанию',
-  'Пройденные',
-  'Непройденные',
+  'Прочитанные',
+  'Непрочитанные',
 ];
-
+const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 
 </script>
 
@@ -21,25 +24,13 @@ const selectOptions = [
   <div class="controls">
     <h1>Задания</h1>
 
-    <Select class="select" @click="isSelectToggled =! isSelectToggled">
-      <SelectContent class="content">
-        {{selectOptions[selectState]}}
-      </SelectContent>
-      <Transition name="select">
-        <SelectGroup v-if="isSelectToggled" class="group">
-          <SelectOption
-            v-for="(option, index) in selectOptions"
-            @click="selectState = index"
-          >
-            {{option}}
-          </SelectOption>
-        </SelectGroup>
-      </Transition>
-
-    </Select>
+    <div class="select-wrap">
+      <LearningSelectModule v-model:model-value="moduleState" :options="moduleOptions" />
+      <LearningSelectMessage v-model:model-value="messageState" :options="messageOptions" />
+    </div>
   </div>
 
-  <LearningAssignmentSkeleton v-if="loading" />
+  <LearningAssignmentSkeleton v-if="pending" />
 
   <Transition name="learn" mode="out-in" v-else-if="assignments?.assignments" appear>
     <div class="learn-wrap" >
@@ -58,34 +49,41 @@ const selectOptions = [
 
 <style scoped lang="scss">
 .controls {
-  width: 80%;
+  width: 100%;
   margin-bottom: 21px;
   display: flex;
   align-items: center;
 
-  .select {
+  .select-wrap {
+    display: flex;
+    gap: 6px;
     margin-left: auto;
-    width: min-content;
 
-    .content {
-      background-color: var(--ui-secondary);
-      border: none;
-    }
+    .select {
+      width: min-content;
 
-    .group {
-      background-color: var(--ui-secondary);
-      padding: 6px !important;
-      height: auto;
+      .content {
+        background-color: var(--ui-secondary);
+        border: none;
+      }
 
-    }
+      .group {
+        background-color: var(--ui-secondary);
+        padding: 6px !important;
+        height: auto;
+      }
 
+      .option {
+        background-color: var(--ui-secondary);
+        padding: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
 
-    .option {
-      background-color: var(--ui-secondary);
-      padding: 6px;
-
-      &:hover {
-        background-color: var(--bg-secondary);
+        &:hover {
+          background-color: var(--bg-secondary);
+        }
       }
     }
   }

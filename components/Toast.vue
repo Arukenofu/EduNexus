@@ -7,7 +7,7 @@ const toast = useState<Toast>('toast');
 
 <template>
   <Transition name="toast">
-    <div class="toast" v-if="toast">
+    <div class="toast" v-if="toast" @click="toast = false">
       <div class="toast-item" :class="toast.type === 'error' && 'error'">
         <Icon
           class="icon str2"
@@ -22,7 +22,7 @@ const toast = useState<Toast>('toast');
 
 <style scoped lang="scss">
 .toast {
-  pointer-events: none;
+  cursor: pointer;
   position: fixed;
   bottom: 15px;
   left: 50%;

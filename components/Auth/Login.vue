@@ -26,26 +26,46 @@ const submit = async () => {
   }
 
   if (!(form.value.password && form.value.login)) {
-    return response.value = 'Заполните все поля'
+    sendToast({
+      type: 'error',
+      message: 'Заполните все поля'
+    })
+    return
   }
 
   if (form.value.password?.length < 8) {
-    return response.value = 'Длина пароля меньше 8'
+    sendToast({
+      type: 'error',
+      message: 'Длина пароля меньше 8'
+    })
+    return
   }
 
   if (form.value.login?.length < 8) {
-    return response.value = 'Длина email меньше 8'
+    sendToast({
+      type: 'error',
+      message: 'Длина email меньше 8'
+    })
+    return
   }
 
   if (form.value.password?.length > 16) {
-    return response.value = 'Длина пароля больше 16'
+    sendToast({
+      type: 'error',
+      message: 'Длина пароля больше 16'
+    })
+    return;
   }
 
   if (form.value.login?.length > 32) {
-    return response.value = 'Длина email больше 32'
+    sendToast({
+      type: 'error',
+      message: 'Длина email больше 32'
+    })
+    return;
   }
 
-  const {data} = await useAPI<{token: string}>('/login', {
+  const {data, error} = await useAPI<{token: string}>('/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -53,11 +73,20 @@ const submit = async () => {
     body: `login=${form.value.login}&password=${form.value.password}`
   })
 
-  if (!data.value) {
-    return response.value = 'Ошибка сервера';
+  if (error.value) {
+    sendToast({
+      type: 'error',
+      message: 'Ошибка аутентификации'
+    })
+    return;
   }
 
   setToken(data.value.token);
+
+  sendToast({
+    type: 'notification',
+    message: 'Успешно вошли в систему!'
+  })
 
   await useRouter().push('/home/main')
 }

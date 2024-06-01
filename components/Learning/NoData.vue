@@ -14,7 +14,7 @@
 
 <style scoped lang="scss">
 .nodata {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +25,7 @@
   padding: 12px;
   grid-column: 1/-1;
   border-radius: 6px;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.2em;
 }
 </style>

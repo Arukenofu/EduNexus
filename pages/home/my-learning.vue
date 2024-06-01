@@ -4,7 +4,7 @@
 const {data: response} = await useAPI<MyCourses>('/learning');
 
 const toLearnPage = (param1: string): void => {
-  useRouter().push(`/learn/${param1}/main`)
+  useRouter().push(`/learn/${param1}`)
 }
 
 </script>

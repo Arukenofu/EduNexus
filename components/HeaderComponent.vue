@@ -3,7 +3,6 @@ import toggleTheme from "~/utils/theme/toggleTheme";
 import ProjectIcon from "~/components/ProjectIcon.vue";
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import Button1x1 from "~/components/Buttons/Button1x1.vue";
-import getRemovedRouteParam from "~/utils/router/getRemovedRouteParam";
 
 
 const exitFromAccount = () => {
@@ -43,7 +42,7 @@ const isModalOpen = ref<boolean>(false);
     <button1x1
       title="Аккаунт"
       class="header-button"
-      @click="$router.push(`${getRemovedRouteParam(0)}/profile`)"
+      @click="$router.push('/home/profile')"
       icon-name="iconoir:user"
       hover-color="var(--bg)"
       color="none"

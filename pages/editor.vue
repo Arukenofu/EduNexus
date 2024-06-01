@@ -12,6 +12,8 @@ const editor = useEditor({
   content: "Напишите что то",
   onUpdate: ({editor}) => {
     localStorage.setItem('editorCache', editor.getHTML());
+    localStorage.setItem('editorCacheFor', useRoute()?.query?.for as string);
+    localStorage.setItem('editorCacheCourse', useRoute()?.query?.course as string);
   },
   extensions: [
     TiptapStarterKit.configure({
@@ -45,7 +47,12 @@ onBeforeUnmount(() => {
 const isOpen = ref<boolean>(false);
 
 onMounted(() => {
-  if (localStorage.getItem('editorCache')) {
+  const isCache =
+    localStorage.getItem('editorCache') &&
+    localStorage.getItem('editorCacheFor') === useRoute()?.query?.for &&
+    localStorage.getItem('editorCacheCourse') === useRoute()?.query?.course;
+
+  if (isCache) {
     isOpen.value = true;
   }
 })
@@ -78,6 +85,7 @@ function onTabPressed() {
     <EditorControls :editor="editor" />
     <div class="editor">
       <h1
+        id="lectureHeader"
         contenteditable="true"
         spellcheck="false"
         @paste.prevent

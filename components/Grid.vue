@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
 <style scoped lang="scss">
 .grid-wrap {
   display: grid;
-  gap: 12px;
+  gap: v-bind(gap);
   grid-template-columns: v-bind(getGridColumns);
   grid-template-rows: v-bind(getGridRows);
 }
