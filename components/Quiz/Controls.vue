@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import toggleTheme from "~/utils/theme/toggleTheme";
 
-const {module, course} = useRouteParams();
+const route = useRouteParams();
 </script>
 
 <template>
   <div class="controls">
-    <button @click="$router.push(`/learn/${course}/${module}/main`)">
+    <button @click="$router.push(`/learn/${route.course}/`)">
       <Icon
         name="solar:arrow-left-outline"
         size="1.2em"
