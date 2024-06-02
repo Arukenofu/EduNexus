@@ -1,7 +1,5 @@
 <script setup lang="ts">
 
-
-
 </script>
 
 <template>
@@ -13,9 +11,8 @@
 
   <div class="content">
 
-    <nuxt-layout>
-      <nuxt-page />
-    </nuxt-layout>
+    <nuxt-page />
+
   </div>
 
 </template>

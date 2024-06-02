@@ -1,5 +1,8 @@
 <script setup lang="ts">
 
+import themeConditionalState from "~/utils/theme/themeConditionalState";
+import toggleTheme from "~/utils/theme/toggleTheme";
+
 const theme = useState('theme');
 
 defineProps<{
@@ -31,10 +34,29 @@ const isDarkTheme = () => {
     </div>
 
     <div class="control">
-      <div class="user">
+
+      <buttons-button1x1
+        title="Переключить тему"
+        :icon-name="themeConditionalState()"
+        color="none"
+        @click="toggleTheme()"
+      />
+
+
+      <button class="user" @click="$router.push('/home/profile')">
         <div class="pfp" />
         <span>Алкенов Б.</span>
-      </div>
+      </button>
+
+      <buttons-button1x1
+        title="На главную страницу"
+        icon-name="material-symbols:arrow-right-alt-rounded"
+        color="none"
+        @click="$router.push('/home/main')"
+
+      />
+
+
 
 
     </div>
@@ -100,13 +122,23 @@ header {
     .user {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 9px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1em;
+
+      &:hover {
+        text-decoration: underline;
+      }
 
       .pfp {
-        height: 40px;
+        height: 35px;
         aspect-ratio: 1/1;
         background-color: var(--bg-third);
         border-radius: 50%;
+        outline: var(--border) 1px solid;
       }
 
       span {

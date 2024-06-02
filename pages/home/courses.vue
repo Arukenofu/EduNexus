@@ -102,7 +102,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
 
     </div>
 
-    <Grid :columns="4" :rows="2" gap="12px">
+    <Grid :columns="4" gap="12px">
       <CourseCard
         v-for="course in courses?.courses"
         :title="course.title"

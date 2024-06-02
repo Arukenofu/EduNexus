@@ -22,13 +22,16 @@ useHead({
   title: 'EduNexus'
 })
 
+
 </script>
 
 <template>
   <TitleBar v-if="isElectron" />
 
   <div class="app">
-    <nuxt-page />
+    <transition name="select">
+      <nuxt-page />
+    </transition>
   </div>
 
   <Toast />

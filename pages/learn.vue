@@ -69,9 +69,7 @@ const route = useRouteParams();
       align-self: flex-start;
       position: sticky;
       top: 14px;
-      overflow: hidden;
       width: 300px;
-      min-width: 300px;
 
       .my-projects, .dailies {
         margin-bottom: 9px;

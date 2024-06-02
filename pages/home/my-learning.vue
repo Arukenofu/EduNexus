@@ -66,8 +66,6 @@ const toLearnPage = (param1: string): void => {
     </div>
 
   </article>
-
-
 </template>
 
 <style scoped lang="scss">

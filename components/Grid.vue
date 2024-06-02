@@ -2,7 +2,7 @@
 
 interface Props {
   columns: number,
-  rows?: number,
+  rows?: number | 'auto',
   gap?: string
 }
 
@@ -17,6 +17,10 @@ const getGridColumns = computed(() => {
 })
 
 const getGridRows = computed(() => {
+  if (typeof props.rows === 'string') {
+    return 'auto'
+  }
+
   let value: string = '';
 
   for (let i = 0; i < props.rows; i++) {
@@ -28,7 +32,7 @@ const getGridRows = computed(() => {
 
 const props = withDefaults(defineProps<Props>(), {
   gap: '12px',
-  rows: 1
+  rows: 'auto'
 })
 
 </script>
