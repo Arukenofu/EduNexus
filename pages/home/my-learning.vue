@@ -3,10 +3,11 @@
 
 const {data: response} = await useAPI<MyCourses>('/learning');
 
+console.log(response.value);
+
 const toLearnPage = (param1: string): void => {
   useRouter().push(`/learn/${param1}`)
 }
-
 </script>
 
 <template>
@@ -26,7 +27,7 @@ const toLearnPage = (param1: string): void => {
 
           <div class="text">
             <p>{{ course.title }}</p>
-            <span>{Period of study}</span>
+            <span>{{course.organization_name}}</span>
           </div>
 
           <div class="rate">

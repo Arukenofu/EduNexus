@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
-const myProjects = [
-  'Python with database',
-];
+const {data: myProjects} = await useAPI('/teaching', {
+
+})
+
 
 const route = useRouteParams();
 
@@ -12,11 +13,54 @@ const createCourseForm = ref({
   course_name: '',
   description: '',
   category: '',
-  company: '',
   avatar: ''
 });
 
-const onCourseCreateSubmit = () => {
+const getBase64 = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+
+  if (input!.files) {
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+      createCourseForm.value.avatar = e.target?.result as string
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+
+const onCourseCreateSubmit = async () => {
+  const {course_name, description, category, avatar} = createCourseForm.value;
+
+  const categories = category.split(',').map(value => {
+    return value.trim();
+  });
+
+
+
+
+  const {data, error} = await useAPI('/teachings', {
+    method: 'POST',
+    body: {
+      title: course_name,
+      description: description,
+      category: categories,
+      avatar: avatar
+    }
+  });
+  if (error.value) {
+
+    console.log(error.value);
+
+    return sendToast({
+      type: 'error',
+      message: 'Проблемы с сервером'
+    })
+
+  }
+
   sendToast({
     type: 'notification',
     message: 'Курс успешно создан!'
@@ -98,7 +142,23 @@ const onCourseCreateSubmit = () => {
 
           <div class="main-form">
             <div class="avatar-section">
-              <div class="avatar" />
+              <input
+                class="input"
+                type="file"
+                accept="image/*" @change="getBase64"
+              />
+              <div class="avatar" v-if="!createCourseForm.avatar">
+                +
+              </div>
+
+              <div
+                class="avatar"
+                :style="`background-image: url('${createCourseForm.avatar}')`"
+                v-else
+              >
+
+              </div>
+
             </div>
             <div class="main-info">
 
@@ -122,11 +182,6 @@ const onCourseCreateSubmit = () => {
               <div class="category">
                 <span>Категория</span>
                 <input type="text" placeholder="Программирование" v-model="createCourseForm.category" />
-              </div>
-
-              <div class="category">
-                <span>Компания</span>
-                <input type="text" placeholder="University of..." v-model="createCourseForm.company" />
               </div>
             </div>
 
@@ -273,8 +328,17 @@ const onCourseCreateSubmit = () => {
           width: 100%;
           aspect-ratio: 1/1;
           background-color: var(--bg);
+          background-size: cover;
+          background-position: center;
           border: 1px solid var(--border);
           border-radius: 6px;
+          display: grid;
+          place-items: center;
+          font-size: 3em;
+          line-height: 1;
+          cursor: pointer;
+          color: var(--text-secondary);
+          user-select: none;
         }
       }
 
@@ -390,5 +454,14 @@ const onCourseCreateSubmit = () => {
       }
     }
   }
+}
+
+.input {
+  position: absolute;
+  height: 90px;
+  z-index: 2;
+  opacity: 0;
+  width: 90px;
+  cursor: pointer;
 }
 </style>

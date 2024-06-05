@@ -2,21 +2,15 @@
 
 interface Lecture {
   content: {
-    id: number,
-    module_id: number,
-    description: string,
+    title: string,
     content: string,
-    days: string,
-    assignment_type_id: number
   }
 }
 
 const route = useRouteParams();
 
-const {data: lecture, pending} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
-let h1Content = lecture.value!?.content?.content.match(/<h1[^>]*>(.*?)<\/h1>/i)![0].replace(/<\/?h1>/gi, '')
-
-const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${Number(route.value.id) + 1}`)
+const {data, pending} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
+const content = JSON.parse(data.value?.content.content as string)
 
 </script>
 
@@ -27,10 +21,10 @@ const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.cours
         <span @click="$router.push(`/learn/${route.course}/lectures`)">
           {{route.course}}</span>&nbsp; /&nbsp;
         <span>
-          {{h1Content}}
+          {{data.content.title}}
         </span>
       </p>
-      <div class="layout" v-html="lecture?.content?.content" />
+      <div class="layout" v-html="content.content" />
 
       <div class="controls">
 
@@ -129,10 +123,10 @@ const {data: next, error} = await useAPI<Lecture>(`/learning/${route.value.cours
   }
 
   .controls {
-    margin-top: 90px;
-    margin-bottom: 90px;
     display: flex;
     justify-content: center;
+    margin-top: 21px;
+    margin-bottom: 90px;
 
     button {
       width: 100%;

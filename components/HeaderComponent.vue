@@ -11,8 +11,18 @@ const exitFromAccount = () => {
   useRouter().push('/auth');
 }
 
-const isModalOpen = ref<boolean>(false);
+const inputClick = async (e: Event) => {
+  if (useRoute().fullPath !== '/home/courses') {
+    await useRouter().push('/home/courses')
+  }
 
+  const input = document.getElementById('search');
+
+  input?.focus()
+
+}
+
+const search = ref('');
 
 
 
@@ -24,11 +34,6 @@ const isModalOpen = ref<boolean>(false);
     <ProjectIcon />
 
     <slot />
-
-    <div class="input-outer" @click="isModalOpen =! isModalOpen" >
-      <Icon name="iconoir:search" class="search" size="1.1em" />
-      <span>Поиск...</span>
-    </div>
 
     <button1x1
       class="toggleTheme control header-button"
@@ -59,8 +64,6 @@ const isModalOpen = ref<boolean>(false);
     />
 
   </header>
-
-  <Modal v-model:is-open="isModalOpen" />
 </template>
 
 <style scoped lang="scss">
@@ -76,42 +79,7 @@ header {
   padding: 0 92px;
   border-bottom: var(--border) 1px solid;
 
-  .input-outer {
-    margin-left: auto;
-    padding: 0 9px;
-    width: 220px;
-    height: 40px;
-    border: var(--border) 1px solid;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.2s ease;
-    cursor: pointer;
-    background-color: var(--bg);
 
-    &:hover {
-      background-color: var(--border);
-
-      input {
-        color: var(--text);
-
-        &::placeholder {
-          color: var(--text);
-        }
-      }
-    }
-
-    .search {
-      color: var(--text-secondary);
-    }
-
-    span {
-      font-size: .85em;
-      margin-left: 9px;
-      color: var(--text-secondary);
-      user-select: none;
-    }
-  }
 
   .header-button {
     margin-left: 6px;
@@ -119,6 +87,7 @@ header {
   }
 
   .toggleTheme {
+    margin-left: auto;
     background-color: var(--bg);
     border: none;
     cursor: pointer;

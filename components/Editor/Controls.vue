@@ -142,6 +142,7 @@ const getBase64 = (event: Event) => {
     />
 
     <EditorControlButton
+      class="image-select"
       icon="material-symbols:image-outline"
     />
 
@@ -240,6 +241,10 @@ const getBase64 = (event: Event) => {
   right: -1px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 6px;
+
+  input:hover ~ .image-select {
+    background-color: var(--bg-secondary);
+  }
 }
 
 .input {

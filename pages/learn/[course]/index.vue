@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
 import type { Module } from "~/interfaces/Module";
+import { useAsyncData } from "#app";
+import type { CourseDetailed } from "~/interfaces/CourseDetailed";
 
 const route = useRouteParams();
-
 const modules = ref<Module[]>([
   {
     name: 'Азы программирования',
@@ -29,16 +29,24 @@ const modules = ref<Module[]>([
   },
 ])
 
+const {data} = await useAsyncData<CourseDetailed>('modules', () => {
+  return $fetch(`/courses/${route.value.course}`, {
+    baseURL: useRuntimeConfig().public.apiBase
+  })
+}, {
+  watch: [route]
+})
+
 
 </script>
 
 <template>
-
   <Transition name="course" appear>
     <div class="layout">
       <div class="about-course">
         <div
           class="image"
+          :style="`background-image: url('${data?.details.image}')`"
         />
         <div class="information">
           <h1>{{route.course}}</h1>
@@ -105,7 +113,6 @@ const modules = ref<Module[]>([
   .image {
     height: 180px;
     aspect-ratio: 1/1;
-    background-image: url("https://www.shutterstock.com/image-vector/3d-web-vector-illustrations-online-600nw-2152289507.jpg");
     background-position: center;
     background-size: cover;
     border: 1px solid var(--ui-secondary);

@@ -2,30 +2,13 @@
 import { useRoute } from "nuxt/app";
 import type { Success } from "~/interfaces/Success";
 import type { Courses } from "~/interfaces/Courses";
+import type { CourseDetailed } from "~/interfaces/CourseDetailed";
 
 const route = useRoute();
 
 const param = route.params.slug;
 
-interface CourseDetailed {
-  modules: string[],
-
-  teachers: {
-    firstname: string,
-    surname: string
-  }[],
-
-  details: {
-    id: number,
-    description: string,
-    image: string
-  },
-
-  enrolled: bigint
-}
-
 const {data: response} = await useAPI<Courses>('/learning');
-
 
 const isSubscribed = computed<boolean>(() => {
   for (let i = 0; i < response.value!.courses?.length; i++) {
@@ -57,7 +40,7 @@ const subscribeToCourse = async () => {
   });
 
   if (data.value?.status === 'success') {
-    await useRouter().push(`/learn/${param}/module/main`);
+    await useRouter().push(`/learn/${param}/`);
   }
 }
 
@@ -72,7 +55,7 @@ const subscribeToCourse = async () => {
 
         <div class="image">
           <NuxtImg
-            :src="course?.details.image"
+            :src="course?.details?.image"
             alt=""
           />
         </div>
@@ -82,10 +65,10 @@ const subscribeToCourse = async () => {
         </h1>
 
         <p>
-          {{course!.details!.description}}
+          {{course?.details?.description}}
         </p>
 
-        <button @click="$router.push(`/learn/${param}/module/main`)" v-if="isSubscribed">
+        <button @click="$router.push(`/learn/${param}/`)" v-if="isSubscribed">
           <span class="enter">Войти</span>
           <span class="date">Вы уже участвуете</span>
         </button>

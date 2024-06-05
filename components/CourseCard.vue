@@ -10,7 +10,11 @@ defineProps<Course>();
       class="card"
       :to="`/home/course/${title}`"
     >
-      <div class="image" :style="`background-image: url('${image}')`" />
+      <div
+        class="image"
+        :style="`background-image: url('${image}')`"
+        @load="console.log('adsa')"
+      />
 
       <div class="info">
         <div class="info-image" :style="`background-image: url('${organization_logo}')`" />
@@ -48,12 +52,13 @@ defineProps<Course>();
 
   .image {
     background-color: var(--bg-secondary);
+    background-position: center;
+    background-size: cover;
     width: 100%;
     aspect-ratio: 16/10;
     border-radius: 12px;
     margin-bottom: 9px;
-    background-size: cover;
-    background-position: center;
+    text-indent: 100vw;
   }
 
   .info {

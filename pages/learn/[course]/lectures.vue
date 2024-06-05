@@ -4,6 +4,7 @@ import type { Lectures } from "~/interfaces/Lectures";
 const route = useRouteParams();
 
 const {data: lectures, pending} = await useAPI<Lectures>(`/learning/${route.value.course}/lectures`);
+console.log(lectures.value);
 
 const moduleOptions = [
   'Все модули',

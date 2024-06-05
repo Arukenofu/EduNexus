@@ -10,6 +10,8 @@ interface Categories {
   }[]
 }
 
+const search = ref<string>('');
+
 const {data: response} = await useAPI<Categories>('/categories/');
 
 const options = response.value?.categories.map(item => item.name);
@@ -54,8 +56,19 @@ const {data: courses} = await useAsyncData<Courses>('courses',
   () => {
     const config = useRuntimeConfig().public.apiBase
 
+    if (search.value?.length) {
+      return $fetch(`/filter`, {
+        method: 'POST',
+        baseURL: config,
+        body: {
+          title: search.value,
+          categories: categoryState.value === 'Все' ? null : [categoryState.value]
+        }
+      })
+    }
+
     if (categoryState.value && categoryState.value !== 'Все') {
-      return $fetch(`/categories/${categoryState.value}?pegPage=8&page=${paginationState.value}`, {
+      return $fetch(`/categories/${categoryState.value}?perPage=8&page=${paginationState.value}`, {
         baseURL: config
       })
     }
@@ -65,7 +78,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
     })
   },
   {
-    watch: [paginationState, categoryState]
+    watch: [paginationState, categoryState, search]
   }
 )
 
@@ -77,7 +90,6 @@ const {data: courses} = await useAsyncData<Courses>('courses',
     <h1>Найдите подходящую программу</h1>
 
     <div class="filters">
-
 
       <Select @click="category.state =! category.state">
         <SelectContent class="select-content">
@@ -100,9 +112,19 @@ const {data: courses} = await useAsyncData<Courses>('courses',
         </Transition>
       </Select>
 
+      <div class="input-outer">
+        <Icon name="iconoir:search" class="search" size="1.1em" />
+        <input
+          type="text"
+          id="search"
+          placeholder="Введите текст..."
+          v-model="search"
+        />
+      </div>
+
     </div>
 
-    <Grid :columns="4" gap="12px">
+    <Grid :columns="4" gap="12px" v-if="courses?.courses">
       <CourseCard
         v-for="course in courses?.courses"
         :title="course.title"
@@ -112,7 +134,15 @@ const {data: courses} = await useAsyncData<Courses>('courses',
       />
     </Grid>
 
-    <Pagination class="pag" v-model:state="paginationState" :length="courses?.pages" :limit="8" />
+    <div class="no-course" v-else>
+      ¯\_(ツ)_/¯
+
+      <span>
+        К сожалению пусто.
+      </span>
+    </div>
+
+    <Pagination v-if="courses?.courses" class="pag" v-model:state="paginationState" :length="courses?.pages" :limit="8" />
   </article>
 </template>
 
@@ -138,10 +168,67 @@ article {
         padding: 9px 12px;
       }
     }
+
+    .input-outer {
+      padding: 0 9px;
+      width: 250px;
+      height: 40px;
+      border: var(--border) 1px solid;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+      background-color: var(--bg);
+
+      &:hover {
+        background-color: var(--border);
+
+        input {
+          color: var(--text);
+
+          &::placeholder {
+            color: var(--text);
+          }
+        }
+      }
+
+      .search {
+        color: var(--text-secondary);
+      }
+
+      input {
+        padding-left: 9px;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+        color: var(--text);
+      }
+
+      span {
+        font-size: .85em;
+        margin-left: 9px;
+        color: var(--text-secondary);
+        user-select: none;
+      }
+    }
   }
 
   .courses {
     margin-bottom: 21px;
+  }
+
+  .no-course {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 340px;
+    font-size: 1.35em;
+    user-select: none;
   }
 
   .dropdown {

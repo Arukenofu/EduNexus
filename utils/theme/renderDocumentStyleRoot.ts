@@ -1,9 +1,20 @@
 import documentElementSetProperty from "~/utils/theme/documentElementSetProperty";
 
 export default function () {
+
+    if (!localStorage.getItem('theme')) {
+        const userPreference = () => window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ? 'dark' : 'light';
+
+        setColorModeByParam(userPreference());
+    } else {
+        setColorModeByParam(localStorage.getItem('theme'))
+    }
+}
+
+function setColorModeByParam(parameter: string | null) {
     const theme = useState('theme')
 
-    if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark') {
+    if (parameter && parameter === 'dark') {
         documentElementSetProperty('--bg', '#09090B');
         documentElementSetProperty('--text', '#FAFAFA');
         documentElementSetProperty('--bg-secondary', '#27272A');
