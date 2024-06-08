@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 interface Props {
-  iconName: string;
+  iconName?: string;
   color?: string;
   text?: string | void;
   size?: string;

@@ -62,7 +62,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
         baseURL: config,
         body: {
           title: search.value,
-          categories: categoryState.value === 'Все' ? null : [categoryState.value]
+          categories: categoryState.value === 'Все' || !categoryState.value ? null : [categoryState.value]
         }
       })
     }
@@ -142,7 +142,14 @@ const {data: courses} = await useAsyncData<Courses>('courses',
       </span>
     </div>
 
-    <Pagination v-if="courses?.courses" class="pag" v-model:state="paginationState" :length="courses?.pages" :limit="8" />
+    <Pagination
+      v-if="courses?.courses"
+      class="pag"
+      v-model:state="paginationState"
+      :length="courses?.pages"
+      :limit="5"
+    />
+
   </article>
 </template>
 

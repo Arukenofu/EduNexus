@@ -5,17 +5,42 @@ const isOpen = defineModel<boolean>('isOpen');
 
 const user = defineModel<User>('user');
 
-const getBase64 = (event: Event) => {
-  const input = event.target as HTMLInputElement;
+const emit = defineEmits(['updateProfile'])
 
-  if (input!.files) {
-    let reader = new FileReader();
+const userProfile = ref<User>({
+  profile_info: {
+    profile: '',
+    firstname: '',
+    description: ''
+  }
+});
 
-    reader.onload = (e) => {
-      user.value!.avatar = e.target?.result as string;
+const updateUserProfile = async () => {
+  const {profile, firstname, description} = userProfile.value.profile_info;
+
+  const {data, error} = useAPI('/profile', {
+    method: 'POST',
+    body: {
+      firstname: firstname,
+      surname: 'asdfghktrdsf',
+      description: description,
+      profile: profile
     }
+  });
 
-    reader.readAsDataURL(input.files[0]);
+  if (error.value) {
+    sendToast({
+      type: 'error',
+      message: 'Ошибка при валидации пользователя'
+    })
+  } else {
+    emit('updateProfile', userProfile.value);
+
+    sendToast({
+      type: 'notification',
+      message: 'Успешно изменено!'
+    })
+    console.log(data.value);
   }
 }
 
@@ -24,7 +49,6 @@ const getBase64 = (event: Event) => {
 <template>
   <div class="modal">
     <div class="control">
-
       <button @click="isOpen = false">
         Закрыть
         <Icon class="icon" name="ic:baseline-close" size="1.4em" />
@@ -38,30 +62,40 @@ const getBase64 = (event: Event) => {
         Добавьте информацию о себе в той форме, в которой она должна отображаться в профиле.
       </p>
 
-      <div class="avatar" :style="`background-image: url('${user!.avatar}')`">
-        <div class="table">
-          <label class="input-file">
-            <input type="file" accept="image/*" @input="getBase64">
-            <span>
-                Выбрать файл...
-            </span>
-          </label>
-        </div>
+      <div class="avatar" :style="`background-image: url('${userProfile!.profile_info.profile}')`">
       </div>
 
       <dl class="user-main">
         <dt>Ваше имя</dt>
         <dd>
-          <input />
+          <input type="text" :placeholder="user?.profile_info.firstname" v-model="userProfile.profile_info.firstname" />
+        </dd>
+      </dl>
+
+      <dl class="user-main">
+        <dt>Аватар</dt>
+        <dd>
+          <input
+            type="text"
+            :placeholder="user?.profile_info.profile"
+            v-model="userProfile.profile_info.profile"
+          />
         </dd>
       </dl>
 
       <dl class="user-main">
         <dt>Описание</dt>
         <dd>
-          <textarea />
+          <textarea
+            :placeholder="user?.profile_info.description"
+            v-model="userProfile.profile_info.description"
+          />
         </dd>
       </dl>
+
+      <button class="submit" @click="updateUserProfile()">
+        Изменить
+      </button>
     </div>
   </div>
 </template>
@@ -151,44 +185,6 @@ const getBase64 = (event: Event) => {
         transition: 0.1s;
         z-index: 1;
       }
-
-      .input-file {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        & > span {
-          margin-top: 3px;
-          position: relative;
-          width: 90%;
-          height: 28px;
-          border-radius: 3px;
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: .7em;
-
-          &:active {
-            opacity: 0.9;
-          }
-
-          span {
-            margin-right: 5px;
-            margin-bottom: 1px;
-            font-size: 1.1rem;
-          }
-        }
-
-        input {
-          position: absolute;
-          z-index: -1;
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-      }
     }
 
     dl {
@@ -213,7 +209,7 @@ const getBase64 = (event: Event) => {
         transition: background-color, outline var(--transition-function) .15s;
 
         &:focus {
-          outline: 1  px solid var(--text);
+          outline: 1px solid var(--text);
           background-color: var(--bg);
         }
 
@@ -230,6 +226,17 @@ const getBase64 = (event: Event) => {
         height: 90px;
         max-height: 120px;
       }
+    }
+
+    .submit {
+      background-color: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 9px 15px;
+      border-radius: 4px;
+      margin-left: auto;
+      font-size: .9em;
+      margin-top: 21px;
     }
   }
 }

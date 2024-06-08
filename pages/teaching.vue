@@ -1,13 +1,22 @@
 <script setup lang="ts">
 
-const {data: myProjects} = await useAPI('/teaching', {
+interface MyCourses {
+  courses: {
+    course_id: number;
+    course_provider: number;
+    description: string;
+    id: number;
+    image: string;
+    title: string;
+    user_id: number;
+  }[]
+}
 
-})
-
+const {data: myProjects} = await useAPI<MyCourses>('/teaching')
 
 const route = useRouteParams();
 
-const isCreateCourseModalOpen = ref<boolean>(true);
+const isCreateCourseModalOpen = ref<boolean>(false);
 
 const createCourseForm = ref({
   course_name: '',
@@ -15,20 +24,6 @@ const createCourseForm = ref({
   category: '',
   avatar: ''
 });
-
-const getBase64 = (event: Event) => {
-  const input = event.target as HTMLInputElement;
-
-  if (input!.files) {
-    let reader = new FileReader();
-
-    reader.onload = (e) => {
-      createCourseForm.value.avatar = e.target?.result as string
-    }
-
-    reader.readAsDataURL(input.files[0]);
-  }
-}
 
 
 const onCourseCreateSubmit = async () => {
@@ -38,10 +33,7 @@ const onCourseCreateSubmit = async () => {
     return value.trim();
   });
 
-
-
-
-  const {data, error} = await useAPI('/teachings', {
+  const {error} = await useAPI('/teachings', {
     method: 'POST',
     body: {
       title: course_name,
@@ -51,8 +43,6 @@ const onCourseCreateSubmit = async () => {
     }
   });
   if (error.value) {
-
-    console.log(error.value);
 
     return sendToast({
       type: 'error',
@@ -72,16 +62,16 @@ const onCourseCreateSubmit = async () => {
 <template>
   <div class="layout">
     <LearningHead type="Teaching" />
-    <section>
+    <section v-if="myProjects!.courses">
       <aside>
         <LearningCard class="my-projects">
           <LearningLink
-            v-for="(project, index) in myProjects"
+            v-for="(project, index) in myProjects!.courses"
             :key="index"
-            :class="project === route.course && 'active'"
+            :class="project.title === route.course && 'active'"
             icon="material-symbols:event-note-outline-rounded"
-            :text="project"
-            :to="`/teaching/${project}`"
+            :text="project.title"
+            :to="`/teaching/${project.title}`"
           />
 
           <button class="create" @click="isCreateCourseModalOpen =! isCreateCourseModalOpen">
@@ -126,6 +116,13 @@ const onCourseCreateSubmit = async () => {
       </main>
     </section>
 
+    <div class="noProjects" v-else>
+      <h2>У вас нет преподаваемых курсов</h2>
+      <button @click="isCreateCourseModalOpen = true">
+        Создать
+      </button>
+    </div>
+
     <Modal v-model:is-open="isCreateCourseModalOpen">
       <div class="createCourse">
         <div class="control">
@@ -142,11 +139,6 @@ const onCourseCreateSubmit = async () => {
 
           <div class="main-form">
             <div class="avatar-section">
-              <input
-                class="input"
-                type="file"
-                accept="image/*" @change="getBase64"
-              />
               <div class="avatar" v-if="!createCourseForm.avatar">
                 +
               </div>
@@ -165,6 +157,11 @@ const onCourseCreateSubmit = async () => {
               <div class="course-name">
                 <span>Название</span>
                 <input type="text" placeholder="Название курса" v-model="createCourseForm.course_name" />
+              </div>
+
+              <div class="course-description">
+                <span>Ссылка на аватарку</span>
+                <input type="text" placeholder="https://anysite.com/my.png" v-model="createCourseForm.avatar  " />
               </div>
 
               <div class="course-description">
@@ -257,6 +254,31 @@ const onCourseCreateSubmit = async () => {
     }
   }
 
+  .noProjects {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    h2 {
+      font-size: 1.8em;
+    }
+
+    button {
+      font-size: 1em;
+      font-weight: 500;
+      background-color: var(--text);
+      border: none;
+      border-radius: 6px;
+      height: 35px;
+      width: 120px;
+    }
+  }
+
   .createCourse {
     background-color: var(--bg);
     border: 1px solid var(--border);
@@ -334,7 +356,6 @@ const onCourseCreateSubmit = async () => {
           border-radius: 6px;
           display: grid;
           place-items: center;
-          font-size: 3em;
           line-height: 1;
           cursor: pointer;
           color: var(--text-secondary);
@@ -379,6 +400,15 @@ const onCourseCreateSubmit = async () => {
             font-weight: 600;
             letter-spacing: 1px;
             margin-bottom: 5px;
+          }
+
+          input {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: .95em;
+            font-weight: 700;
+            margin-bottom: 14px;
           }
 
           textarea {
@@ -456,12 +486,4 @@ const onCourseCreateSubmit = async () => {
   }
 }
 
-.input {
-  position: absolute;
-  height: 90px;
-  z-index: 2;
-  opacity: 0;
-  width: 90px;
-  cursor: pointer;
-}
 </style>

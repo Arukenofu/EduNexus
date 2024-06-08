@@ -5,13 +5,17 @@ import Button1x1 from "~/components/Buttons/Button1x1.vue";
 
 const isOpen = ref(false);
 
+const emit = defineEmits([
+  'onSubmit',
+])
+
 const form = ref({
   header: '',
   description: ''
 });
 
 const onStart = () => {
-  form.value.header = document.getElementById('lectureHeader')?.textContent;
+  form.value.header = document.getElementById('lectureHeader')?.textContent!;
 
   isOpen.value = true
 }
@@ -20,7 +24,7 @@ const onStart = () => {
 
 <template>
   <header>
-    <ProjectIcon />
+    <ProjectIcon class="icon" @click="$router.push('/home/main')" />
 
     <div class="controls">
       <button1x1
@@ -75,7 +79,7 @@ const onStart = () => {
           Выйти
         </button>
 
-        <button class="continue" @click="$emit('onContinue')">
+        <button class="continue" @click="$emit('onSubmit', form)">
           Продолжить
         </button>
       </div>
@@ -94,6 +98,10 @@ header {
   align-items: center;
   padding: var(--content-padding);
   border-bottom: 1px solid var(--border);
+
+  .icon {
+    cursor: pointer;
+  }
 
   .controls {
     margin-left: auto;

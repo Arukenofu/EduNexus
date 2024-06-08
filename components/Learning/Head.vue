@@ -1,7 +1,7 @@
 <script setup lang="ts">
-
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import toggleTheme from "~/utils/theme/toggleTheme";
+import type { User } from "~/interfaces/User";
 
 const theme = useState('theme');
 
@@ -12,6 +12,8 @@ defineProps<{
 const isDarkTheme = () => {
   return theme.value === 'dark';
 }
+
+const {data: user} = await useAPI<User>('/profile')
 
 </script>
 
@@ -44,8 +46,8 @@ const isDarkTheme = () => {
 
 
       <button class="user" @click="$router.push('/home/profile')">
-        <div class="pfp" />
-        <span>Алкенов Б.</span>
+        <div class="pfp" :style="`background-image: url('${user?.profile_info.profile}')`" />
+        <span>{{user?.profile_info.firstname}}</span>
       </button>
 
       <buttons-button1x1
@@ -139,6 +141,9 @@ header {
         background-color: var(--bg-third);
         border-radius: 50%;
         outline: var(--border) 1px solid;
+        background-size: cover;
+        background-position: center;
+        border: 2px solid var(--bg-third);
       }
 
       span {

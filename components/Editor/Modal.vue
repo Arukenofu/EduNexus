@@ -46,6 +46,8 @@ function setSelectedLanguage(index: number) {
 
 const selectedLanguage = ref<number>();
 
+const isModal = defineModel('state')
+
 defineEmits(['setLanguage']);
 
 </script>
@@ -53,8 +55,7 @@ defineEmits(['setLanguage']);
 <template>
   <div class="modal">
     <div class="control">
-
-      <button>
+      <button @click="isModal = false">
         Закрыть
         <Icon class="icon" name="ic:baseline-close" size="1.4em" />
       </button>

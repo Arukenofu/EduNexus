@@ -1,42 +1,23 @@
 <script setup lang="ts">
 import type { Module } from "~/interfaces/Module";
-import { useAsyncData } from "#app";
 import type { CourseDetailed } from "~/interfaces/CourseDetailed";
 
 const route = useRouteParams();
-const modules = ref<Module[]>([
-  {
-    name: 'Азы программирования',
-    lectures: {
-      read: 12,
-      length: 17
-    },
-    assignments: {
-      done: 12,
-      length: 12
-    }
-  },
-  {
-    name: 'Азы программирования',
-    lectures: {
-      read: 12,
-      length: 17
-    },
-    assignments: {
-      done: 12,
-      length: 12
-    }
-  },
-])
+const baseURL = useRuntimeConfig().public.apiBase
 
-const {data} = await useAsyncData<CourseDetailed>('modules', () => {
+const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
   return $fetch(`/courses/${route.value.course}`, {
-    baseURL: useRuntimeConfig().public.apiBase
+    baseURL: baseURL
   })
 }, {
   watch: [route]
 })
 
+const {data: modules} = await useAsyncData('modules', async () => {
+  return $fetch(`/learning/${route.value.course}/modules/Переменные и базовые типы` , {
+    baseURL: baseURL
+  })
+})
 
 </script>
 
@@ -61,20 +42,20 @@ const {data} = await useAsyncData<CourseDetailed>('modules', () => {
         </div>
       </div>
       <p class="course-description">
-        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto, assumenda autem consectetur exercitationem id illum in laudantium nulla quaerat quis rem repudiandae similique temporibus veniam voluptas voluptates? Esse, quibusdam.</span>
+        {{data.details.description}}
       </p>
 
       <LearningBlock class="modules-block" text="Все Модули">
         <div class="modules">
-          <LearningModule
-            class="module"
-            v-for="(module, index) in modules"
-            :key="index"
-            :index="index+1"
-            :name="module.name"
-            :lectures="module.lectures"
-            :assignments="module.assignments"
-          />
+<!--          <LearningModule-->
+<!--            class="module"-->
+<!--            v-for="(module, index) in modules"-->
+<!--            :key="index"-->
+<!--            :index="index+1"-->
+<!--            :name="module.name"-->
+<!--            :lectures="module.lectures"-->
+<!--            :assignments="module.assignments"-->
+<!--          />-->
         </div>
       </LearningBlock>
 
@@ -167,7 +148,7 @@ const {data} = await useAsyncData<CourseDetailed>('modules', () => {
   line-height: 1.6;
   font-size: .98em;
   font-weight: 500;
-  margin-bottom: 42px;
+  margin-bottom: 15px;
   color: var(--text-soft);
 }
 

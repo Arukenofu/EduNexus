@@ -73,9 +73,10 @@ defineProps<Course>();
     .info-image {
       height: 85%;
       aspect-ratio: 1/1;
-      border: 2px solid var(--bg-secondary);
-      border-radius: 3px;
+      border-radius: 4px;
       cursor: default;
+      background-position: center;
+      background-size: cover;
     }
 
     .info-text {

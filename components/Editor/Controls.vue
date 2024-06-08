@@ -214,6 +214,7 @@ const getBase64 = (event: Event) => {
 
   <Modal v-model:is-open="isModalOpen">
     <EditorModal
+      v-model:state="isModalOpen"
       @setLanguage="setLanguage"
     />
   </Modal>

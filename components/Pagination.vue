@@ -30,7 +30,8 @@ const paginationLimitation = computed(() => {
   if (result.length > 1 && result[result.length - 1].length < limit.value!) {
     const lastChunk = result.pop();
     const lastNumber = lastChunk![lastChunk!.length - 1];
-    const newLastChunk = Array.from({ length: limit.value! }, (_, i) => lastNumber - limit.value! + i + 1);
+    const newLastChunk = Array.from({ length: limit.value! },
+      (_, i) => lastNumber - limit.value! + i + 1);
     result.push(newLastChunk);
   }
 

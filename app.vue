@@ -2,8 +2,6 @@
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
 import type { Toast } from "~/interfaces/Toast";
 
-const toast = useState<Toast | string>('toast', () => '')
-
 onMounted(() => {
 
   renderDocumentStyleRoot();
@@ -20,7 +18,10 @@ const {isElectron} = useUpdater();
 
 useHead({
   title: 'EduNexus'
-})
+});
+
+const {data} = await useAPI('/courses/Golang programming/modules');
+
 
 
 </script>

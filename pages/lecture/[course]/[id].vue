@@ -9,8 +9,12 @@ interface Lecture {
 
 const route = useRouteParams();
 
+useAPI(`/learning/${route.value.course}/read/${route.value.id}`);
+
 const {data, pending} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
-const content = JSON.parse(data.value?.content.content as string)
+
+const content = JSON.parse(data.value?.content.content as string);
+
 
 </script>
 
@@ -132,6 +136,7 @@ const content = JSON.parse(data.value?.content.content as string)
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
       font-size: 1em;
       font-weight: 600;
       background-color: var(--bg);

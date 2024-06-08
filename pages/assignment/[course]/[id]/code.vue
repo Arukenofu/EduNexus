@@ -6,7 +6,19 @@ import github_light from 'assets/github-light-theme.json'
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import toggleTheme from "~/utils/theme/toggleTheme";
 
-const {course: courseRoute, module} = useRouteParams();
+interface Code {
+  assignment: {
+    id: number,
+    title: string,
+    content: string,
+    description: string,
+    assignment_type_id: number
+  }
+}
+
+const route = useRouteParams();
+
+const {data} = await useAPI<Code>(`/learning/${route.value.course}/assignments/${route.value.id}`);
 
 
 const getGithubTheme = () => {
@@ -17,10 +29,7 @@ const getGithubTheme = () => {
   }
 }
 
-const model = ref('const message: string = "I love Web";\n' +
-  'console.log(message);');
-
-const {course} = useRouteParams()
+const model = ref(JSON.parse(data.value!.assignment.content)['code_test']);
 
 const monaco = useMonaco();
 
@@ -34,6 +43,7 @@ document.fonts.ready.then(() => {
 
 const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   theme: 'github',
+  fontSize: 16,
   fontFamily: 'JetBrains Mono',
   fontWeight: '600',
   minimap: {
@@ -55,8 +65,8 @@ const changeTheme = () => {
 <template>
   <header>
     <div class="text-info">
-      <h1>Методы сортировки</h1>
-      <p>{{course}}</p>
+      <h1>{{route.course}}</h1>
+      <p>{{data.assignment.title}}</p>
     </div>
 
     <div class="control">
@@ -81,12 +91,11 @@ const changeTheme = () => {
         color="var(--red)"
         text="#FFFFFF"
         width="42px"
-        @click="$router.push(`/learn/${courseRoute}/${module}/main`)"
       />
     </div>
   </header>
 
-  <LazyMonacoEditor v-model:model-value="model" lang="typescript" class="editor" :options="options">
+  <LazyMonacoEditor v-model:model-value="model" lang="go" class="editor" :options="options">
     ...Loading
   </LazyMonacoEditor>
 </template>

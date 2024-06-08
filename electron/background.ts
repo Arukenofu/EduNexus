@@ -24,13 +24,13 @@ function createWindow() {
     minHeight: 600,
     minWidth: 1000,
     titleBarStyle: "hidden",
-        titleBarOverlay: {
+    titleBarOverlay: {
         color: '#0f0f0f',
         symbolColor: '#ffffff',
         height: 30,
     },
     autoHideMenuBar: true,
-    icon: 'C:\\Users\\Admin\\Desktop\\public\\icon32x32.png',
+    icon: '',
     webPreferences: {
       devTools: !isProduction,
       nodeIntegration: true,

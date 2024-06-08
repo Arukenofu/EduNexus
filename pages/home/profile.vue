@@ -4,11 +4,15 @@ import type { User } from "~/interfaces/User";
 
 const isModalOpen = ref<boolean>(false);
 
-const user = ref<User>({
-  avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRti360Z7yNie-vn3gcK-X1j4RzqUTMyyvX6yGmcIx1JQ&s',
-  username: 'Бауыржан Алкенов',
-  description: 'Моё красивое описание, очень красвиое опсание, очень понятное внятное описание, самое крутое описание'
-})
+const {data: user} = await useAPI<User>('/profile')!;
+
+const updateUserValue = (newValue: User) => {
+
+  user.value = newValue;
+
+  isModalOpen.value = false;
+
+}
 
 </script>
 
@@ -18,11 +22,11 @@ const user = ref<User>({
       <div class="profile-card">
         <h2>Личные Данные</h2>
 
-        <div class="profile-avatar" :style="`background-image: url('${user.avatar}')`" />
+        <div class="profile-avatar" :style="`background-image: url('${user?.profile_info.profile}')`" />
 
-        <h1>{{user.username}}</h1>
+        <h1>{{user?.profile_info.firstname}}</h1>
 
-        <p>{{user.description}}</p>
+        <p>{{user?.profile_info.description}}</p>
 
         <button class="edit" @click="isModalOpen =! isModalOpen">
           <Icon class="icon" name="iconoir:edit" size="1.2em" />
@@ -42,7 +46,7 @@ const user = ref<User>({
 
 
   <Modal v-model:is-open="isModalOpen">
-    <ProfileModal v-model:is-open="isModalOpen" v-model:user="user" />
+    <ProfileModal v-model:is-open="isModalOpen" v-model:user="user" @update-profile="updateUserValue" />
   </Modal>
 </template>
 

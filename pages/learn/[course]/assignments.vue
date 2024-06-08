@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import assignmentCodeConverter from "~/utils/assignmentCodeConverter";
+
 const route = useRouteParams();
 
 const {data: assignments, pending} = await useAPI(`/learning/${route.value.course}/assignments`);
@@ -17,6 +19,7 @@ const messageOptions = [
   'Непрочитанные',
 ];
 const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
+console.log(assignments.value);
 
 </script>
 
@@ -35,11 +38,11 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
   <Transition name="learn" mode="out-in" v-else-if="assignments?.assignments" appear>
     <div class="learn-wrap" >
       <LearningAssignment
-        v-for="assignment in assignments?.lectures"
+        v-for="assignment in assignments.assignments"
         :key="assignment.assignment_id"
-        type="Лекция"
+        type="Задание"
         :name="assignment.title"
-        @click="$router.push(`/lecture/${route.course}/${assignment.assignment_id}`)"
+        @click="$router.push(`/assignment/${route.course}/${assignment.id}/${assignmentCodeConverter(assignment.assignment_type_id)}`)"
       />
     </div>
   </Transition>

@@ -1,5 +1,7 @@
 export interface User {
-  avatar: string,
-  username: string,
-  description: string
+    profile_info: {
+      profile: string,
+      firstname: string,
+      description: string,
+    }
 }

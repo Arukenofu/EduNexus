@@ -7,6 +7,7 @@ import { common, createLowlight } from "lowlight";
 import CacheModal from "~/components/Editor/CacheModal.vue";
 import MathExtension from "@aarkue/tiptap-math-extension";
 import { Image } from "@tiptap/extension-image";
+import { useRouteQuery } from "#imports";
 
 const editor = useEditor({
   content: "Напишите что то",
@@ -44,6 +45,8 @@ onBeforeUnmount(() => {
   unref(editor)!.destroy();
 });
 
+const query = useRouteQuery();
+
 const isOpen = ref<boolean>(false);
 
 onMounted(() => {
@@ -75,11 +78,28 @@ function onTabPressed() {
   }
 }
 
+function onSubmit(form: {header: string, description: string}) {
+  $fetch(`/teaching/${query.value.course}/lectures`, {
+    baseURL: useRuntimeConfig().public.apiBase,
+    method: 'POST',
+    body: {
+      moduleId: 9,
+      description: form.description,
+      content: JSON.stringify({
+        title: form.header,
+        content: editor.value?.getHTML()
+      })
+    }
+  })
+}
+
 </script>
 
 
 <template>
-  <EditorHeader />
+  <EditorHeader
+    @onSubmit="onSubmit"
+  />
 
   <div>
     <EditorControls :editor="editor" />

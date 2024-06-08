@@ -1,8 +1,10 @@
 <script setup lang="ts">
 
+const route = useRouteParams();
+
 const {data: courses} = await useAPI<MyCourses>('/learning')
 
-const route = useRouteParams();
+
 </script>
 
 <template>

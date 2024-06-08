@@ -1,6 +1,4 @@
 import { useFetch } from "#app"
-import type { ReturnType } from "birpc";
-import type { Toast } from "~/interfaces/Toast";
 import sendToast from "~/utils/sendToast";
 
 type useFetchType = typeof useFetch;
@@ -14,10 +12,6 @@ export const useAPI: useFetchType = (path, options = {}) => {
   options.server = false;
 
   options.onResponseError = (error) => {
-    sendToast({type: 'error', message: error.response['_data']?.error_message || 'Произошла неизвестная ошибка'})
-  }
-
-  options.onRequestError = ({error}) => {
     sendToast({type: 'error', message: error.response['_data']?.error_message || 'Произошла неизвестная ошибка'})
   }
 
