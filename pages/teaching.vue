@@ -39,7 +39,7 @@ const onCourseCreateSubmit = async () => {
       title: course_name,
       description: description,
       category: categories,
-      avatar: avatar
+      profile: avatar
     }
   });
   if (error.value) {

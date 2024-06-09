@@ -31,7 +31,7 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
 <style scoped lang="scss">
 .categories-wrap {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
   gap: 12px;
 
   .category {
@@ -60,6 +60,18 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
         font-size: 1.6rem;
       }
     }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .categories-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .category {
+    min-height: 60px !important;
+    max-height: none;
+    border-radius: 20px !important;
   }
 }
 </style>

@@ -125,9 +125,8 @@ const subscribeToCourse = async () => {
 </template>
 
 <style scoped lang="scss">
-
 .layout {
-  margin-top: 55px;
+  padding-top: 55px;
   margin-bottom: 35px;
 
   section {
@@ -297,5 +296,42 @@ const subscribeToCourse = async () => {
   }
 }
 
+@media screen and (max-width: 900px) {
+  section {
+    padding-top: 81px;
+    height: auto !important;
+
+    .course {
+      flex-basis: 100% !important;
+      margin-bottom: 42px;
+
+      button {
+        width: 100%;
+      }
+
+      .info {
+        text-align: center;
+      }
+    }
+
+    .about {
+      flex-basis: 100% !important;
+
+      .left {
+        margin-left: 0 !important;
+      }
+    }
+
+  }
+
+  .grid {
+    width: 100%;
+    grid-template-columns: 1fr !important;
+
+    .chapters {
+      padding: 2px 12px !important;
+    }
+  }
+}
 
 </style>

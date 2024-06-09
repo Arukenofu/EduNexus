@@ -14,7 +14,7 @@ const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
 })
 
 const {data: modules} = await useAsyncData('modules', async () => {
-  return $fetch(`/learning/${route.value.course}/modules/{module_name}` , {
+  return $fetch(`/learning/${route.value.course}/modules/` , {
     baseURL: baseURL
   })
 });

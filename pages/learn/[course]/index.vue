@@ -19,6 +19,8 @@ const {data: modules} = await useAsyncData('modules', async () => {
   })
 })
 
+console.log(modules.value);
+
 </script>
 
 <template>

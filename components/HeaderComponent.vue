@@ -3,6 +3,7 @@ import toggleTheme from "~/utils/theme/toggleTheme";
 import ProjectIcon from "~/components/ProjectIcon.vue";
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import Button1x1 from "~/components/Buttons/Button1x1.vue";
+import useDevice from "~/composables/useDevice";
 
 
 const exitFromAccount = () => {
@@ -24,16 +25,25 @@ const inputClick = async (e: Event) => {
 
 const search = ref('');
 
-
+const isMobile = useDevice();
+const isDialogOpen = ref<boolean>(false);
 
 </script>
 
 <template>
   <header>
 
-    <ProjectIcon />
+    <button
+      class="mobile-burger"
+      v-if="isMobile"
+      @click="isDialogOpen = true"
+    >
+      <svg stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 12H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 19H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
 
-    <slot />
+    <ProjectIcon class="project-icon" />
+
+    <NavBar direction="row" v-if="!isMobile" />
 
     <button1x1
       class="toggleTheme control header-button"
@@ -64,6 +74,8 @@ const search = ref('');
     />
 
   </header>
+
+  <Dialog v-if="isMobile" v-model:state="isDialogOpen" />
 </template>
 
 <style scoped lang="scss">
@@ -71,6 +83,7 @@ header {
   top: var(--electron);
   position: fixed;
   width: 100%;
+  max-width: 100dvw;
   backdrop-filter: blur(8px);
   z-index: 2;
   height: 60px;
@@ -79,11 +92,20 @@ header {
   padding: 0 92px;
   border-bottom: var(--border) 1px solid;
 
-
+  .mobile-burger {
+    height: 40px;
+    aspect-ratio: 1/1;
+    background: none;
+    border: none;
+    color: var(--text);
+    padding: 9px;
+    margin-right: 9px;
+  }
 
   .header-button {
     margin-left: 6px;
     height: 40px;
+    font-size: 1rem;
   }
 
   .toggleTheme {
@@ -121,5 +143,17 @@ header {
   header {
     padding: var(--content-padding);
   }
+}
+
+@media screen and (max-width: 768px) {
+  .header-button {
+    height: 40px !important;
+    width: 40px;
+    font-size: .9rem !important;
+  }
+}
+
+.project-icon {
+  margin-right: 36px;
 }
 </style>

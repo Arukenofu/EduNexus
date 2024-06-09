@@ -22,7 +22,6 @@ const updateUserProfile = async () => {
     method: 'POST',
     body: {
       firstname: firstname,
-      surname: 'asdfghktrdsf',
       description: description,
       profile: profile
     }

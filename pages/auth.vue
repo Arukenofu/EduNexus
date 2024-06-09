@@ -65,4 +65,14 @@
   }
 }
 
+@media screen and (max-width: 900px) {
+  .image-section {
+    display: none;
+  }
+
+  .container {
+    background: #ffffff;
+  }
+}
+
 </style>

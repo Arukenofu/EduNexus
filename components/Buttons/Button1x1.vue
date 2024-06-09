@@ -14,7 +14,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   color: 'var(--bg)',
   text: 'var(--text)',
-  size: '1.4rem',
+  size: '1.4em',
   title: '',
   hoverColor: '',
   width: '40px'

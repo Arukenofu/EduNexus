@@ -52,13 +52,12 @@ const updateUserValue = (newValue: User) => {
 
 <style scoped lang="scss">
 .layout {
-  margin-top: 101px;
+  padding-top: 101px;
   display: flex;
+  flex-wrap: wrap;
   gap: 21px;
 
   .profile-panel {
-
-
 
     .profile-card {
       width: 350px;
@@ -154,5 +153,15 @@ const updateUserValue = (newValue: User) => {
   }
 }
 
+
+@media screen and (max-width: 1000px) {
+  .layout {
+    display: grid;
+  }
+
+  .profile-card {
+    width: 100% !important;
+  }
+}
 
 </style>

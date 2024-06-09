@@ -109,4 +109,19 @@ defineProps<Course>();
   }
 }
 
+
+@media screen and (max-width: 550px) {
+  .card {
+    aspect-ratio: 1/1.1;
+
+    .info {
+      font-size: 1.15rem;
+      height: 35px;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+  }
+}
 </style>

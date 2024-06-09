@@ -79,16 +79,13 @@ function onTabPressed() {
 }
 
 function onSubmit(form: {header: string, description: string}) {
-  $fetch(`/teaching/${query.value.course}/lectures`, {
+  useAPI(`/teaching/${query.value.course}/lectures`, {
     baseURL: useRuntimeConfig().public.apiBase,
     method: 'POST',
     body: {
       moduleId: 9,
       description: form.description,
-      content: JSON.stringify({
-        title: form.header,
-        content: editor.value?.getHTML()
-      })
+      content: editor.value?.getHTML()
     }
   })
 }

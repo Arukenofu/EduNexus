@@ -132,6 +132,8 @@ const {data: courses} = await useAsyncData<Courses>('courses',
         :image="course.image"
         :organization_logo="course.organization_logo"
       />
+      <div v-if="courses.courses?.length < 3" />
+      <div v-if="courses.courses?.length < 4" />
     </Grid>
 
     <div class="no-course" v-else>
@@ -155,7 +157,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
 
 <style scoped lang="scss">
 article {
-  margin-top: 81px;
+  padding-top: 81px;
 
   h1 {
     width: 100%;

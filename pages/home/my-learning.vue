@@ -71,7 +71,7 @@ const toLearnPage = (param1: string): void => {
 
 <style scoped lang="scss">
 article {
-  margin-top: 81px;
+  padding-top: 81px;
   display: flex;
   flex-wrap: wrap;
   column-gap: 21px;

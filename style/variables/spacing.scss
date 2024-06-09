@@ -9,3 +9,17 @@
     --teaching-padding: 0 60px;
   }
 }
+
+@media screen and (max-width: 900px) {
+  :root {
+    --content-padding: 0 20px;
+    --teaching-padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    --content-padding: 0 9px;
+    --teaching-padding: 0 9px;
+  }
+}

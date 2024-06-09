@@ -24,7 +24,7 @@
 
 <style scoped lang="scss">
 article {
-  margin-top: 81px;
+  padding-top: 81px;
 
   section {
     margin-bottom: 42px;

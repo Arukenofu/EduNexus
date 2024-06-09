@@ -9,7 +9,7 @@ const isDarkTheme = () => {
 </script>
 
 <template>
-  <div class="icon">
+  <div class="icon" tabindex="0" @click="$router.push('/home/main')">
     <nuxt-img
       :src="isDarkTheme() ? '/icon.png' : '/icon-black.png'"
       width="28px"
@@ -23,8 +23,18 @@ const isDarkTheme = () => {
   font-size: 1.3rem;
   font-weight: 900;
   user-select: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus:not(:active) {
+    outline: 2px solid var(--text);
+  }
+
 
   span {
     margin-left: 3px;

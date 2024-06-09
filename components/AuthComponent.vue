@@ -14,7 +14,13 @@ const toggleLogin = () => {
 <template>
   <div class="login-form">
 
-    <ProjectIcon class="icon" />
+    <div class="icon">
+      <nuxt-img
+        src="/icon-black.png"
+        width="28px"
+        preload />
+      <span>EduNexus</span>
+    </div>
 
     <p>{{isLogin ? 'Добро пожаловать' : 'Регистрация'}}</p>
 
@@ -45,6 +51,14 @@ const toggleLogin = () => {
   .icon {
     color: #0f0f0f;
     font-size: 1.2em;
+    font-weight: 900;
+    user-select: none;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 3px;
+    }
   }
 
   p {
@@ -68,6 +82,11 @@ const toggleLogin = () => {
       border-radius: 3px;
       color: #0f0f0f;
       font-weight: 700;
+
+      &::selection {
+        background-color: #0f0f0f;
+        color: #FFFFFF !important;
+      }
 
       &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
         display: none;
@@ -148,6 +167,11 @@ const toggleLogin = () => {
       font-weight: 800;
     }
   }
+}
 
+@media screen and (max-width: 900px) {
+  .login-form {
+    width: 100%;
+  }
 }
 </style>
