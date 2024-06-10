@@ -15,6 +15,20 @@ const userProfile = ref<User>({
   }
 });
 
+const getBase64 = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+
+  if (input!.files) {
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+      userProfile.value.profile_info.profile = e.target?.result as string;
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 const updateUserProfile = async () => {
   const {profile, firstname, description} = userProfile.value.profile_info;
 
@@ -62,23 +76,20 @@ const updateUserProfile = async () => {
       </p>
 
       <div class="avatar" :style="`background-image: url('${userProfile!.profile_info.profile}')`">
+        <div class="table">
+          <label class="input-file">
+            <input type="file" accept="image/*" @input="getBase64">
+            <span>
+                Выбрать файл...
+            </span>
+          </label>
+        </div>
       </div>
 
       <dl class="user-main">
         <dt>Ваше имя</dt>
         <dd>
           <input type="text" :placeholder="user?.profile_info.firstname" v-model="userProfile.profile_info.firstname" />
-        </dd>
-      </dl>
-
-      <dl class="user-main">
-        <dt>Аватар</dt>
-        <dd>
-          <input
-            type="text"
-            :placeholder="user?.profile_info.profile"
-            v-model="userProfile.profile_info.profile"
-          />
         </dd>
       </dl>
 
@@ -184,6 +195,14 @@ const updateUserProfile = async () => {
         transition: 0.1s;
         z-index: 1;
       }
+
+      input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
     }
 
     dl {

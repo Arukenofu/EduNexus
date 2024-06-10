@@ -1,25 +1,25 @@
 :root {
   --content-padding: 0 92px;
-  --teaching-padding: 0 180px;
+  --teaching-padding: 9px 180px 0;
 }
 
 @media screen and (max-width: 1200px) {
   :root {
     --content-padding: 0 40px;
-    --teaching-padding: 0 60px;
+    --teaching-padding: 9px 60px 0;
   }
 }
 
 @media screen and (max-width: 900px) {
   :root {
     --content-padding: 0 20px;
-    --teaching-padding: 0 20px;
+    --teaching-padding: 9px 20px 0;
   }
 }
 
 @media screen and (max-width: 500px) {
   :root {
     --content-padding: 0 9px;
-    --teaching-padding: 0 9px;
+    --teaching-padding: 9px 9px 0;
   }
 }

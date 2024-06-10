@@ -40,7 +40,12 @@ const updateUserValue = (newValue: User) => {
     </section>
 
     <section class="main-info-panel">
-      <h1>Опыт</h1>
+      <h1>Преподаваемые курсы</h1>
+      <div class="assigning">
+        <div class="course">
+
+        </div>
+      </div>
     </section>
   </div>
 

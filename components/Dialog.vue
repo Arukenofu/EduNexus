@@ -18,6 +18,10 @@ watch(state, (value) => {
   }
 });
 
+onUnmounted(() => {
+  setBodyScroll('scroll')
+})
+
 function closeDialog() {
   state.value = false;
 }
@@ -31,15 +35,8 @@ function closeDialog() {
         <div class="dialog">
           <ProjectIcon class="icon" />
 
-          <div class="routes">
-            <NavBar
-              direction="column"
-              align="inherit"
-              gap="15px"
-              font-size="1.2em"
-              @onRouteClick="closeDialog()"
-            />
-          </div>
+          <slot />
+
         </div>
       </Transition>
     </div>
@@ -48,6 +45,8 @@ function closeDialog() {
 
 <style scoped lang="scss">
 .dialog-bg {
+  left: 0;
+  top: 0;
   position: fixed;
   z-index: 6;
   width: 100dvw;
@@ -66,10 +65,6 @@ function closeDialog() {
 
     .icon {
       font-size: 1.3rem;
-    }
-
-    .routes {
-      margin-top: 21px;
     }
   }
 }

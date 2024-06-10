@@ -30,11 +30,6 @@ const toLearnPage = (param1: string): void => {
             <span>{{course.organization_name}}</span>
           </div>
 
-          <div class="rate">
-            <Icon name="iconoir:fire-flame" size="1.3em" color="var(--red)" />
-            8.7 / 10
-          </div>
-
           <button @click="toLearnPage(course.title)" class="current">
             Войти
           </button>
@@ -42,28 +37,6 @@ const toLearnPage = (param1: string): void => {
         </div>
 
       </section>
-    </div>
-
-    <div class="tasks-block">
-      <h1>Текущие задания</h1>
-
-      <div class="tasks-wrap" v-if="false">
-        <div class="task" v-for="task in 5">
-
-          <div class="image" />
-
-          <div class="text">
-            <p>Computer Science</p>
-            <span>Тест: до 21 Фев. 2024</span>
-          </div>
-
-          <Icon class="enter" name="iconoir:arrow-right-circle" size="1.9em" />
-        </div>
-      </div>
-
-      <p>
-
-      </p>
     </div>
 
   </article>
@@ -82,7 +55,7 @@ article {
   }
 
   .main {
-    flex: 7;
+    flex: 1;
 
     section {
       display: flex;
@@ -97,6 +70,7 @@ article {
 
       .course {
         width: 100%;
+        max-width: 75%;
         height: 100px;
         background-color: var(--bg-secondary);
         border-radius: 9px;
@@ -148,7 +122,7 @@ article {
         }
 
         button {
-          margin-left: 21px;
+          margin-left: auto;
           border: none;
           height: 65%;
           border-radius: 9px;
@@ -170,63 +144,26 @@ article {
       }
     }
   }
+}
 
-  .tasks-block {
-    flex: 4;
-    width: 100%;
 
-    .tasks-wrap {
-      min-height: 500px;
-      border-radius: 9px;
+@media screen and (max-width: 1300px) {
+  .course {
+    max-width: unset !important;
+  }
+}
 
-      .task {
-        width: 100%;
-        height: 75px;
-        background-color: var(--bg-secondary);
-        border-radius: 6px;
-        padding: 10px 12px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 6px;
+@media screen and (max-width: 850px) {
+  .course {
+    height: 80px !important;
 
-        .image {
-          height: 100%;
-          aspect-ratio: 1/1;
-          background-color: var(--bg);
-          border-radius: 5px;
-        }
+    .image {
+      display: none;
+    }
 
-        .text {
-          margin-left: 12px;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          line-height: 1.1em;
-
-          p {
-            font-size: .95em;
-            font-weight: 700;
-            color: var(--text);
-          }
-
-          span {
-            font-size: .75em;
-            color: var(--text-secondary);
-          }
-        }
-
-        .enter {
-          margin-left: auto;
-          margin-right: 12px;
-          cursor: pointer;
-          transition: color 0.2s ease;
-          color: var(--text-secondary);
-
-          &:hover {
-            color: var(--text);
-          }
-        }
-      }
+    button {
+      margin-right: 0 !important;
+      height: 85% !important;
     }
   }
 }

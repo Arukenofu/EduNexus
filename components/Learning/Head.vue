@@ -4,6 +4,7 @@ import toggleTheme from "~/utils/theme/toggleTheme";
 import type { User } from "~/interfaces/User";
 
 const theme = useState('theme');
+const state = defineModel<boolean>('state')
 
 defineProps<{
   type: 'Learning' | 'Teaching'
@@ -13,16 +14,32 @@ const isDarkTheme = () => {
   return theme.value === 'dark';
 }
 
-const {data: user} = await useAPI<User>('/profile')
+const {data: user} = await useAPI<User>('/profile');
+
+const isMobile = useDevice();
+
+const route = useRouteParams();
+
+
 
 </script>
 
 <template>
   <header>
+    <button
+      class="mobile-burger"
+      v-if="isMobile"
+      @click="state = true"
+    >
+      <svg stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 12H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 19H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
+
     <div
+      v-if="!isMobile"
       @click="$router.push('/home/main')"
       class="logo"
     >
+
       <nuxt-img
         :src="isDarkTheme() ? '/icon.png' : '/icon-black.png'"
         width="36px"
@@ -35,6 +52,10 @@ const {data: user} = await useAPI<User>('/profile')
       </div>
     </div>
 
+    <div class="course-name" v-if="isMobile">
+      {{route.course || 'Курс'}}
+    </div>
+
     <div class="control">
 
       <buttons-button1x1
@@ -42,10 +63,11 @@ const {data: user} = await useAPI<User>('/profile')
         :icon-name="themeConditionalState()"
         color="none"
         @click="toggleTheme()"
+        v-if="!isMobile"
       />
 
 
-      <button class="user" @click="$router.push('/home/profile')">
+      <button class="user" @click="$router.push('/home/profile')" v-if="!isMobile">
         <div class="pfp" :style="`background-image: url('${user?.profile_info.profile}')`" />
         <span>{{user?.profile_info.firstname}}</span>
       </button>
@@ -55,7 +77,6 @@ const {data: user} = await useAPI<User>('/profile')
         icon-name="material-symbols:arrow-right-alt-rounded"
         color="none"
         @click="$router.push('/home/main')"
-
       />
 
 
@@ -75,10 +96,19 @@ header {
   background-color: var(--bg-fourth);
   height: 75px;
   border-radius: 14px;
-  margin-top: 14px;
   align-items: center;
   margin-bottom: 21px;
   box-shadow:  0 2px 6px 0 rgba(0,0,0,.1),0 3px 7px -1px rgba(0,0,0,.1);
+
+  .mobile-burger {
+    height: 40px;
+    aspect-ratio: 1/1;
+    background: none;
+    border: none;
+    color: var(--text);
+    padding: 9px;
+    margin-right: 9px;
+  }
 
   .logo {
     font-size: 1.3rem;
@@ -110,6 +140,12 @@ header {
         font-weight: 500;
       }
     }
+  }
+
+  .course-name {
+    margin: 0 auto;
+    font-size: 1.2em;
+    font-weight: 700;
   }
 
   .control {
@@ -150,6 +186,23 @@ header {
         font-size: .9em;
         font-weight: 600;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    position: absolute;
+    width: 100dvw;
+    left: 0;
+    top: 0;
+    margin: 0 !important;
+    border-radius: 0;
+    padding: 0 9px;
+    height: 50px;
+
+    .control {
+      margin-left: 0 !important;
     }
   }
 }

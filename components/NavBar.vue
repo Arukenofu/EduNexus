@@ -26,8 +26,8 @@ const routes = [
     text: 'Онлайн курсы'
   },
   {
-    to: '/home/certificate',
-    text: 'Мои Сертификаты'
+    to: '/home/completed',
+    text: 'Завершённые курсы'
   },
 
 ];

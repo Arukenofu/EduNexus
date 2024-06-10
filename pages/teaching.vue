@@ -63,7 +63,7 @@ const onCourseCreateSubmit = async () => {
   <div class="layout">
     <LearningHead type="Teaching" />
     <section v-if="myProjects!.courses">
-      <aside>
+      <LearningSideBar class="aside">
         <LearningCard class="my-projects">
           <LearningLink
             v-for="(project, index) in myProjects!.courses"
@@ -109,7 +109,7 @@ const onCourseCreateSubmit = async () => {
             text="Форумы"
           />
         </LearningCard>
-      </aside>
+      </LearningSideBar>
 
       <main>
         <nuxt-page />
@@ -202,8 +202,7 @@ const onCourseCreateSubmit = async () => {
     display: flex;
     gap: 21px;
 
-    aside {
-      width: 300px;
+    .aside {
 
       .my-projects, .dailies {
         margin-bottom: 9px;
@@ -483,6 +482,13 @@ const onCourseCreateSubmit = async () => {
         }
       }
     }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  main {
+    padding-top: 50px;
   }
 }
 

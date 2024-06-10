@@ -4,18 +4,18 @@ const route = useRouteParams();
 
 const {data: courses} = await useAPI<MyCourses>('/learning')
 
+const modalState = ref<boolean>(false);
 
 </script>
 
 <template>
 
   <div class="layout">
-
-    <LearningHead type="Learning" />
+    <LearningHead type="Learning" v-model:state="modalState" />
 
     <section>
 
-      <aside>
+      <LearningSideBar class="aside" v-model:state="modalState">
         <LearningCard class="my-projects">
           <LearningLink
             v-for="(project, index) in courses!.courses"
@@ -47,7 +47,7 @@ const {data: courses} = await useAPI<MyCourses>('/learning')
             text="Форумы"
           />
         </LearningCard>
-      </aside>
+      </LearningSideBar>
 
 
       <main>
@@ -67,11 +67,7 @@ const {data: courses} = await useAPI<MyCourses>('/learning')
     display: flex;
     gap: 21px;
 
-    aside {
-      align-self: flex-start;
-      position: sticky;
-      top: 14px;
-      width: 300px;
+    .aside {
 
       .my-projects, .dailies {
         margin-bottom: 9px;
@@ -122,6 +118,12 @@ const {data: courses} = await useAPI<MyCourses>('/learning')
     main {
       flex: 1;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    padding-top: 50px;
   }
 }
 

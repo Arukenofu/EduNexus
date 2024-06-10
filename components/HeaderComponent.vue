@@ -75,7 +75,17 @@ const isDialogOpen = ref<boolean>(false);
 
   </header>
 
-  <Dialog v-if="isMobile" v-model:state="isDialogOpen" />
+  <Dialog v-if="isMobile" v-model:state="isDialogOpen">
+    <div class="routes">
+      <NavBar
+        direction="column"
+        align="inherit"
+        gap="15px"
+        font-size="1.2em"
+        @onRouteClick="isDialogOpen = false"
+      />
+    </div>
+  </Dialog>
 </template>
 
 <style scoped lang="scss">
@@ -155,5 +165,10 @@ header {
 
 .project-icon {
   margin-right: 36px;
+}
+
+
+.routes {
+  margin-top: 21px;
 }
 </style>
