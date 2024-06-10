@@ -1,7 +1,11 @@
 interface MyCourses {
-  courses:{
-    title: string,
-    organization_name:string,
-    image: string
+  courses: {
+    course_id: number;
+    course_provider: number;
+    description: string;
+    id: number;
+    image: string;
+    title: string;
+    user_id: number;
   }[]
 }

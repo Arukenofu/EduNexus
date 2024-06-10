@@ -17,7 +17,7 @@ defineProps<Course>();
       />
 
       <div class="info">
-        <div class="info-image" :style="`background-image: url('${organization_logo}')`" />
+        <div class="info-image" :style="setAvatar(organization_logo)" />
         <span class="info-text">
           {{organization_name}}
         </span>

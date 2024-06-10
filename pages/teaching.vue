@@ -25,6 +25,20 @@ const createCourseForm = ref({
   avatar: ''
 });
 
+const getBase64 = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+
+  if (input!.files) {
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+      createCourseForm.value.avatar = e.target?.result as string;
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 
 const onCourseCreateSubmit = async () => {
   const {course_name, description, category, avatar} = createCourseForm.value;
@@ -36,10 +50,10 @@ const onCourseCreateSubmit = async () => {
   const {error} = await useAPI('/teachings', {
     method: 'POST',
     body: {
-      title: course_name,
-      description: description,
+      title: course_name.trim(),
+      description: description.trim(),
       category: categories,
-      profile: avatar
+      image: avatar
     }
   });
   if (error.value) {
@@ -140,7 +154,14 @@ const onCourseCreateSubmit = async () => {
           <div class="main-form">
             <div class="avatar-section">
               <div class="avatar" v-if="!createCourseForm.avatar">
-                +
+                <div class="table">
+                  <label class="input-file">
+                    <input type="file" accept="image/*" @input="getBase64">
+                    <span>
+                        Выбрать файл...
+                    </span>
+                  </label>
+                </div>
               </div>
 
               <div
@@ -148,7 +169,14 @@ const onCourseCreateSubmit = async () => {
                 :style="`background-image: url('${createCourseForm.avatar}')`"
                 v-else
               >
-
+                <div class="table">
+                  <label class="input-file">
+                    <input type="file" accept="image/*" @input="getBase64">
+                    <span>
+                        Выбрать файл...
+                    </span>
+                  </label>
+                </div>
               </div>
 
             </div>
@@ -159,10 +187,6 @@ const onCourseCreateSubmit = async () => {
                 <input type="text" placeholder="Название курса" v-model="createCourseForm.course_name" />
               </div>
 
-              <div class="course-description">
-                <span>Ссылка на аватарку</span>
-                <input type="text" placeholder="https://anysite.com/my.png" v-model="createCourseForm.avatar  " />
-              </div>
 
               <div class="course-description">
                 <span>Описание</span>
@@ -359,6 +383,26 @@ const onCourseCreateSubmit = async () => {
           cursor: pointer;
           color: var(--text-secondary);
           user-select: none;
+          position: relative;
+
+          .table {
+            opacity: 0;
+            position: absolute;
+            bottom: -4px;
+            height: 40px;
+            width: 100%;
+            background-color: #000000;
+            transition: 0.1s;
+            z-index: 1;
+          }
+
+          input {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
         }
       }
 

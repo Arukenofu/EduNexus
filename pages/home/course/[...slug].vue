@@ -91,11 +91,10 @@ const subscribeToCourse = async () => {
           <div class="divider" />
 
           <div class="teacher-info">
-            <div class="avatar" />
 
             Преподаватели: &nbsp;
             <div v-for="teacher in course?.teachers">
-            <nuxt-link to="/">{{teacher.firstname}}</nuxt-link>&nbsp;
+            <nuxt-link>{{teacher.firstname}}</nuxt-link>&nbsp;
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ type useFetchType = typeof useFetch;
 export const useAPI: useFetchType = (path, options = {}) => {
   const config = useRuntimeConfig()
 
-  options.baseURL = config.public.apiBase;
+  options.baseURL = config.public.apiBase || 'http://localhost/';
   options.timeout = 7 * 1000;
   options.server = false;
 

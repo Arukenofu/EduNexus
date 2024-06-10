@@ -7,23 +7,31 @@ const baseURL = useRuntimeConfig().public.apiBase
 
 const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
   return $fetch(`/courses/${route.value.course}`, {
-    baseURL: baseURL
+    baseURL: baseURL,
+    headers: {
+       Authorization: "Bearer " + getToken() || '',
+    }
   })
 }, {
   watch: [route]
 })
 
 const {data: modules} = await useAsyncData('modules', async () => {
-  return $fetch(`/learning/${route.value.course}/modules/` , {
-    baseURL: baseURL
+  return $fetch(`/courses/${route.value.course}/` , {
+    baseURL: baseURL,
+    headers: {
+       Authorization: "Bearer " + getToken() || '',
+    }
   })
 });
+
+console.log(modules.value);
 
 const isCreateModalOpen = ref(false);
 const moduleTitle = ref<string>('');
 
 const createModule = () => {
-  if (moduleTitle.value?.length < 4) {
+  if (moduleTitle.value?.trim().length < 4) {
     return sendToast({
       type: "error",
       message: "Название модуля должно иметь хотя бы 4 символа"
@@ -32,7 +40,7 @@ const createModule = () => {
   useAPI(`/teaching/${route.value.course}/modules`, {
     method: 'POST',
     body: {
-      title: moduleTitle.value
+      title: moduleTitle.value.trim()
     }
   })
 }
@@ -40,7 +48,6 @@ const createModule = () => {
 </script>
 
 <template>
-  {{data}}
   <Transition name="course" appear>
     <div class="layout">
       <div class="about-course">
@@ -66,15 +73,10 @@ const createModule = () => {
 
       <LearningBlock class="modules-block" text="Все Модули">
         <div class="modules">
-          <LearningModule
-            class="module"
-            v-for="(module, index) in modules"
-            :key="index"
-            :index="index+1"
-            :name="module.name"
-            :lectures="module.lectures"
-            :assignments="module.assignments"
-          />
+          <div class="module" v-for="module in modules.modules">
+            {{module}}
+          </div>
+
           <button class="addModule" @click="isCreateModalOpen = true">
             <Icon name="material-symbols:add-circle" size="3em" />
             <div>Добавить модуль</div>
@@ -221,6 +223,20 @@ const createModule = () => {
 
     .module {
       flex: 1;
+      background-color: var(--ui-secondary);
+      display: grid;
+      place-items: center;
+      border: none;
+      transition: font-size .5s var(--transition-function);
+      color: var(--text-secondary);
+      font-weight: 700;
+      border-radius: 12px;
+      font-size: 1.2em;
+      cursor: pointer;
+
+      &:hover {
+        font-size: 1.4em;
+      }
     }
 
     .addModule {

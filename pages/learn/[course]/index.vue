@@ -7,7 +7,10 @@ const baseURL = useRuntimeConfig().public.apiBase
 
 const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
   return $fetch(`/courses/${route.value.course}`, {
-    baseURL: baseURL
+    baseURL: baseURL,
+    headers: {
+      Authorization: "Bearer " + getToken() || '',
+    }
   })
 }, {
   watch: [route]
@@ -15,7 +18,10 @@ const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
 
 const {data: modules} = await useAsyncData('modules', async () => {
   return $fetch(`/learning/${route.value.course}/modules/Переменные и базовые типы` , {
-    baseURL: baseURL
+    baseURL: baseURL,
+    headers: {
+      Authorization: "Bearer " + getToken() || '',
+    }
   })
 })
 
@@ -202,6 +208,32 @@ console.log(modules.value);
 
 .course-enter-from {
   opacity: 0;
+}
+
+@media screen and (max-width: 520px){
+  .about-course {
+    flex-direction: column;
+    margin-bottom: 12px !important;
+  }
+
+
+  .information {
+    margin: 0 auto;
+    text-align: center;
+
+    h1 {
+      max-width: unset !important;
+      width: 100%;
+    }
+  }
+
+  .teachers {
+    justify-content: center;
+  }
+
+  .course-description {
+    text-align: center;
+  }
 }
 
 </style>

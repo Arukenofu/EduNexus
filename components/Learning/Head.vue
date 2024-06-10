@@ -20,6 +20,14 @@ const isMobile = useDevice();
 
 const route = useRouteParams();
 
+function onExit() {
+  if (useRoute().matched[0].path === '/learn') {
+    return useRouter().push('/home/my-learning')
+  }
+
+  useRouter().push('/home/main')
+}
+
 
 
 </script>
@@ -52,9 +60,10 @@ const route = useRouteParams();
       </div>
     </div>
 
-    <div class="course-name" v-if="isMobile">
+    <div class="course-name" v-if="isMobile" @click="$router.push(`/learn/${route.course}`)">
       {{route.course || 'Курс'}}
     </div>
+
 
     <div class="control">
 
@@ -76,15 +85,13 @@ const route = useRouteParams();
         title="На главную страницу"
         icon-name="material-symbols:arrow-right-alt-rounded"
         color="none"
-        @click="$router.push('/home/main')"
+        @click="onExit()"
       />
 
 
 
 
     </div>
-
-
   </header>
 </template>
 
@@ -146,6 +153,25 @@ header {
     margin: 0 auto;
     font-size: 1.2em;
     font-weight: 700;
+    user-select: none;
+    position: relative;
+
+    .option {
+      display: inline-block;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 100%;
+      list-style: none;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      padding: 6px 12px 6px 6px;
+      height: 150px;
+      overflow: scroll;
+      scrollbar-width: none;
+      background-color: var(--bg);
+      z-index: 1;
+    }
   }
 
   .control {
@@ -186,6 +212,26 @@ header {
         font-size: .9em;
         font-weight: 600;
       }
+    }
+  }
+}
+
+.select {
+  margin: 0 auto;
+  background: none;
+  border: none;
+
+  .content {
+    background: none;
+    border: none;
+  }
+
+  .options {
+    border: 1px solid var(--border);
+    height: auto;
+
+    .option {
+      text-align: center;
     }
   }
 }

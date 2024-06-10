@@ -9,7 +9,9 @@ interface Lecture {
 
 const route = useRouteParams();
 
-useAPI(`/learning/${route.value.course}/read/${route.value.id}`);
+await useAPI(`/learning/${route.value.course}/read/${route.value.id}`, {
+  method: 'POST'
+});
 
 const {data, pending} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
 

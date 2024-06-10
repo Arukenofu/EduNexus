@@ -44,7 +44,7 @@ const updateUserProfile = async () => {
   if (error.value) {
     sendToast({
       type: 'error',
-      message: 'Ошибка при валидации пользователя'
+      message: 'Ошибка'
     })
   } else {
     emit('updateProfile', userProfile.value);

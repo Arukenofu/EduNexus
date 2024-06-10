@@ -9,9 +9,17 @@ const emit = defineEmits([
   'onSubmit',
 ])
 
+const query = useRouteQuery()
+
+
+const {data: modules} = await useAPI(`/courses/${query.value.course}/`);
+const currentModule = ref<number>(0);
+const selectState = ref<boolean>(false);
+
 const form = ref({
   header: '',
-  description: ''
+  description: '',
+  module_name: modules.value?.modules[currentModule.value]
 });
 
 const onStart = () => {
@@ -74,6 +82,21 @@ const onStart = () => {
       </label>
       <textarea maxlength="400" v-model="form.description" placeholder="Введите ваше описание здесь..." />
 
+      <label>
+        Название модуля
+      </label>
+      <Select>
+        <SelectContent @click="selectState =! selectState">
+          {{modules?.modules[currentModule]}}
+        </SelectContent>
+
+        <SelectGroup v-if="selectState" style="height: auto">
+          <SelectOption v-for="(option, index) in modules?.modules" @click="currentModule = index; selectState = false">
+            {{option}}
+          </SelectOption>
+        </SelectGroup>
+      </Select>
+
       <div class="buttons">
         <button class="exit" @click="isOpen = false">
           Выйти
@@ -111,8 +134,8 @@ header {
 }
 
 .modal {
-  width: 550px;
-  aspect-ratio: 1/.8;
+  width: 600px;
+  aspect-ratio: 1/.85;
   border-radius: 8px;
   border: 1px solid var(--border);
   background-color: var(--bg);
@@ -160,6 +183,7 @@ header {
     padding: 12px;
     resize: vertical;
     border-radius: 8px;
+    margin-bottom: 21px;
 
     &:focus {
       outline: none;
