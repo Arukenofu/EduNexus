@@ -132,6 +132,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
         :image="course.image"
         :organization_logo="course.organization_logo"
       />
+      <div v-if="courses.courses?.length < 2" />
       <div v-if="courses.courses?.length < 3" />
       <div v-if="courses.courses?.length < 4" />
     </Grid>

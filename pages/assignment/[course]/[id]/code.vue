@@ -29,7 +29,7 @@ const getGithubTheme = () => {
   }
 }
 
-const model = ref(JSON.parse(data.value!.assignment.content)['code_test']);
+const model = ref();
 
 const monaco = useMonaco();
 
@@ -60,6 +60,19 @@ const changeTheme = () => {
   monaco?.editor.setTheme('github');
 }
 
+function sendToCompile() {
+  $fetch(`/learning/${route.value.course}/assignments/${data.value?.assignment.id}`, {
+    method: 'POST',
+    baseURL: useRuntimeConfig().public.apiBase,
+    headers: {
+      Authorization: "Bearer " + getToken() || '',
+    },
+    body: {
+      source: model.value
+    }
+  })
+}
+
 </script>
 
 <template>
@@ -80,7 +93,7 @@ const changeTheme = () => {
         width="42px"
       />
 
-      <button class="launch">
+      <button class="launch" @click="sendToCompile()">
         Запуск
       </button>
 
@@ -91,6 +104,7 @@ const changeTheme = () => {
         color="var(--red)"
         text="#FFFFFF"
         width="42px"
+        @click="$router.back()"
       />
     </div>
   </header>

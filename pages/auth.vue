@@ -14,7 +14,7 @@
     <AuthComponent />
 
     <div class="image-section">
-      <nuxt-img src="/login-page.png" preload="preload" />
+      <nuxt-img :src="useServerImage('/login-page.png')" preload="preload" />
     </div>
 
   </div>

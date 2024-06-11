@@ -69,3 +69,11 @@ a {
   width: 0;
   background: var(--bg);
 }
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent !important;
+}

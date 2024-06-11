@@ -35,16 +35,15 @@ console.log(modules.value);
       <div class="about-course">
         <div
           class="image"
-          :style="`background-image: url('${data?.details.image}')`"
+          :style="setAvatar(data?.details.image)"
         />
         <div class="information">
           <h1>{{route.course}}</h1>
-          <p>Academy of Teaching &nbsp;Программирование</p>
 
           <div class="teachers">
-            <div class="teacher">
-              <div class="avatar" />
-              <span>Ersultan sad gril</span>
+            <div class="teacher" v-for="teacher in data?.teachers">
+              <div class="avatar" :style="setAvatar(teacher?.profile)" />
+              <span>{{teacher.firstname}}</span>
             </div>
           </div>
         </div>
@@ -112,7 +111,6 @@ console.log(modules.value);
     height: 90%;
 
     h1 {
-      max-width: 80%;
       font-size: 2.5em;
       font-weight: 800;
       line-height: 1.1;

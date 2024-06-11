@@ -25,7 +25,6 @@ const {data: modules} = await useAsyncData('modules', async () => {
   })
 });
 
-console.log(modules.value);
 
 const isCreateModalOpen = ref(false);
 const moduleTitle = ref<string>('');
@@ -53,16 +52,15 @@ const createModule = () => {
       <div class="about-course">
         <div
           class="image"
-          :style="`background-image: url('${data?.details.image}')`"
+          :style="setAvatar(data?.details.image)"
         />
         <div class="information">
           <h1>{{route.course}}</h1>
-          <p>Academy of Teaching &nbsp;Программирование</p>
 
           <div class="teachers">
-            <div class="teacher">
-              <div class="avatar" />
-              <span>Ersultan sad gril</span>
+            <div class="teacher" v-for="teacher in data?.teachers">
+              <div class="avatar" :style="setAvatar(teacher?.profile)" />
+              <span>{{teacher.firstname}}</span>
             </div>
           </div>
         </div>
@@ -133,7 +131,6 @@ const createModule = () => {
     height: 90%;
 
     h1 {
-      max-width: 80%;
       font-size: 2.5em;
       font-weight: 800;
       line-height: 1.1;
@@ -162,7 +159,6 @@ const createModule = () => {
           border-radius: 50%;
           background-size: cover;
           background-position: center;
-          background-image: url("https://lh6.googleusercontent.com/proxy/i_uutN4ej1swLhAv6_pVESK3ApNo94yhIUYso9qb3tRBuTwAmFO2V4E4CfaolYATg69RxY92_tObigL4Z1AdrPyNUW1GqjYxel4dLEG_SzFtB55yEjTD5MXJ6x5cagy7a8qr4A");
         }
 
         span {

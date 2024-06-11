@@ -68,16 +68,20 @@ const onCourseCreateSubmit = async () => {
   sendToast({
     type: 'notification',
     message: 'Курс успешно создан!'
-  })
+  });
+
+  isCreateCourseModalOpen.value = false;
 }
+
+const modalState = ref<boolean>(false);
 
 </script>
 
 <template>
   <div class="layout">
-    <LearningHead type="Teaching" />
+    <LearningHead type="Teaching" v-model:state="modalState" />
     <section v-if="myProjects!.courses">
-      <LearningSideBar class="aside">
+      <LearningSideBar class="aside" v-model:state="modalState">
         <LearningCard class="my-projects">
           <LearningLink
             v-for="(project, index) in myProjects!.courses"

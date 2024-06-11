@@ -16,7 +16,7 @@ const toggleLogin = () => {
 
     <div class="icon">
       <nuxt-img
-        src="/icon-black.png"
+        :src="useServerImage('/icon-black.png')"
         width="28px"
         preload />
       <span>EduNexus</span>

@@ -22,12 +22,12 @@ defineEmits(['onVariantChosen'])
       {{currentQuiz?.question}}
     </h1>
 
-    <Grid class="wrap" :columns="1" :rows="4" gap="18px">
+    <Grid class="wrap" gap="18px">
       <div
         class="variant"
         v-for="(value, index) in currentQuiz?.variants"
         :key="index"
-        @click="$emit('onVariantChosen', index)"
+        @click="$emit('onVariantChosen', value)"
       >
         {{ value }}
       </div>
@@ -58,6 +58,7 @@ defineEmits(['onVariantChosen'])
 
   .wrap {
     max-width: 60%;
+    grid-template-columns: 1fr;
 
     .variant {
       height: 55px;

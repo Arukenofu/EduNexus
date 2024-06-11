@@ -1,8 +1,50 @@
 <script setup lang="ts">
-
 import type { Quiz } from "~/interfaces/Quiz";
 
+interface Response {
+  id: number,
+  title: string,
+  content: {
+    answers: string[],
+    variant: Array<string[]>,
+    questions: string[]
+  },
+  description: string,
+  assignment_type_id: number
+}
+
+interface Quiziz extends Response{
+  content: Quiz[],
+  answers: string[]
+}
+
 const isStarted = ref<boolean>(false);
+
+const route = useRouteParams();
+
+const {data} = await useAsyncData<Quiziz>('quiz', async () => {
+  let {assignment} = await $fetch<Response>(`/learning/${route.value.course}/assignments/${route.value.id}`, {
+    baseURL: useRuntimeConfig().public.apiBase,
+    headers: {
+      Authorization: "Bearer " + getToken() || '',
+    }
+  });
+
+  const quiz: Response['content'] = JSON.parse(assignment?.content);
+
+  let temp = [];
+  quiz.questions.forEach((question, index) => {
+    temp.push({
+      question: question,
+      variants: quiz.variant[index],
+    })
+  })
+  assignment.content = temp;
+  assignment['answers'] = quiz.answers;
+
+  return assignment;
+});
+
 
 const toggleStarted = () => {
   isStarted.value = true;
@@ -12,149 +54,13 @@ const currentQuizId = ref<number>(0);
 
 const answers: number[] = [];
 
-const quizQuestions: Quiz[] = [
-  {
-    question: 'What is the capital of France?',
-    variants: [
-      'Berlin',
-      'Madrid',
-      'Paris',
-      'Rome'
-    ]
-  },
-  {
-    question: 'What is the largest planet in our solar system?',
-    variants: [
-      'Earth',
-      'Jupiter',
-      'Mars',
-      'Venus'
-    ]
-  },
-  {
-    question: 'Who wrote "To be, or not to be"?',
-    variants: [
-      'Charles Dickens',
-      'Jane Austen',
-      'Mark Twain',
-      'William Shakespeare'
-    ]
-  },
-  {
-    question: 'What is the chemical symbol for water?',
-    variants: [
-      'O2',
-      'H2O',
-      'CO2',
-      'NaCl'
-    ]
-  },
-  {
-    question: 'Which country is known as the Land of the Rising Sun?',
-    variants: [
-      'China',
-      'Japan',
-      'South Korea',
-      'Thailand'
-    ]
-  },
-  {
-    question: 'What is the hardest natural substance on Earth?',
-    variants: [
-      'Gold',
-      'Iron',
-      'Diamond',
-      'Platinum'
-    ]
-  },
-  {
-    question: 'Who painted the Mona Lisa?',
-    variants: [
-      'Vincent van Gogh',
-      'Pablo Picasso',
-      'Leonardo da Vinci',
-      'Claude Monet'
-    ]
-  },
-  {
-    question: 'What is the smallest prime number?',
-    variants: [
-      '0',
-      '1',
-      '2',
-      '3'
-    ]
-  },
-  {
-    question: 'Which planet is known as the Red Planet?',
-    variants: [
-      'Earth',
-      'Mars',
-      'Jupiter',
-      'Saturn'
-    ]
-  },
-  {
-    question: 'What is the main ingredient in sushi?',
-    variants: [
-      'Bread',
-      'Pasta',
-      'Rice',
-      'Potato'
-    ]
-  },
-  {
-    question: 'Who is known as the Father of Computers?',
-    variants: [
-      'Albert Einstein',
-      'Isaac Newton',
-      'Charles Babbage',
-      'Thomas Edison'
-    ]
-  },
-  {
-    question: 'What is the capital of Australia?',
-    variants: [
-      'Sydney',
-      'Melbourne',
-      'Canberra',
-      'Brisbane'
-    ]
-  },
-  {
-    question: 'What is the largest ocean on Earth?',
-    variants: [
-      'Atlantic Ocean',
-      'Indian Ocean',
-      'Arctic Ocean',
-      'Pacific Ocean'
-    ]
-  },
-  {
-    question: 'Which element has the atomic number 1?',
-    variants: [
-      'Helium',
-      'Oxygen',
-      'Hydrogen',
-      'Carbon'
-    ]
-  },
-  {
-    question: 'Who wrote the play "Romeo and Juliet"?',
-    variants: [
-      'George Orwell',
-      'William Shakespeare',
-      'Homer',
-      'Leo Tolstoy'
-    ]
-  }
-];
+const quizQuestions: Quiz[] = data.value?.content
 
 const currentQuiz = computed(() => {
   return quizQuestions[currentQuizId.value];
 })
 
-const onVariantChosen = async (value: number) => {
+const onVariantChosen = async (value: string) => {
 
   await useGsap().to('.quiz', {
     opacity: 0,
@@ -180,7 +86,6 @@ const onVariantChosen = async (value: number) => {
 </script>
 
 <template>
-
   <div class="layout">
 
     <QuizControls />
@@ -190,8 +95,8 @@ const onVariantChosen = async (value: number) => {
         class="preview"
         v-if="!isStarted"
         @onStart="toggleStarted"
-        title="Викторина «Название Викторины»"
-        description="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested"
+        :title="data?.title"
+        :description="data?.description"
       />
 
       <QuizQuest
@@ -204,6 +109,8 @@ const onVariantChosen = async (value: number) => {
       />
 
       <QuizAnswer
+        :user="answers"
+        :answers="data.answers"
         v-else
       />
     </Transition>

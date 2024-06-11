@@ -78,8 +78,8 @@ function onTabPressed() {
   }
 }
 
-function onSubmit(form: {header: string, description: string, module_name: string}) {
-  useAPI(`/teaching/${query.value.course}/lectures`, {
+async function onSubmit(form: {header: string, description: string, module_name: string}) {
+  await useAPI(`/teaching/${query.value.course}/lectures`, {
     baseURL: useRuntimeConfig().public.apiBase,
     method: 'POST',
     body: {
@@ -88,7 +88,13 @@ function onSubmit(form: {header: string, description: string, module_name: strin
       description: form.description,
       content: editor.value?.getHTML()
     }
-  })
+  });
+
+  sendToast({
+    type: 'notification',
+    message: 'Лекция создана успешно!'
+  });
+
 }
 
 </script>

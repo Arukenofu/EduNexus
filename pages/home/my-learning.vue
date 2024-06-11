@@ -23,7 +23,7 @@ const toLearnPage = (param1: string): void => {
 
         <div class="course" v-for="course in response!.courses">
 
-          <div class="image" :style="`background-image: url('${course.image}')`" />
+          <div class="image" :style="setAvatar(course.image)" />
 
           <div class="text">
             <p>{{ course.title }}</p>

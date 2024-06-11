@@ -49,7 +49,7 @@ function onExit() {
     >
 
       <nuxt-img
-        :src="isDarkTheme() ? '/icon.png' : '/icon-black.png'"
+        :src="isDarkTheme() ? useServerImage('/icon.png') : useServerImage('/icon-black.png')"
         width="36px"
         class="icon"
         preload
@@ -77,7 +77,7 @@ function onExit() {
 
 
       <button class="user" @click="$router.push('/home/profile')" v-if="!isMobile">
-        <div class="pfp" :style="`background-image: url('${user?.profile_info.profile}')`" />
+        <div class="pfp" :style="setAvatar(user?.profile_info.profile)" />
         <span>{{user?.profile_info.firstname}}</span>
       </button>
 

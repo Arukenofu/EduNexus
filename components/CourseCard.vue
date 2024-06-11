@@ -12,7 +12,7 @@ defineProps<Course>();
     >
       <div
         class="image"
-        :style="`background-image: url('${image}')`"
+        :style="setAvatar(image)"
         @load="console.log('adsa')"
       />
 

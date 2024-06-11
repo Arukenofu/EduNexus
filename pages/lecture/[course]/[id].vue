@@ -56,6 +56,7 @@ const content = JSON.parse(data.value?.content.content as string);
     padding-top: 72px;
     margin: 0 auto;
     width: 55%;
+    font-size: 1rem;
 
     p {
       font-size: .9em;
@@ -163,7 +164,17 @@ const content = JSON.parse(data.value?.content.content as string);
 }
 
 
+@media screen and (max-width: 1200px){
+  .content {
+    width: 65% !important;
+  }
+}
 
+@media screen and (max-width: 768px) {
+  .content {
+    width: 90% !important;
+  }
+}
 
 
 

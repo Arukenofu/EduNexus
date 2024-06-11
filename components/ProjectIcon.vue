@@ -11,7 +11,7 @@ const isDarkTheme = () => {
 <template>
   <div class="icon" tabindex="0" @click="$router.push('/home/main')">
     <nuxt-img
-      :src="isDarkTheme() ? '/icon.png' : '/icon-black.png'"
+      :src="isDarkTheme() ? useServerImage('/icon.png') : useServerImage('/icon-black.png')"
       width="28px"
       preload />
     <span>EduNexus</span>
