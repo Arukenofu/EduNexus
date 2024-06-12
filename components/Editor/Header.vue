@@ -2,6 +2,7 @@
 import themeConditionalState from "~/utils/theme/themeConditionalState";
 import toggleTheme from "~/utils/theme/toggleTheme";
 import Button1x1 from "~/components/Buttons/Button1x1.vue";
+import getModules from "~/utils/getModules";
 
 const isOpen = ref(false);
 
@@ -11,15 +12,19 @@ const emit = defineEmits([
 
 const query = useRouteQuery()
 
-
-const {data: modules} = await useAPI(`/courses/${query.value.course}/`);
+const modules = ref();
 const currentModule = ref<number>(0);
+
+if (query?.value?.for === 'teaching' && query.value?.course) {
+  modules.value = await getModules(query.value.course as string);
+}
+
 const selectState = ref<boolean>(false);
 
 const form = ref({
   header: '',
   description: '',
-  module_name: modules.value?.modules[currentModule.value]
+  module_name: []
 });
 
 const onStart = () => {
@@ -82,10 +87,10 @@ const onStart = () => {
       </label>
       <textarea maxlength="400" v-model="form.description" placeholder="Введите ваше описание здесь..." />
 
-      <label>
+      <label v-if="modules?.length">
         Название модуля
       </label>
-      <Select>
+      <Select v-if="modules?.length">
         <SelectContent @click="selectState =! selectState">
           {{modules?.modules[currentModule]}}
         </SelectContent>

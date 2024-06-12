@@ -236,6 +236,14 @@ header {
   }
 }
 
+.course-name {
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 @media screen and (max-width: 768px) {
   header {
     position: absolute;

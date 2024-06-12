@@ -12,7 +12,7 @@ interface MyCourses {
   }[]
 }
 
-const {data: myProjects} = await useAPI<MyCourses>('/teaching')
+const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching')
 
 const route = useRouteParams();
 
@@ -70,6 +70,7 @@ const onCourseCreateSubmit = async () => {
     message: 'Курс успешно создан!'
   });
 
+  await refresh();
   isCreateCourseModalOpen.value = false;
 }
 
@@ -146,7 +147,7 @@ const modalState = ref<boolean>(false);
         <div class="control">
           <h1>Создание вашего курса</h1>
 
-          <button>
+          <button @click="isCreateCourseModalOpen = false">
             Закрыть
             <Icon class="icon" name="ic:baseline-close" size="1.4em" />
           </button>

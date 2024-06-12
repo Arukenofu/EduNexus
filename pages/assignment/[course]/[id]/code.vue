@@ -20,7 +20,6 @@ const route = useRouteParams();
 
 const {data} = await useAPI<Code>(`/learning/${route.value.course}/assignments/${route.value.id}`);
 
-
 const getGithubTheme = () => {
   if (localStorage.getItem('theme') === 'dark') {
     return github_dark as Monaco.editor.IStandaloneThemeData
@@ -60,18 +59,26 @@ const changeTheme = () => {
   monaco?.editor.setTheme('github');
 }
 
-function sendToCompile() {
-  $fetch(`/learning/${route.value.course}/assignments/${data.value?.assignment.id}`, {
+async function sendToCompile() {
+  const {data: result, error} = await useAPI(`/learning/${route.value.course}/assignments/${data.value?.assignment.id}`, {
     method: 'POST',
-    baseURL: useRuntimeConfig().public.apiBase,
-    headers: {
-      Authorization: "Bearer " + getToken() || '',
-    },
     body: {
       source: model.value
     }
   })
+
+  if (error.value) {
+    return sendToast({
+      type: "error",
+      message: "Ошибка формы"
+    })
+  }
+
+  console.log(result.value);
 }
+
+const isDescriptionModalOpen = ref(true);
+const isResultsModalOpen = ref(false);
 
 </script>
 
@@ -112,6 +119,20 @@ function sendToCompile() {
   <LazyMonacoEditor v-model:model-value="model" lang="go" class="editor" :options="options">
     ...Loading
   </LazyMonacoEditor>
+
+  <Modal v-model:is-open="isDescriptionModalOpen" v-if="data.assignment.description">
+    <div class="modal-inner">
+      <h1>Цель задачи</h1>
+      <p>{{data.assignment.description}}</p>
+      <button @click="isDescriptionModalOpen = false">
+        Подтвердить
+      </button>
+    </div>
+  </Modal>
+
+  <Modal v-model:is-open="isResultsModalOpen">
+
+  </Modal>
 </template>
 
 <style scoped lang="scss">
@@ -174,5 +195,37 @@ header {
   display: none;
 }
 
+.modal-inner {
+  width: 550px;
+  padding: 30px 24px;
+  background-color: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  line-height: 1;
+
+  h1 {
+    font-size: 1.75em;
+    margin-bottom: 14px;
+    font-weight: 800;
+  }
+
+  p {
+    line-height: initial;
+    font-size: .95em;
+    margin-bottom: 14px;
+  }
+
+  button {
+    display: flex;
+    margin-left: auto;
+    background-color: var(--text);
+    border: none;
+    color: var(--bg);
+    font-size: .9em;
+    font-weight: 600;
+    padding: 9px 12px;
+    border-radius: 4px;
+  }
+}
 
 </style>

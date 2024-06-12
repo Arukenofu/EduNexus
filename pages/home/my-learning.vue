@@ -61,6 +61,7 @@ article {
       display: flex;
       flex-direction: column;
       gap: 9px;
+      margin-bottom: 72px;
 
       p {
         font-size: 1rem;

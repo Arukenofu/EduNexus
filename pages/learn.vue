@@ -6,6 +6,15 @@ const {data: courses} = await useAPI<MyCourses>('/learning')
 
 const modalState = ref<boolean>(false);
 
+const nuxtApp = useNuxtApp();
+const isLoading = ref<boolean>(false);
+
+nuxtApp.hook("page:start", () => {
+  isLoading.value = true;
+});nuxtApp.hook("page:finish", () => {
+  isLoading.value = false;
+});
+
 </script>
 
 <template>

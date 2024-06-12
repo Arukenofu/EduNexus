@@ -25,13 +25,20 @@ const {data: modules} = await useAsyncData('modules', async () => {
   })
 })
 
-console.log(modules.value);
+const nuxtApp = useNuxtApp();
+const isLoading = ref<boolean>(false);
+
+nuxtApp.hook("page:start", () => {
+  isLoading.value = true;
+});nuxtApp.hook("page:finish", () => {
+  isLoading.value = false;
+});
 
 </script>
 
 <template>
-  <Transition name="course" appear>
-    <div class="layout">
+  <Transition name="select" appear>
+    <div class="layout" v-if="!isLoading">
       <div class="about-course">
         <div
           class="image"
@@ -84,6 +91,12 @@ console.log(modules.value);
         </Grid>
 
       </LearningBlock>
+    </div>
+
+    <div class="loading" v-else>
+      <div class="loader">
+
+      </div>
     </div>
   </Transition>
 
@@ -208,7 +221,51 @@ console.log(modules.value);
   opacity: 0;
 }
 
-@media screen and (max-width: 520px){
+.loading {
+  display: grid;
+  place-items: center;
+  height: 70vh;
+}
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-color: var(--text) #0000;
+  animation: l16 1s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+}
+.loader::before {
+  border-color: #6161cc #0000;
+  animation: inherit;
+  animation-duration: .5s;
+  animation-direction: reverse;
+}
+.loader::after {
+  margin: 8px;
+}
+
+
+@keyframes l16 {
+  100%{transform: rotate(1turn)}
+}
+
+@keyframes l1 {
+  to {
+    transform: rotate(.5turn)
+  }
+}
+
+@media screen and (max-width: 590px){
   .about-course {
     flex-direction: column;
     margin-bottom: 12px !important;
@@ -231,6 +288,17 @@ console.log(modules.value);
 
   .course-description {
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .loading {
+    display: block;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%, -50%);
   }
 }
 

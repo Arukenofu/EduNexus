@@ -23,7 +23,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <transition name="bg">
+  <transition name="bg" appear>
     <div v-if="isOpen" class="modal-bg" @click.self="isOpen =! isOpen" >
       <div class="val">
         <slot />

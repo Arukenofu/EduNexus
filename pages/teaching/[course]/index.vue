@@ -16,7 +16,7 @@ const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
   watch: [route]
 })
 
-const {data: modules} = await useAsyncData('modules', async () => {
+const {data: modules} = await useAsyncData<CourseDetailed>('modules', async () => {
   return $fetch(`/courses/${route.value.course}/` , {
     baseURL: baseURL,
     headers: {
@@ -29,26 +29,53 @@ const {data: modules} = await useAsyncData('modules', async () => {
 const isCreateModalOpen = ref(false);
 const moduleTitle = ref<string>('');
 
-const createModule = () => {
+const createModule = async () => {
   if (moduleTitle.value?.trim().length < 4) {
     return sendToast({
       type: "error",
       message: "Название модуля должно иметь хотя бы 4 символа"
     })
   }
-  useAPI(`/teaching/${route.value.course}/modules`, {
+  const {error} = await useAPI(`/teaching/${route.value.course}/modules`, {
     method: 'POST',
     body: {
       title: moduleTitle.value.trim()
     }
-  })
+  });
+
+  if (error.value) {
+    return sendToast({
+      type: "error",
+      message: "Ошибка при создании модуля"
+    })
+  }
+
+  sendToast({
+    type: "notification",
+    message: "Модуль создан успешно"
+  });
+
+  if (modules.value?.modules === null) {
+    modules.value.modules = []
+  }
+
+  modules.value?.modules.push(moduleTitle.value.trim())
 }
+
+const nuxtApp = useNuxtApp();
+const isLoading = ref<boolean>(false);
+
+nuxtApp.hook("page:start", () => {
+  isLoading.value = true;
+});nuxtApp.hook("page:finish", () => {
+  isLoading.value = false;
+});
 
 </script>
 
 <template>
   <Transition name="course" appear>
-    <div class="layout">
+    <div class="layout" v-if="!isLoading">
       <div class="about-course">
         <div
           class="image"
@@ -104,6 +131,12 @@ const createModule = () => {
           </div>
         </div>
       </Modal>
+    </div>
+
+    <div class="loading" v-else>
+      <div class="loader">
+
+      </div>
     </div>
   </Transition>
 
@@ -218,7 +251,7 @@ const createModule = () => {
     gap: 9px;
 
     .module {
-      flex: 1;
+      height: 120px;
       background-color: var(--ui-secondary);
       display: grid;
       place-items: center;
@@ -236,8 +269,8 @@ const createModule = () => {
     }
 
     .addModule {
+      height: 120px;
       background-color: var(--ui-secondary);
-      padding: 28px;
       border-radius: 12px;
       cursor: pointer;
       transition: transform .5s var(--transition-function);
@@ -312,6 +345,93 @@ const createModule = () => {
 
 .course-enter-from {
   opacity: 0;
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  height: 70vh;
+}
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-color: var(--text) #0000;
+  animation: l16 1s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+}
+.loader::before {
+  border-color: #6161cc #0000;
+  animation: inherit;
+  animation-duration: .5s;
+  animation-direction: reverse;
+}
+.loader::after {
+  margin: 8px;
+}
+
+
+@keyframes l16 {
+  100%{transform: rotate(1turn)}
+}
+
+@keyframes l1 {
+  to {
+    transform: rotate(.5turn)
+  }
+}
+
+@media screen and (max-width: 590px){
+  .about-course {
+    flex-direction: column;
+    margin-bottom: 12px !important;
+  }
+
+
+  .information {
+    margin: 0 auto;
+    text-align: center;
+
+    h1 {
+      max-width: unset !important;
+      width: 100%;
+    }
+  }
+
+  .teachers {
+    justify-content: center;
+  }
+
+  .course-description {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .loading {
+    display: block;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .modules {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 </style>

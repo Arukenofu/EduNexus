@@ -10,6 +10,7 @@ const moduleOptions = [
   'Модуль 1',
   'Модуль 2'
 ];
+
 const moduleState = ref(useRoute()?.query?.module || moduleOptions[0]);
 
 const messageOptions = [
@@ -20,6 +21,19 @@ const messageOptions = [
 ];
 const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 
+async function createLecture() {
+  const modules = await getModules(route.value.course as string);
+
+  if (!modules) {
+    return sendToast({
+      type: "error",
+      message: "Создайте сперва модуль для курса."
+    })
+  }
+
+  await useRouter().push(`/editor?for=teaching&course=${route.value.course}`)
+}
+
 </script>
 
 <template>
@@ -29,7 +43,7 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
     <div class="select-wrap">
       <LearningSelectModule v-model:model-value="moduleState" :options="moduleOptions" />
       <LearningSelectMessage v-model:model-value="messageState" :options="messageOptions" />
-      <TeachingCreate @click="$router.push(`/editor?for=teaching&course=${route.course}`)" />
+      <TeachingCreate @click="createLecture()" />
     </div>
   </div>
 
