@@ -1,8 +1,5 @@
 <script setup lang="ts">
 
-const state = defineModel<boolean>('state')
-
-const isMobile = useDevice();
 
 const route = useRouteParams()
 
@@ -49,26 +46,10 @@ const routes = computed(() => {
 </script>
 
 <template>
-  <aside v-if="!isMobile">
+  <aside>
     <slot />
   </aside>
 
-  <Dialog
-    v-model:state="state"
-    v-else-if="state"
-  >
-    <nav>
-
-      <nuxt-link
-        v-for="route in routes"
-        :to="route.to"
-        @click="state = false"
-      >
-        {{route.text}}
-      </nuxt-link>
-
-    </nav>
-  </Dialog>
 
 </template>
 

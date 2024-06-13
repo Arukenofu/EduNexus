@@ -16,7 +16,7 @@
 .assign {
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 100%;
   height: 70px;
   background-color: var(--ui-secondary);
   margin-bottom: 9px;

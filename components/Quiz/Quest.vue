@@ -78,4 +78,11 @@ defineEmits(['onVariantChosen'])
   }
 }
 
+@media screen and (max-width: 850px) {
+  .wrap {
+    max-width: unset !important;
+    width: 100%;
+  }
+}
+
 </style>

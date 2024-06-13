@@ -4,7 +4,6 @@ import toggleTheme from "~/utils/theme/toggleTheme";
 import type { User } from "~/interfaces/User";
 
 const theme = useState('theme');
-const state = defineModel<boolean>('state')
 
 defineProps<{
   type: 'Learning' | 'Teaching'
@@ -34,33 +33,25 @@ function onExit() {
 
 <template>
   <header>
-    <button
-      class="mobile-burger"
-      v-if="isMobile"
-      @click="state = true"
-    >
-      <svg stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 12H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 19H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </button>
 
     <div
-      v-if="!isMobile"
       @click="$router.push('/home/main')"
       class="logo"
     >
 
       <nuxt-img
         :src="isDarkTheme() ? useServerImage('/icon.png') : useServerImage('/icon-black.png')"
-        width="36px"
+        width="32px"
         class="icon"
         preload
       />
-      <div class="text">
+      <div class="text" v-if="!isMobile">
         <p>EduNexus</p>
         <span>For {{type}}</span>
       </div>
     </div>
 
-    <div class="course-name" v-if="isMobile" @click="$router.push(`/learn/${route.course}`)">
+    <div class="course-name" v-if="isMobile">
       {{route.course || 'Курс'}}
     </div>
 
@@ -106,6 +97,7 @@ header {
   align-items: center;
   margin-bottom: 21px;
   box-shadow:  0 2px 6px 0 rgba(0,0,0,.1),0 3px 7px -1px rgba(0,0,0,.1);
+  position: relative;
 
   .mobile-burger {
     height: 40px;
@@ -128,6 +120,8 @@ header {
     .icon {
       position: relative;
       bottom: 1px;
+      height: 100%;
+      aspect-ratio: 1/1;
     }
 
     .text {
@@ -154,24 +148,9 @@ header {
     font-size: 1.2em;
     font-weight: 700;
     user-select: none;
-    position: relative;
-
-    .option {
-      display: inline-block;
-      position: absolute;
-      top: 110%;
-      left: 0;
-      width: 100%;
-      list-style: none;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      padding: 6px 12px 6px 6px;
-      height: 150px;
-      overflow: scroll;
-      scrollbar-width: none;
-      background-color: var(--bg);
-      z-index: 1;
-    }
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .control {
@@ -254,10 +233,6 @@ header {
     border-radius: 0;
     padding: 0 9px;
     height: 50px;
-
-    .control {
-      margin-left: 0 !important;
-    }
   }
 }
 </style>

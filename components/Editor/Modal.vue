@@ -169,4 +169,11 @@ defineEmits(['setLanguage']);
 .select {
   width: 45%;
 }
+
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 95dvw;
+    padding: 12px !important;
+  }
+}
 </style>

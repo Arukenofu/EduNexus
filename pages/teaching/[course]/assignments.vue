@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const route = useRouteParams();
 
-const {data: assignments, pending} = await useAPI(`/learning/${route.value.course}/assignments`);
+const {data: assignments, pending} = await useAPI(`/learning/${route.value.course}/assignments`, {
+  lazy: true
+});
 
 const moduleOptions = [
   'Все модули',
@@ -31,10 +33,10 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
     </div>
   </div>
 
-  <LearningAssignmentSkeleton v-if="pending" />
+  <Transition name="learn" mode="out-in" appear>
+    <LearningAssignmentSkeleton v-if="pending" />
 
-  <Transition name="learn" mode="out-in" v-else-if="assignments?.assignments" appear>
-    <div class="learn-wrap" >
+    <div class="learn-wrap" v-else-if="assignments?.assignments" >
       <LearningAssignment
         v-for="assignment in assignments?.lectures"
         :key="assignment.assignment_id"
@@ -43,9 +45,10 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
         @click="$router.push(`/lecture/${route.course}/${assignment.assignment_id}`)"
       />
     </div>
+
+    <LearningNoData v-else />
   </Transition>
 
-  <LearningNoData v-else />
 </template>
 
 <style scoped lang="scss">

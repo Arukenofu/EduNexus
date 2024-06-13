@@ -341,6 +341,12 @@ nuxtApp.hook("page:start", () => {
   }
 }
 
+@media screen and (max-width: 600px){
+  .modal-content {
+    width: 95dvw;
+  }
+}
+
 .course-enter-from {
   opacity: 0;
 }

@@ -44,4 +44,10 @@ button {
   }
 }
 
+@media screen and (max-width: 768px) {
+  button {
+    width: 32px !important;
+  }
+}
+
 </style>

@@ -59,6 +59,7 @@ const bgStyle = computed(() => {
     position: absolute;
     top: 50%;
     left: 50%;
+    max-width: 95dvw;
     transform: translate(-50%, -50%);
   }
 }

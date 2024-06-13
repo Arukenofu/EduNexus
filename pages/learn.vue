@@ -4,27 +4,17 @@ const route = useRouteParams();
 
 const {data: courses} = await useAPI<MyCourses>('/learning')
 
-const modalState = ref<boolean>(false);
-
-const nuxtApp = useNuxtApp();
-const isLoading = ref<boolean>(false);
-
-nuxtApp.hook("page:start", () => {
-  isLoading.value = true;
-});nuxtApp.hook("page:finish", () => {
-  isLoading.value = false;
-});
+const isMobile = useDevice()
 
 </script>
 
 <template>
 
   <div class="layout">
-    <LearningHead type="Learning" v-model:state="modalState" />
+    <LearningHead type="Learning" />
 
     <section>
-
-      <LearningSideBar class="aside" v-model:state="modalState">
+      <LearningSideBar class="aside" v-if="!isMobile">
         <LearningCard class="my-projects">
           <LearningLink
             v-for="(project, index) in courses!.courses"
@@ -58,11 +48,12 @@ nuxtApp.hook("page:start", () => {
         </LearningCard>
       </LearningSideBar>
 
-
       <main>
         <NuxtPage />
       </main>
     </section>
+
+    <LearningMobileNavigator v-if="isMobile" />
 
   </div>
 
@@ -71,6 +62,7 @@ nuxtApp.hook("page:start", () => {
 <style scoped lang="scss">
 .layout {
   padding: var(--teaching-padding);
+  margin-bottom: 72px;
 
   section {
     display: flex;

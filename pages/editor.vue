@@ -239,4 +239,11 @@ body {
 :global(.katex-html) {
   display: none;
 }
+
+@media screen and (max-width: 500px) {
+  .editor {
+    width: 80dvw;
+    min-width: unset;
+  }
+}
 </style>

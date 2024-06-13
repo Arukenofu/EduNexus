@@ -54,3 +54,17 @@
 .work-enter-active {
   transition: all 1s ease-out;
 }
+
+
+.learn-enter-active {
+  transition: all 0.25s ease-out;
+}
+
+.learn-leave-active {
+
+}
+
+.learn-enter-from,
+.learn-leave-to {
+  opacity: 0;
+}

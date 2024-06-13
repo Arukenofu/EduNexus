@@ -264,4 +264,18 @@ const updateUserProfile = async () => {
   }
 }
 
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 100% !important;
+    padding: 12px !important;
+    height: 80dvh !important;
+
+    .content {
+      overflow-x: hidden;
+      height: calc(80dvh - 40px - 20px) !important;
+      padding: 0 12px 24px;
+    }
+  }
+}
+
 </style>

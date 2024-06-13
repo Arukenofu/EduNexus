@@ -4,8 +4,10 @@ import filterLectures from "~/utils/filterLectures";
 
 const route = useRouteParams();
 
-const {data: lectures, pending} = await useAPI<Lectures>(`/learning/${route.value.course}/lectures`);
-console.log(lectures.value);
+const {data: lectures, pending} = await useAPI<Lectures>(`/learning/${route.value.course}/lectures`, {
+  lazy: true
+});
+
 
 const moduleOptions = [
   'Все модули',
@@ -38,11 +40,12 @@ const filteredLectures = computed(() => {
     </div>
   </div>
 
-  <LearningAssignmentSkeleton v-if="pending" />
 
-  <Transition name="learn" mode="out-in" v-else-if="filteredLectures" appear>
 
-    <div class="learn-wrap" >
+  <Transition name="learn" mode="out-in" appear>
+    <LearningAssignmentSkeleton v-if="pending" />
+
+    <div class="learn-wrap" v-else-if="filteredLectures">
       <LearningAssignment
         v-for="lecture in filteredLectures"
         :key="lecture.assignment_id"
@@ -51,10 +54,12 @@ const filteredLectures = computed(() => {
         @click="$router.push(`/lecture/${route.course}/${lecture.assignment_id}`)"
       />
     </div>
+
+    <LearningNoData v-else />
   </Transition>
 
 
-  <LearningNoData v-else />
+
 </template>
 
 <style scoped lang="scss">

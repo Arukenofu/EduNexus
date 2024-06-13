@@ -2,9 +2,12 @@
 import type { Lectures } from "~/interfaces/Lectures";
 import filterLectures from "~/utils/filterLectures";
 
+const isMobile = useDevice();
 const route = useRouteParams();
 
-const {data: lectures, pending} = await useAPI<Lectures>(`/learning/${route.value.course}/lectures`);
+const {data: lectures, pending} = await useAPI<Lectures>(`/learning/${route.value.course}/lectures`, {
+  lazy: true
+});
 
 const moduleOptions = [
   'Все модули',
@@ -23,12 +26,22 @@ const messageOptions = [
 const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 
 async function createLecture() {
+
+
   const modules = await getModules(route.value.course as string);
 
   if (!modules) {
     return sendToast({
       type: "error",
       message: "Создайте сперва модуль для курса."
+    })
+  }
+
+  if (isMobile.value) {
+
+    sendToast({
+      type: 'notification',
+      message: 'Мобильная версия полностью не поддерживается.'
     })
   }
 
@@ -52,11 +65,10 @@ const filteredLectures = computed(() => {
     </div>
   </div>
 
-  <LearningAssignmentSkeleton v-if="pending" />
+  <Transition name="learn" mode="out-in" appear>
+    <LearningAssignmentSkeleton v-if="pending" />
 
-  <Transition name="learn" mode="out-in" v-else-if="filteredLectures" appear>
-
-    <div class="learn-wrap">
+    <div class="learn-wrap" v-else-if="filteredLectures">
       <LearningAssignment
         v-for="lecture in filteredLectures"
         :key="lecture.assignment_id"
@@ -65,10 +77,11 @@ const filteredLectures = computed(() => {
         @click="$router.push(`/lecture/${route.course}/${lecture.assignment_id}`)"
       />
     </div>
+
+    <LearningNoData v-else />
   </Transition>
 
 
-  <LearningNoData v-else />
 </template>
 
 <style scoped lang="scss">
@@ -114,19 +127,6 @@ const filteredLectures = computed(() => {
   }
 }
 
-
-.learn-enter-active {
-  transition: all 0.25s ease-out;
-}
-
-.learn-leave-active {
-  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.learn-enter-from,
-.learn-leave-to {
-  opacity: 0;
-}
 
 
 </style>

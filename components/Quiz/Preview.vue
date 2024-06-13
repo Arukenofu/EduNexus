@@ -52,4 +52,10 @@ defineEmits(['onStart'])
     transition: all var(--transition-function) .15s;
   }
 }
+
+@media screen and (max-width: 850px) {
+  .cont p {
+    max-width: unset;
+  }
+}
 </style>

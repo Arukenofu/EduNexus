@@ -232,6 +232,10 @@ header {
   header {
     padding: 0 12px;
   }
+
+  .modal-inner {
+    width: 95dvw !important;
+  }
 }
 
 </style>

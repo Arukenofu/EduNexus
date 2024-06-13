@@ -74,15 +74,15 @@ const onCourseCreateSubmit = async () => {
   isCreateCourseModalOpen.value = false;
 }
 
-const modalState = ref<boolean>(false);
+const isMobile = useDevice();
 
 </script>
 
 <template>
   <div class="layout">
-    <LearningHead type="Teaching" v-model:state="modalState" />
+    <LearningHead type="Teaching" />
     <section v-if="myProjects!.courses">
-      <LearningSideBar class="aside" v-model:state="modalState">
+      <LearningSideBar class="aside" v-if="!isMobile">
         <LearningCard class="my-projects">
           <LearningLink
             v-for="(project, index) in myProjects!.courses"
@@ -133,6 +133,8 @@ const modalState = ref<boolean>(false);
       <main>
         <nuxt-page />
       </main>
+
+      <LearningMobileNavigator v-if="isMobile" />
     </section>
 
     <div class="noProjects" v-else>
@@ -225,7 +227,8 @@ const modalState = ref<boolean>(false);
 
 <style scoped lang="scss">
 .layout {
-  padding: var(--teaching-padding );
+  padding: var(--teaching-padding);
+  margin-bottom: 72px;
 
   section {
     display: flex;

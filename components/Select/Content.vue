@@ -24,7 +24,7 @@
   transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
 
   svg {
-    margin-left: 11px;
+    margin-left: auto;
     margin-right: 3px;
   }
 }

@@ -57,4 +57,14 @@ defineEmits(['onExit', 'onContinue'])
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 95dvw !important;
+
+    p {
+      margin-bottom: 21px;
+    }
+  }
+}
 </style>

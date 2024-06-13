@@ -3,7 +3,9 @@ import assignmentCodeConverter from "~/utils/assignmentCodeConverter";
 
 const route = useRouteParams();
 
-const {data: assignments, pending} = await useAPI(`/learning/${route.value.course}/assignments`);
+const {data: assignments, pending} = await useAPI(`/learning/${route.value.course}/assignments`, {
+  lazy: true
+});
 
 const moduleOptions = [
   'Все модули',
@@ -19,7 +21,6 @@ const messageOptions = [
   'Непрочитанные',
 ];
 const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
-console.log(assignments.value);
 
 </script>
 
@@ -33,10 +34,10 @@ console.log(assignments.value);
     </div>
   </div>
 
-  <LearningAssignmentSkeleton v-if="pending" />
+  <Transition name="learn" mode="out-in" appear>
+    <LearningAssignmentSkeleton v-if="pending" />
 
-  <Transition name="learn" mode="out-in" v-else-if="assignments?.assignments" appear>
-    <div class="learn-wrap" >
+    <div class="learn-wrap" v-else-if="assignments?.assignments" >
       <LearningAssignment
         v-for="assignment in assignments.assignments"
         :key="assignment.assignment_id"
@@ -45,9 +46,10 @@ console.log(assignments.value);
         @click="$router.push(`/assignment/${route.course}/${assignment.id}/${assignmentCodeConverter(assignment.assignment_type_id)}`)"
       />
     </div>
+
+    <LearningNoData v-else />
   </Transition>
 
-  <LearningNoData v-else />
 </template>
 
 <style scoped lang="scss">

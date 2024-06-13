@@ -141,4 +141,10 @@ const onVariantChosen = async (value: string) => {
   opacity: 0;
 }
 
+@media screen and (max-width: 850px) {
+  .layout {
+    padding: 48px 32px;
+  }
+}
+
 </style>
