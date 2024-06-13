@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Lectures } from "~/interfaces/Lectures";
+import filterLectures from "~/utils/filterLectures";
 
 const route = useRouteParams();
 
@@ -34,6 +35,10 @@ async function createLecture() {
   await useRouter().push(`/editor?for=teaching&course=${route.value.course}`)
 }
 
+const filteredLectures = computed(() => {
+  return filterLectures(lectures.value?.lectures!, messageState.value as string)
+})
+
 </script>
 
 <template>
@@ -49,11 +54,11 @@ async function createLecture() {
 
   <LearningAssignmentSkeleton v-if="pending" />
 
-  <Transition name="learn" mode="out-in" v-else-if="lectures?.lectures" appear>
+  <Transition name="learn" mode="out-in" v-else-if="filteredLectures" appear>
 
-    <div class="learn-wrap" >
+    <div class="learn-wrap">
       <LearningAssignment
-        v-for="lecture in lectures?.lectures"
+        v-for="lecture in filteredLectures"
         :key="lecture.assignment_id"
         type="Лекция"
         :name="lecture.title"

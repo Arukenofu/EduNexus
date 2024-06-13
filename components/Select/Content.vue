@@ -21,6 +21,7 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
 
   svg {
     margin-left: 11px;

@@ -4,7 +4,6 @@ import type { User } from "~/interfaces/User";
 const isModalOpen = ref<boolean>(false);
 
 const {data: user} = await useAPI<User>('/profile')!;
-console.log(user.value);
 
 const updateUserValue = (newValue: User) => {
 
@@ -15,6 +14,7 @@ const updateUserValue = (newValue: User) => {
 }
 
 const {data: myProjects} = await useAPI<MyCourses>('/teaching')
+const isMobile = useDevice()
 
 </script>
 
@@ -36,7 +36,7 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
 
       </div>
 
-      <button @click="$router.push('/teaching')">
+      <button @click="$router.push('/teaching')" v-if="!isMobile">
         Перейти в режим преподавателя
       </button>
     </section>
@@ -50,8 +50,10 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
           :to="`/teaching/${course.title}`"
         >
           <div class="image" :style="setAvatar(course.image)" />
-          <h6>{{course.title}}</h6>
-          <p>{{course.description}}</p>
+          <div class="text">
+            <h6>{{course.title}}</h6>
+            <p>{{course.description}}</p>
+          </div>
         </nuxt-link>
       </div>
     </section>
@@ -73,6 +75,7 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
   .profile-panel {
 
     .profile-card {
+      position: relative;
       width: 350px;
       border-radius: 8px;
       background-color: var(--bg-secondary);
@@ -81,8 +84,8 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
       margin-bottom: 7px;
+      transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
 
       h2 {
         font-size: 1.05em;
@@ -146,6 +149,8 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
       background-color: var(--bg-third);
       border: 1px solid var(--border);
       color: var(--text);
+      transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
+
 
       &:hover {
         background-color: var(--border);
@@ -156,6 +161,7 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
 
   .main-info-panel {
     flex: 1;
+    margin-bottom: 63px;
 
     h1 {
       display: block;
@@ -165,39 +171,52 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
     }
 
     .assigning {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
 
       .course {
-        width: 30%;
         border-radius: 8px;
         background-color: var(--bg-secondary);
-        padding: 6px;
+        padding: 9px;
         cursor: pointer;
         color: inherit;
         text-decoration: none;
         line-height: 1;
+        display: flex;
+        align-items: center;
+        transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
+
 
         .image {
           border-radius: 6px;
-          width: 100%;
+          height: 80px;
           aspect-ratio: 16/10;
           background-color: var(--bg);
           background-position: center;
           background-size: cover;
-          margin-bottom: 6px;
         }
 
-        h6 {
-          font-size: 1.2em;
-          margin-bottom: 5px;
-        }
+        .text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-left: 9px;
+          margin-right: 12px;
+          gap: 2px;
 
-        p {
-          font-size: .9em;
-          color: var(--text-secondary);
-          margin-bottom: 12px;
+          h6 {
+            font-size: 1.2em;
+          }
+
+          p {
+            font-size: .9em;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
         }
       }
     }
@@ -205,13 +224,25 @@ const {data: myProjects} = await useAPI<MyCourses>('/teaching')
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1100px) {
   .layout {
     display: grid;
   }
 
   .profile-card {
     width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+    .main-info-panel {
+      h1 {
+        font-size: 1.5em !important;
+      }
+    }
+
+  .assigning {
+    grid-template-columns: 1fr !important;
   }
 }
 

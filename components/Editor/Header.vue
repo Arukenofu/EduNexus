@@ -15,22 +15,30 @@ const query = useRouteQuery()
 const modules = ref();
 const currentModule = ref<number>(0);
 
-if (query?.value?.for === 'teaching' && query.value?.course) {
-  modules.value = await getModules(query.value.course as string);
-}
-
-const selectState = ref<boolean>(false);
-
 const form = ref({
   header: '',
   description: '',
-  module_name: []
+  module_name: ''
 });
+
+if (query?.value?.for === 'teaching' && query.value?.course) {
+  modules.value = await getModules(query.value.course as string);
+
+  form.value.module_name = modules.value[0];
+}
+
+const selectState = ref<boolean>(false);
 
 const onStart = () => {
   form.value.header = document.getElementById('lectureHeader')?.textContent!;
 
   isOpen.value = true
+}
+
+function onOptionClick(index: number) {
+  currentModule.value = index;
+  selectState.value = false;
+  form.value.module_name = modules.value[index];
 }
 
 </script>
@@ -54,7 +62,7 @@ const onStart = () => {
         class="exit header-button str2"
         title="Выйти"
         iconName="iconoir:log-out"
-        @click=""
+        @click="$router.back()"
         color="none"
         text="var(--red)"
         hover-color="none"
@@ -92,11 +100,11 @@ const onStart = () => {
       </label>
       <Select v-if="modules?.length">
         <SelectContent @click="selectState =! selectState">
-          {{modules?.modules[currentModule]}}
+          {{modules[currentModule]}}
         </SelectContent>
 
         <SelectGroup v-if="selectState" style="height: auto">
-          <SelectOption v-for="(option, index) in modules?.modules" @click="currentModule = index; selectState = false">
+          <SelectOption v-for="(option, index) in modules" @click="onOptionClick(index)">
             {{option}}
           </SelectOption>
         </SelectGroup>

@@ -53,7 +53,7 @@ const paginationIndex = computed(() => {
 </script>
 
 <template>
-  <div class="pagination">
+  <div class="pagination" v-if="paginationLimitation[paginationIndex]?.length > 1">
     <ButtonsText @click="decrement()" icon="iconoir:nav-arrow-left" side="left" class="button">
       Назад
     </ButtonsText>

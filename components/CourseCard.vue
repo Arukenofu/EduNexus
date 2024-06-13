@@ -40,7 +40,7 @@ defineProps<Course>();
   border: 2px solid var(--border);
   aspect-ratio: 1/1.1;
   padding: 9px;
-  transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
+  transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1), border .15s var(--transition-function), color .15s var(--transition-function);;
   cursor: pointer;
   position: relative;
   text-decoration: none;

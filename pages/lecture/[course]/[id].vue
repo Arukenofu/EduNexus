@@ -21,6 +21,7 @@ const content = JSON.parse(data.value?.content.content as string);
 </script>
 
 <template>
+  <NuxtLoadingIndicator color="var(--text)" :height="2" />
   <div class="outer" v-if="!pending">
     <div class="content">
       <p>
@@ -34,7 +35,7 @@ const content = JSON.parse(data.value?.content.content as string);
 
       <div class="controls">
 
-        <button @click="$router.push(`/learn/${route.course}/lectures`)">
+        <button @click="$router.back()">
           Домой
           <span>
             Перейти домой

@@ -53,7 +53,6 @@ const updateUserProfile = async () => {
       type: 'notification',
       message: 'Успешно изменено!'
     })
-    console.log(data.value);
   }
 }
 
@@ -176,7 +175,6 @@ const updateUserProfile = async () => {
       background-position: center;
       background-size: cover;
       border: 3px solid var(--border);
-      cursor: pointer;
       position: relative;
       clip-path: circle(50% at center);
       margin-bottom: 12px;
@@ -194,15 +192,22 @@ const updateUserProfile = async () => {
         background-color: #000000;
         transition: 0.1s;
         z-index: 1;
+        text-align: center;
+        display: grid;
+        place-items: center;
+        padding-bottom: 9px;
+        font-size: .8em;
+        cursor: pointer;
       }
 
       input {
-          position: absolute;
-          z-index: -1;
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        cursor: pointer;
+      }
     }
 
     dl {

@@ -52,7 +52,7 @@ watch(paginationState, (value) => {
   });
 })
 
-const {data: courses} = await useAsyncData<Courses>('courses',
+const {data: courses, pending} = await useAsyncData<Courses>('courses',
   () => {
     const config = useRuntimeConfig().public.apiBase
 
@@ -124,7 +124,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
 
     </div>
 
-    <Grid :columns="4" gap="12px" v-if="courses?.courses">
+    <Grid :columns="4" gap="12px" v-if="courses?.courses && !pending">
       <CourseCard
         v-for="course in courses?.courses"
         :title="course.title"
@@ -136,6 +136,10 @@ const {data: courses} = await useAsyncData<Courses>('courses',
       <div v-if="courses.courses?.length < 3" />
       <div v-if="courses.courses?.length < 4" />
     </Grid>
+
+    <div class="loading" v-else-if="pending">
+      <Loading />
+    </div>
 
     <div class="no-course" v-else>
       ¯\_(ツ)_/¯
@@ -150,7 +154,7 @@ const {data: courses} = await useAsyncData<Courses>('courses',
       class="pag"
       v-model:state="paginationState"
       :length="courses?.pages"
-      :limit="5"
+      :limit="6"
     />
 
   </article>
@@ -187,9 +191,10 @@ article {
       border-radius: 8px;
       display: flex;
       align-items: center;
-      transition: background-color 0.2s ease;
       cursor: pointer;
       background-color: var(--bg);
+      transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
+
 
       &:hover {
         background-color: var(--border);
@@ -239,6 +244,14 @@ article {
     height: 340px;
     font-size: 1.35em;
     user-select: none;
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 680px;
   }
 
   .dropdown {

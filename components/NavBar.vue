@@ -4,7 +4,7 @@ withDefaults(defineProps<{
   direction?: 'column' | 'row',
   align?: 'inherit' | 'center',
   gap?: string,
-  fontSize: string
+  fontSize?: string
 }>(), {
   direction: 'row',
   align: 'center',

@@ -79,6 +79,7 @@ article {
         padding: 12px;
         display: flex;
         align-items: center;
+        transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
 
         .image {
           height: 100%;

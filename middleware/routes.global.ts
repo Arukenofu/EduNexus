@@ -14,6 +14,17 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             return navigateTo('/auth')
         }
 
+        const {data} = await useAPI('/profile')
+
+        if (!data.value) {
+            sendToast({
+                type: "error",
+                message: "Войдите в аккаунт"
+            })
+
+            return navigateTo('/auth')
+        }
+
     }
 
 })

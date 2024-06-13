@@ -26,6 +26,7 @@ const isDarkTheme = () => {
   cursor: pointer;
   display: flex;
   align-items: center;
+  transition: color .15s var(--transition-function);
 
   &:focus {
     outline: none;

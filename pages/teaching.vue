@@ -70,7 +70,7 @@ const onCourseCreateSubmit = async () => {
     message: 'Курс успешно создан!'
   });
 
-  await refresh();
+  await refresh();  
   isCreateCourseModalOpen.value = false;
 }
 

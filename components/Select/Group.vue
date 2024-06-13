@@ -24,7 +24,7 @@
   scrollbar-width: none;
   background-color: var(--bg);
   z-index: 1;
-
+  transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
 }
 
 

@@ -79,13 +79,42 @@ function onTabPressed() {
 }
 
 async function onSubmit(form: {header: string, description: string, module_name: string}) {
+
+  if (form.header?.trim().length < 4) {
+    return sendToast({
+      type: "error",
+      message: "Заголовок должен иметь не менее 4 символов."
+    })
+  }
+
+  if (form.header?.trim() === 'Заголовок') {
+    return sendToast({
+      type: 'error',
+      message: 'Заполните заголовок.'
+    })
+  }
+
+  if (form.description.trim().length < 12) {
+    return sendToast({
+      type: "error",
+      message: 'Описание должен иметь не менее 12 символов'
+    })
+  }
+
+  if (!form.module_name.trim()) {
+    return sendToast({
+      type: "error",
+      message: "Вы не выбрали модуль. Если его не существует, создайте его."
+    })
+  }
+
   await useAPI(`/teaching/${query.value.course}/lectures`, {
     baseURL: useRuntimeConfig().public.apiBase,
     method: 'POST',
     body: {
-      title: form.header,
-      module_name: form.module_name,
-      description: form.description,
+      title: form.header.trim(),
+      module_name: form.module_name.trim(),
+      description: form.description.trim(),
       content: editor.value?.getHTML()
     }
   });

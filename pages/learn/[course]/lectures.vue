@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Lectures } from "~/interfaces/Lectures";
+import filterLectures from "~/utils/filterLectures";
 
 const route = useRouteParams();
 
@@ -21,6 +22,10 @@ const messageOptions = [
 ];
 const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 
+const filteredLectures = computed(() => {
+  return filterLectures(lectures.value?.lectures!, messageState.value as string)
+})
+
 </script>
 
 <template>
@@ -35,11 +40,11 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 
   <LearningAssignmentSkeleton v-if="pending" />
 
-  <Transition name="learn" mode="out-in" v-else-if="lectures?.lectures" appear>
+  <Transition name="learn" mode="out-in" v-else-if="filteredLectures" appear>
 
     <div class="learn-wrap" >
       <LearningAssignment
-        v-for="lecture in lectures?.lectures"
+        v-for="lecture in filteredLectures"
         :key="lecture.assignment_id"
         type="Лекция"
         :name="lecture.title"

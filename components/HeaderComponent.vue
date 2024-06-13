@@ -101,6 +101,7 @@ header {
   align-items: center;
   padding: 0 92px;
   border-bottom: var(--border) 1px solid;
+  transition: border-bottom-color .15s var(--transition-function);
 
   .mobile-burger {
     height: 40px;

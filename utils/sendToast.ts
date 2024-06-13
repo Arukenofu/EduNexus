@@ -15,6 +15,6 @@ export default function(options: Toast) {
 
   timeout = setTimeout(() => {
     state.value = ''
-  }, 15 * 1000)
+  }, options.time || 5 * 1000)
 
 }

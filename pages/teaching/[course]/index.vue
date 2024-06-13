@@ -134,9 +134,7 @@ nuxtApp.hook("page:start", () => {
     </div>
 
     <div class="loading" v-else>
-      <div class="loader">
-
-      </div>
+      <Loading />
     </div>
   </Transition>
 
@@ -351,44 +349,6 @@ nuxtApp.hook("page:start", () => {
   display: grid;
   place-items: center;
   height: 70vh;
-}
-
-.loader {
-  width: 50px;
-  aspect-ratio: 1;
-  display: grid;
-  border: 4px solid #0000;
-  border-radius: 50%;
-  border-color: var(--text) #0000;
-  animation: l16 1s infinite linear;
-}
-.loader::before,
-.loader::after {
-  content: "";
-  grid-area: 1/1;
-  margin: 2px;
-  border: inherit;
-  border-radius: 50%;
-}
-.loader::before {
-  border-color: #6161cc #0000;
-  animation: inherit;
-  animation-duration: .5s;
-  animation-direction: reverse;
-}
-.loader::after {
-  margin: 8px;
-}
-
-
-@keyframes l16 {
-  100%{transform: rotate(1turn)}
-}
-
-@keyframes l1 {
-  to {
-    transform: rotate(.5turn)
-  }
 }
 
 @media screen and (max-width: 590px){

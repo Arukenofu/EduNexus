@@ -228,4 +228,10 @@ header {
   }
 }
 
+@media screen and (max-width: 768px) {
+  header {
+    padding: 0 12px;
+  }
+}
+
 </style>

@@ -34,6 +34,7 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
   grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
   gap: 12px;
 
+
   .category {
     min-height: 220px;
     max-height: 30vh;
@@ -50,7 +51,7 @@ const {data: response, error} = await useAPI<Categories>('/categories/');
       justify-content: center;
       font-size: 1.3rem;
       user-select: none;
-      transition: font-size 0.2s ease;
+      transition: font-size 0.2s ease, color .15s var(--transition-function);;
       cursor: pointer;
       color: var(--text);
       font-weight: 800;

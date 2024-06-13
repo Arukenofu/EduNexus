@@ -16,15 +16,28 @@ watch(isOpen, (value) => {
 
 onUnmounted(() => {
   setBodyScroll('scroll');
+});
+
+const bgStyle = computed(() => {
+  const theme = useState('theme');
+
+  if (theme.value === 'light' || !theme.value) {
+    return 'backdrop-filter: blur(4px);'
+  } else {
+    return 'background-color: rgba(0, 0, 0, 0.76);'
+  }
 })
-
-
 
 </script>
 
 <template>
   <transition name="bg" appear>
-    <div v-if="isOpen" class="modal-bg" @click.self="isOpen =! isOpen" >
+    <div
+      v-if="isOpen"
+      class="modal-bg"
+      @click.self="isOpen =! isOpen"
+      :style="bgStyle"
+    >
       <div class="val">
         <slot />
       </div>
@@ -40,7 +53,6 @@ onUnmounted(() => {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.76);
   z-index: 3;
 
   .val {
