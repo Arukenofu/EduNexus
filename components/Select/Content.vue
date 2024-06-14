@@ -19,6 +19,7 @@
   font-size: .9em;
   user-select: none;
   display: flex;
+  gap: 3px;
   align-items: center;
   white-space: nowrap;
   transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);

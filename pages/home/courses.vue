@@ -80,7 +80,17 @@ const {data: courses, pending} = await useAsyncData<Courses>('courses',
   {
     watch: [paginationState, categoryState, search]
   }
-)
+);
+
+const paginationLimit = ref<number>(5);
+
+watch(useDevice(), (value) => {
+  if (value) {
+    paginationLimit.value = 3
+  } else {
+    paginationLimit.value = 5
+  }
+})
 
 </script>
 
@@ -154,7 +164,7 @@ const {data: courses, pending} = await useAsyncData<Courses>('courses',
       class="pag"
       v-model:state="paginationState"
       :length="courses?.pages"
-      :limit="6"
+      :limit="paginationLimit"
     />
 
   </article>

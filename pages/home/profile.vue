@@ -13,8 +13,10 @@ const updateUserValue = (newValue: User) => {
 
 }
 
-const {data: myProjects} = await useAPI<MyCourses>('/teaching')
-const isMobile = useDevice()
+const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching')
+const isMobile = useDevice();
+
+const isCreateCourseModalOpen = ref(false);
 
 </script>
 
@@ -44,6 +46,13 @@ const isMobile = useDevice()
     <section class="main-info-panel">
       <h1>Преподаваемые курсы</h1>
       <div class="assigning">
+        <button class="course add" @click="isCreateCourseModalOpen = true">
+          <Icon name="material-symbols:add-circle" size="3em" />
+          <span>
+            Создать курс
+          </span>
+        </button>
+
         <nuxt-link
           class="course"
           v-for="course in myProjects!.courses"
@@ -57,6 +66,8 @@ const isMobile = useDevice()
         </nuxt-link>
       </div>
     </section>
+
+    <CreateCourseModal v-model:state="isCreateCourseModalOpen" @refresh="refresh" />
   </div>
 
 
@@ -176,6 +187,7 @@ const isMobile = useDevice()
       gap: 8px;
 
       .course {
+        height: 100px;
         border-radius: 8px;
         background-color: var(--bg-secondary);
         padding: 9px;
@@ -217,6 +229,22 @@ const isMobile = useDevice()
             -webkit-box-orient: vertical;
             overflow: hidden;
           }
+        }
+      }
+
+      .add {
+        color: var(--text-secondary);
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: .9em;
+        gap: 3px;
+        transition: color 0.15s var(--transition-function), font-size .5s var(--transition-function);
+
+        &:hover {
+          font-size: .95em;
         }
       }
     }
