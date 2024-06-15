@@ -15,23 +15,20 @@ const moduleState = ref(useRoute()?.query?.module || moduleOptions[0]);
 const messageOptions = [
   'По убыванию',
   'По возрастанию',
-  'Прочитанные',
-  'Непрочитанные',
+  'Выполненные',
+  'Невыполенные',
 ];
 const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 
 </script>
 
 <template>
-  <div class="controls">
-    <h1>Задания</h1>
+  <LearningControls name="Задания">
+    <LearningSelectModule v-model:model-value="moduleState" :options="moduleOptions" />
+    <LearningSelectMessage v-model:model-value="messageState" :options="messageOptions" />
+    <TeachingCreate />
+  </LearningControls>
 
-    <div class="select-wrap">
-      <LearningSelectModule v-model:model-value="moduleState" :options="moduleOptions" />
-      <LearningSelectMessage v-model:model-value="messageState" :options="messageOptions" />
-      <TeachingCreate />
-    </div>
-  </div>
 
   <Transition name="learn" mode="out-in" appear>
     <LearningAssignmentSkeleton v-if="pending" />
@@ -52,18 +49,5 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
 </template>
 
 <style scoped lang="scss">
-.controls {
-  width: 100%;
-  margin-bottom: 21px;
-  display: flex;
-  align-items: center;
 
-  .select-wrap {
-    display: flex;
-    gap: 6px;
-    margin-left: auto;
-
-
-  }
-}
 </style>

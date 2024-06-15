@@ -16,6 +16,7 @@
   font-size: .9em;
   border-radius: 4px;
   transition: color .15s var(--transition-function), border .15s var(--transition-function), background-color .15s var(--transition-function);
+  height: auto;
 
   &:hover {
     background-color: var(--bg-secondary);

@@ -26,6 +26,6 @@
   grid-column: 1/-1;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
 </style>

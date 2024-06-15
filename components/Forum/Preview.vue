@@ -1,34 +1,31 @@
 <script setup lang="ts">
-import type { lecture } from "~/interfaces/lecture";
-import type { exercise } from "~/interfaces/exercise";
+import type { Forum } from "~/interfaces/Forum";
 
-interface Props {
-  type: lecture | exercise,
-  name: string,
-}
-
-const props = defineProps<Props>();
-
+const props = defineProps<Forum>()
 
 </script>
 
 <template>
-
   <nuxt-link>
-
     <div class="text">
-      <p>{{type}}: {{name}}</p>
+      <p>{{title}}</p>
 
-      <span>
-        Дата: 12 Ноября
-      </span>
+      <div class="info">
+        <span class="date">
+          Дата: {{date}}
+        </span>
+
+        <span class="rating">
+          {{rating}}
+          <Icon class="icon" name="material-symbols:star-rounded" size="1.2em" />
+        </span>
+      </div>
     </div>
 
     <div class="control">
       <Icon name="iconoir:nav-arrow-right" size="1.2em" class="str2" />
     </div>
   </nuxt-link>
-
 </template>
 
 <style scoped lang="scss">
@@ -74,10 +71,28 @@ a {
       -webkit-box-orient: vertical;
     }
 
-    span {
-      font-size: .8em;
-      font-weight: 500;
-      color: var(--text-secondary);
+    .info {
+      display: flex;
+      gap: 9px;
+
+      .date {
+        font-size: .8em;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .rating {
+        display: flex;
+        align-items: center;
+        font-size: .8em;
+        font-weight: 500;
+        color: var(--text-secondary);
+
+        .icon {
+          position: relative;
+          bottom: 0.75px;
+        }
+      }
     }
   }
 

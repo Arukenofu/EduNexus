@@ -12,13 +12,9 @@ const daysState = ref(useRoute()?.query.days || daysOption[0]);
 </script>
 
 <template>
-  <div class="controls">
-    <h1>Действия</h1>
-
-    <div class="select-wrap">
-      <LearningSelectDays v-model:state="daysState" :options="daysOption" />
-    </div>
-  </div>
+  <LearningControls name="Действия">
+    <LearningSelectDays v-model:state="daysState" :options="daysOption" />
+  </LearningControls>
 
   <Transition name="learn" mode="out-in" appear>
 
@@ -32,18 +28,5 @@ const daysState = ref(useRoute()?.query.days || daysOption[0]);
 </template>
 
 <style scoped lang="scss">
-.controls {
-  width: 100%;
-  margin-bottom: 21px;
-  display: flex;
-  align-items: center;
 
-  .select-wrap {
-    display: flex;
-    gap: 6px;
-    margin-left: auto;
-
-
-  }
-}
 </style>

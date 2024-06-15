@@ -46,13 +46,6 @@ const isCreateCourseModalOpen = ref(false);
     <section class="main-info-panel">
       <h1>Преподаваемые курсы</h1>
       <div class="assigning">
-        <button class="course add" @click="isCreateCourseModalOpen = true">
-          <Icon name="material-symbols:add-circle" size="3em" />
-          <span>
-            Создать курс
-          </span>
-        </button>
-
         <nuxt-link
           class="course"
           v-for="course in myProjects!.courses"
@@ -64,6 +57,13 @@ const isCreateCourseModalOpen = ref(false);
             <p>{{course.description}}</p>
           </div>
         </nuxt-link>
+
+        <button class="course add" @click="isCreateCourseModalOpen = true">
+          <Icon name="material-symbols:add-circle" size="3em" />
+          <span>
+            Создать курс
+          </span>
+        </button>
       </div>
     </section>
 

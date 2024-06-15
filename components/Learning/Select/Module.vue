@@ -1,10 +1,13 @@
 <script setup lang="ts">
 
+const route = useRouteParams()
+
 const isModuleToggled = ref<boolean>(false);
 
-const props = defineProps<{
-  options: string[]
-}>()
+const options = [
+  'Все модули',
+  ...(await getModules(route.value.course as string) ?? [])
+];
 
 const selectModuleState = defineModel<string>({
   default: 'Все модули',
@@ -22,13 +25,13 @@ const onOptionClick = (option: string) => {
 }
 
 const currentModule = computed(() => {
-  return props.options.find(option => option === selectModuleState.value)
+  return options!.find(option => option === selectModuleState.value)
 })
 
 </script>
 
 <template>
-  <Select class="select" @click="isModuleToggled =! isModuleToggled">
+  <Select class="select" @click="isModuleToggled =! isModuleToggled" v-if="options?.length">
     <SelectContent class="content">
       {{
         currentModule
@@ -74,9 +77,6 @@ const currentModule = computed(() => {
       background-color: var(--ui-secondary);
       padding: 6px;
       display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
 
       &:hover {
         background-color: var(--bg-secondary);
