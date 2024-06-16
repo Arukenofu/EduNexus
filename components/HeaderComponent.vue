@@ -12,27 +12,15 @@ const exitFromAccount = () => {
   useRouter().push('/auth');
 }
 
-const inputClick = async (e: Event) => {
-  if (useRoute().fullPath !== '/home/courses') {
-    await useRouter().push('/home/courses')
-  }
-
-  const input = document.getElementById('search');
-
-  input?.focus()
-
-}
-
-const search = ref('');
-
 const isMobile = useDevice();
 const isDialogOpen = ref<boolean>(false);
+
+const theme = useState('theme');
 
 </script>
 
 <template>
-  <header>
-
+  <header :style="theme === 'light' && 'background-color: var(--bg);'">
     <button
       class="mobile-burger"
       v-if="isMobile"
@@ -101,7 +89,8 @@ header {
   align-items: center;
   padding: 0 92px;
   border-bottom: var(--border) 1px solid;
-  transition: border-bottom-color .15s var(--transition-function);
+  background: none;
+  transition: all .15s var(--transition-function);
 
   .mobile-burger {
     height: 40px;

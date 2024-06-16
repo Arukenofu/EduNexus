@@ -26,7 +26,7 @@ const messageState = ref(useRoute()?.query?.message || messageOptions[0]);
   <LearningControls name="Задания">
     <LearningSelectModule v-model:model-value="moduleState" :options="moduleOptions" />
     <LearningSelectMessage v-model:model-value="messageState" :options="messageOptions" />
-    <TeachingCreate />
+    <TeachingCreate @click="$router.push(`/create?course=${route.course}`)" />
   </LearningControls>
 
 

@@ -23,13 +23,14 @@ const isCompilePending = ref(false);
 
 async function sendToCompile() {
   isCompilePending.value = true;
+  asideState.value = true;
 
   const {data: result, error} = await useAPI<{test_passed: string}>(`/learning/${route.value.course}/assignments/${data.value?.assignment.id}`, {
     method: 'POST',
     body: {
       source: model.value
     },
-    timeout: 20000
+    timeout: 60000
   })
 
   isCompilePending.value = false;
@@ -44,23 +45,30 @@ async function sendToCompile() {
   compileResult.value = result.value?.test_passed!
 }
 
+const asideState = ref(false);
+
 </script>
 
 <template>
   <CodeHeader
     @compile="sendToCompile"
     :title="data?.assignment.title"
+    v-model:state="asideState"
   />
   <NuxtLoadingIndicator style="position: absolute; top: calc(60px + var(--electron))" color="var(--text)" />
 
   <main>
     <CodeSideBar
+      v-model:state="asideState"
       :results="compileResult"
       :pending="isCompilePending"
       :instructions="data?.assignment.description || 'Нет инструкции для задания'"
     />
 
-    <Code v-model:model="model" />
+    <Code
+      v-model:model="model"
+
+    />
   </main>
 
 

@@ -13,24 +13,6 @@ const getProgressBarWidth = (has: number, length: number): number => {
 }
 
 
-const toWidth = (width: number, target: string) => {
-
-  gsap.from(target, {
-    width: 0
-  });
-
-  gsap.to(target, {
-    width: width.toFixed(0) + '%',
-    duration: 1.2,
-    ease: 'power2.out'
-  })
-}
-
-onMounted(() => {
-  toWidth(getProgressBarWidth(props.lectures.read, props.lectures.length), '.lecture');
-  toWidth(getProgressBarWidth(props.assignments.done, props.assignments.length), '.assignment')
-})
-
 
 </script>
 
@@ -46,16 +28,9 @@ onMounted(() => {
     <div class="body">
 
       <div class="statistic">
-        <p>Лекции прочитано: {{lectures.read}} / {{lectures.length}}</p>
+        <p>Прогресс: {{lectures}} / {{max}}</p>
         <div class="progress">
-          <div class="bar lecture" />
-        </div>
-      </div>
-
-      <div class="statistic">
-        <p>Заданий выполнено: {{assignments.done}} / {{assignments.length}}</p>
-        <div class="progress">
-          <div class="bar assignment" />
+          <div class="bar lecture" :style="`width: ${getProgressBarWidth(lectures, max)}%`" />
         </div>
       </div>
 

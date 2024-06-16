@@ -1,4 +1,5 @@
 export interface Quiz {
-  question: string,
-  variants: string[]
+  questions: string[],
+  variants: string[][],
+  answers: string[]
 }

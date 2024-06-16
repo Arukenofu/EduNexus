@@ -2,8 +2,29 @@
 import type { Module } from "~/interfaces/Module";
 import type { CourseDetailed } from "~/interfaces/CourseDetailed";
 
+interface Progress {
+  lecture_progres: [
+    {
+      module_id: number,
+      module_name: string,
+      assignment_id: number,
+      assignment_type_id: number,
+      read: boolean
+    }
+  ]
+}
+
+interface Grade {
+  grades: {
+    title: string,
+    info: string,
+    score?: number
+  }[]
+}
+
 const route = useRouteParams();
 const baseURL = useRuntimeConfig().public.apiBase
+
 
 const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
   return $fetch(`/courses/${route.value.course}`, {
@@ -17,13 +38,47 @@ const {data} = await useAsyncData<CourseDetailed>('courseInfo', () => {
 })
 
 const {data: modules} = await useAsyncData('modules', async () => {
-  return $fetch(`/learning/${route.value.course}/modules/Переменные и базовые типы` , {
+  let result = [];
+
+  const modules = await getModules(route.value.course as string);
+
+  for (const module of modules!) {
+    const data = await $fetch<Progress>(`/learning/${route.value.course}/modules/${module}` , {
+      baseURL: baseURL,
+      headers: {
+        Authorization: "Bearer " + getToken() || '',
+      }
+    })
+    result.push({
+      name: module,
+      lectures: data.lecture_progres.length
+    })
+  }
+
+  return result
+});
+
+const {data: grades} = await useAsyncData<Grade>('grades', async () => {
+  const {grades} = await $fetch<Grade>(`/learning/${route.value.course}/last_grades`, {
     baseURL: baseURL,
     headers: {
       Authorization: "Bearer " + getToken() || '',
     }
   })
-})
+
+  grades.forEach(item => {
+    const [numerator, denominator] = item.info.split('/').map(Number);
+    if (denominator === 0) {
+      item['score'] = 0;
+    } else {
+      item['score'] = (numerator / denominator) * 100;
+    }
+  })
+
+  return grades
+
+});
+
 
 const nuxtApp = useNuxtApp();
 const isLoading = ref<boolean>(false);
@@ -61,15 +116,15 @@ nuxtApp.hook("page:start", () => {
 
       <LearningBlock class="modules-block" text="Все Модули">
         <div class="modules">
-<!--          <LearningModule-->
-<!--            class="module"-->
-<!--            v-for="(module, index) in modules"-->
-<!--            :key="index"-->
-<!--            :index="index+1"-->
-<!--            :name="module.name"-->
-<!--            :lectures="module.lectures"-->
-<!--            :assignments="module.assignments"-->
-<!--          />-->
+          <LearningModule
+            class="module"
+            v-for="(module, index) in modules"
+            :key="index"
+            :index="index+1"
+            :name="module.name"
+            :lectures="module.lectures"
+            :max="2"
+          />
         </div>
       </LearningBlock>
 
@@ -81,11 +136,11 @@ nuxtApp.hook("page:start", () => {
         >
           <TransitionGroup name="rates" appear>
             <LearningRate
-              v-for="(a, index) in 5"
+              v-for="(grade, index) in grades"
               :key="index"
-              name="Создание приложения Javacript"
+              :name="grade.title"
               type="Задание"
-              :rate="70"
+              :rate="grade.score"
             />
           </TransitionGroup>
         </Grid>
@@ -176,25 +231,6 @@ nuxtApp.hook("page:start", () => {
     font-weight: 700;
     margin-bottom: 9px;
   }
-
-  .rates-wrap {
-
-    .rates-enter-active {
-      transition: all 0.4s ease-out;
-    }
-
-    .rates-leave-active {
-      transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-    }
-
-    .rates-enter-from,
-    .rates-leave-to {
-      transform: translateX(20px);
-      opacity: 0;
-    }
-
-
-  }
 }
 
 .course-enter-active {
@@ -271,6 +307,26 @@ nuxtApp.hook("page:start", () => {
     left: 50%;
     transform: translateX(-50%, -50%);
   }
+}
+
+.rates-wrap {
+  grid-template-columns: 1fr 1fr !important;
+
+  .rates-enter-active {
+    transition: all 0.4s ease-out;
+  }
+
+  .rates-leave-active {
+    transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+
+  .rates-enter-from,
+  .rates-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+
+
 }
 
 </style>

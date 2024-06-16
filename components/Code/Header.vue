@@ -40,16 +40,28 @@ const changeTheme = () => {
   monaco?.editor.setTheme('github');
 }
 
+const isMobile = useDevice();
+const state = defineModel('state')
+
 </script>
 
 <template>
   <header>
 
     <nuxt-img
+      v-if="!isMobile"
       class="icon"
       :src="useServerImage('/icon.png')"
       width="28px"
       preload
+    />
+
+    <buttons-button1x1
+      v-else
+      icon-name="iconoir:menu-scale"
+      color="none"
+      size="2em"
+      @click="state = true"
     />
 
     <p class="title">
@@ -129,6 +141,7 @@ header {
 @media screen and (max-width: 768px) {
   header {
     padding: 0 12px;
+
   }
 }
 </style>

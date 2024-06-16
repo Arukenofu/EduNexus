@@ -6,12 +6,21 @@ defineProps<{
   instructions: string
 }>()
 
-const isMobile = useDevice()
+const isMobile = useDevice();
+
+const state = defineModel<boolean>('state');
 
 </script>
 
 <template>
-  <aside>
+  <aside :class="state && 'active'" >
+    <buttons-button1x1
+      icon-name="iconoir:xmark"
+      class="close"
+      @click="state = false"
+      v-if="isMobile"
+    />
+
     <div class="info">
       <h1>Инструкции</h1>
 
@@ -38,6 +47,8 @@ const isMobile = useDevice()
       </div>
     </div>
   </aside>
+
+
 </template>
 
 <style scoped lang="scss">
@@ -49,7 +60,13 @@ aside {
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: all .15s var(--transition-function);
+  transition: all .15s var(--transition-function), left .5s var(--transition-function);
+
+  .close {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+  }
 
   .info {
     flex: 1;
@@ -95,13 +112,18 @@ aside {
   }
 }
 
+.active {
+  left: 0 !important;
+}
+
 @media screen and (max-width: 768px) {
   aside {
     position: fixed;
-    left: 0;
+    left: -275px;
     top: 0;
     background-color: var(--bg);
-    z-index: 5;
+    z-index: 3;
+    width: unset !important;
     min-width: 275px !important;
     height: 100dvh !important;
   }

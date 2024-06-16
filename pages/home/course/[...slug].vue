@@ -92,7 +92,7 @@ const subscribeToCourse = async () => {
 
           <div class="teacher-info">
 
-            Преподаватели: &nbsp;
+            Преподаватель: &nbsp;
             <div v-for="teacher in course?.teachers">
             <nuxt-link>{{teacher.firstname}}</nuxt-link>&nbsp;
             </div>
@@ -103,7 +103,6 @@ const subscribeToCourse = async () => {
 
     <div class="other-info" v-if="course?.modules?.length">
       <h2>{{getModulesLength()}}</h2>
-      <p>{additional shitty info}</p>
 
       <div class="grid">
         <div class="chapters">

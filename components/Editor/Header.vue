@@ -47,7 +47,7 @@ function onOptionClick(index: number) {
   <header>
     <ProjectIcon class="icon" @click="$router.push('/home/main')" />
 
-    <div class="controls">
+    <div class="control">
       <button1x1
         class="toggleTheme control header-button"
         title="Переключить тему"
@@ -139,7 +139,7 @@ header {
     cursor: pointer;
   }
 
-  .controls {
+  .control {
     margin-left: auto;
     display: flex;
     gap: 6px;

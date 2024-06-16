@@ -1,48 +1,6 @@
 <script setup lang="ts">
 
 
-const route = useRouteParams()
-
-const routes = computed(() => {
-  const path = useRoute().matched[0].path;
-
-  if (path === '/learn') {
-    return [
-      {
-        to: `${path}/${route.value.course}/lectures`,
-        text: 'Лекции'
-      },
-      {
-        to: `${path}/${route.value.course}/assignments`,
-        text: 'Задания'
-      },
-      {
-        to: `${path}/${route.value.course}/forum`,
-        text: 'Форум'
-      },
-    ]
-  } else {
-    return [
-      {
-        to: `${path}/${route.value.course}/lectures`,
-        text: 'Лекции'
-      },
-      {
-        to: `${path}/${route.value.course}/assignments`,
-        text: 'Задания'
-      },
-      {
-        to: `${path}/${route.value.course}/actions`,
-        text: 'Действия'
-      },
-      {
-        to: `${path}/${route.value.course}/forum`,
-        text: 'Форум'
-      },
-    ]
-  }
-})
-
 </script>
 
 <template>

@@ -61,12 +61,6 @@ const isMobile = useDevice();
           />
 
           <LearningLink
-            :to="`/teaching/${route.course}/actions`"
-            icon="material-symbols:action-key"
-            text="Действия"
-          />
-
-          <LearningLink
             :to="`/teaching/${route.course}/forum`"
             icon="material-symbols:forum"
             text="Форумы"

@@ -14,7 +14,6 @@ const updateUserValue = (newValue: User) => {
 }
 
 const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching')
-const isMobile = useDevice();
 
 const isCreateCourseModalOpen = ref(false);
 
@@ -37,10 +36,6 @@ const isCreateCourseModalOpen = ref(false);
         </button>
 
       </div>
-
-      <button @click="$router.push('/teaching')" v-if="!isMobile">
-        Перейти в режим преподавателя
-      </button>
     </section>
 
     <section class="main-info-panel">

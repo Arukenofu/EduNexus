@@ -14,6 +14,7 @@ await useAPI(`/learning/${route.value.course}/read/${route.value.id}`, {
 });
 
 const {data, pending} = await useAPI<Lecture>(`/learning/${route.value.course}/lectures/${route.value.id}`);
+console.log(data.value);
 
 const content = JSON.parse(data.value?.content.content as string);
 
@@ -31,6 +32,7 @@ const content = JSON.parse(data.value?.content.content as string);
           {{data.content.title}}
         </span>
       </p>
+      <h1>{{data.content.title}}</h1>
       <div class="layout" v-html="content.content" />
 
       <div class="controls">
