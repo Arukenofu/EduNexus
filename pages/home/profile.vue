@@ -7,6 +7,13 @@ const {data: user} = await useAPI<User>('/profile')!;
 
 const updateUserValue = (newValue: User) => {
 
+  if (!newValue.profile_info.firstname) {
+    return sendToast({
+      type: 'error',
+      message: 'Укажите имя'
+    })
+  }
+
   user.value = newValue;
 
   isModalOpen.value = false;

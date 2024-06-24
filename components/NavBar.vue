@@ -24,11 +24,7 @@ const routes = [
   {
     to: '/home/courses',
     text: 'Онлайн курсы'
-  },
-  {
-    to: '/home/completed',
-    text: 'Завершённые курсы'
-  },
+  }
 
 ];
 

@@ -5,7 +5,6 @@ const query = useRouteQuery()
 const assignmentTypes = [
   'Код',
   'Викторина',
-  'Сопоставление'
 ];
 const assignmentState = ref(assignmentTypes[0]);
 const isAssignmentSelectOpen = ref(false);

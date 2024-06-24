@@ -48,15 +48,6 @@ function onOptionClick(index: number) {
     <ProjectIcon class="icon" @click="$router.push('/home/main')" />
 
     <div class="control">
-      <button1x1
-        class="toggleTheme control header-button"
-        title="Переключить тему"
-        :iconName="themeConditionalState()"
-        @click="toggleTheme()"
-        hover-color="none"
-        color="none"
-        text="var(--text)"
-      />
 
       <button1x1
         class="exit header-button str2"

@@ -39,12 +39,6 @@ const isMobile = useDevice()
             icon="material-symbols:assignment"
             text="Задания"
           />
-
-          <LearningLink
-            :to="`/learn/${route.course}/forum`"
-            icon="material-symbols:forum"
-            text="Форумы"
-          />
         </LearningCard>
       </LearningSideBar>
 

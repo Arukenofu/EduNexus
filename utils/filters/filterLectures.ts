@@ -8,5 +8,13 @@ export default function(lectures: Lectures['lectures'], state: string): Lectures
     return lectures.slice().reverse()
   }
 
-  return null
+  if (state === 'Прочитанные' || state === 'Выполненные') {
+    return lectures.filter(value => value.read)
+  }
+
+  if (state === 'Невыполенные' || state === 'Непрочитанные') {
+    return lectures.filter(value => !value.read)
+  }
+
+  return []
 }

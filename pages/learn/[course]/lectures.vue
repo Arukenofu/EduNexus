@@ -41,7 +41,7 @@ const filteredLectures = computed(() => {
   <Transition name="learn" mode="out-in" appear>
     <LearningAssignmentSkeleton v-if="pending" />
 
-    <div class="learn-wrap" v-else-if="filteredLectures">
+    <div class="learn-wrap" v-else-if="filteredLectures?.length">
       <LearningAssignment
         v-for="lecture in filteredLectures"
         :key="lecture.assignment_id"

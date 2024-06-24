@@ -5,6 +5,7 @@ import type { exercise } from "~/interfaces/exercise";
 interface Props {
   type: lecture | exercise,
   name: string,
+  date?: string
 }
 
 const props = defineProps<Props>();
@@ -19,8 +20,8 @@ const props = defineProps<Props>();
     <div class="text">
       <p>{{type}}: {{name}}</p>
 
-      <span>
-        Дата: 12 Ноября
+      <span v-if="date">
+        Дата: {{date}}
       </span>
     </div>
 

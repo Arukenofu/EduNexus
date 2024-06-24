@@ -51,12 +51,16 @@ const {data: modules} = await useAsyncData('modules', async () => {
     })
     result.push({
       name: module,
-      lectures: data.lecture_progres.length
+      lectures: data.lecture_progres.filter(value => value.read),
+      max: data.lecture_progres.length
     })
   }
 
+  console.log(result);
   return result
 });
+
+
 
 const {data: grades} = await useAsyncData<Grade>('grades', async () => {
   const {grades} = await $fetch<Grade>(`/learning/${route.value.course}/last_grades`, {
@@ -79,6 +83,21 @@ const {data: grades} = await useAsyncData<Grade>('grades', async () => {
 
 });
 
+async function exitCourse() {
+  const {data, error} = await useAPI(`/courses/${route.value.course}/exit`, {
+    method: 'POST'
+  });
+
+  if (error.value) {
+    return
+  }
+
+  await useRouter().push('/home/main');
+  sendToast({
+    type: 'notification',
+    message: 'Успешно вышли из курса'
+  })
+}
 
 const nuxtApp = useNuxtApp();
 const isLoading = ref<boolean>(false);
@@ -108,27 +127,31 @@ nuxtApp.hook("page:start", () => {
               <span>{{teacher.firstname}}</span>
             </div>
           </div>
+
+          <button class="exit" @click="exitCourse()">
+            Выйти из курса
+          </button>
         </div>
       </div>
       <p class="course-description">
         {{data.details.description}}
       </p>
 
-      <LearningBlock class="modules-block" text="Все Модули">
+      <LearningBlock text="Модули" class="modules-block" v-if="modules?.length">
         <div class="modules">
           <LearningModule
             class="module"
             v-for="(module, index) in modules"
+            :name="module.name"
             :key="index"
             :index="index+1"
-            :name="module.name"
-            :lectures="module.lectures"
-            :max="2"
+            :lectures="module.lectures?.length"
+            :max="module.max"
           />
         </div>
       </LearningBlock>
 
-      <LearningBlock text="Последние Оценки">
+      <LearningBlock text="Последние Оценки" v-if="grades?.length">
         <Grid
           class="rates-wrap"
           :columns="2"
@@ -325,8 +348,16 @@ nuxtApp.hook("page:start", () => {
     transform: translateX(20px);
     opacity: 0;
   }
+}
 
-
+.exit {
+  background: none;
+  border: none;
+  color: var(--red);
+  margin-top: 5px;
+  font-size: .95em;
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 </style>

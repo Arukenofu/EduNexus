@@ -32,7 +32,6 @@ const content = JSON.parse(data.value?.content.content as string);
           {{data.content.title}}
         </span>
       </p>
-      <h1>{{data.content.title}}</h1>
       <div class="layout" v-html="content.content" />
 
       <div class="controls">
