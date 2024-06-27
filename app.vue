@@ -1,11 +1,9 @@
 <script lang="ts" setup>
+
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
-import type { Toast } from "~/interfaces/Toast";
 
 onMounted(() => {
-
-  renderDocumentStyleRoot();
-
+  renderDocumentStyleRoot()
 })
 
 useHead({
@@ -20,9 +18,7 @@ useHead({
 <template>
 
   <div class="app">
-    <transition name="select">
-      <nuxt-page />
-    </transition>
+    <nuxt-page />
   </div>
 
   <Toast />

@@ -1,14 +1,7 @@
 import documentElementSetProperty from "~/utils/theme/documentElementSetProperty";
 
 export default function () {
-
-    if (!localStorage.getItem('theme')) {
-        const userPreference = () => window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ? 'dark' : 'light';
-
-        setColorModeByParam(userPreference());
-    } else {
-        setColorModeByParam(localStorage.getItem('theme'))
-    }
+    setColorModeByParam(localStorage.getItem('theme'))
 }
 
 function setColorModeByParam(parameter: string | null) {

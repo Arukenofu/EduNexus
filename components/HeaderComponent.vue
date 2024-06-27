@@ -20,7 +20,7 @@ const theme = useState('theme');
 </script>
 
 <template>
-  <header :style="theme === 'light' && 'background-color: var(--bg);'">
+  <header>
     <button
       class="mobile-burger"
       v-if="isMobile"

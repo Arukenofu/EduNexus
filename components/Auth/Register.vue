@@ -94,7 +94,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="submit()">
+  <form method="post" @submit.prevent="submit()">
     <input type="text" name="email" placeholder="Ваш Никнейм" v-model="form.login">
 
     <input type="password" name="password" placeholder="Ваш Пароль" v-model="form.password">

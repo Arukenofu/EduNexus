@@ -3,7 +3,6 @@ import sendToast from "~/utils/sendToast";
 
 type useFetchType = typeof useFetch;
 
-
 export const useAPI: useFetchType = (path, options = {}) => {
   const config = useRuntimeConfig()
 
@@ -12,7 +11,6 @@ export const useAPI: useFetchType = (path, options = {}) => {
   }
 
   options.baseURL = config.public.apiBase || 'http://localhost/';
-  options.server = false;
 
   options.onResponseError = (error) => {
     sendToast({type: 'error', message: error.response['_data']?.error_message || 'Произошла неизвестная ошибка'})

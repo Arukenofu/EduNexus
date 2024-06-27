@@ -1,17 +1,20 @@
 import renderDocumentStyleRoot from "~/utils/theme/renderDocumentStyleRoot";
 
 export default function () {
+    function set(value: string) {
+        localStorage.setItem('theme', value)
+    }
 
     if (!localStorage.getItem('theme')) {
-        localStorage.setItem('theme', 'dark');
+        set('dark')
     }
 
     else if (localStorage.getItem('theme') === 'light') {
-        localStorage.setItem('theme', 'dark');
+        set('dark')
     }
 
     else if (localStorage.getItem('theme') === 'dark') {
-        localStorage.setItem('theme', 'light');
+        set('light')
     }
 
     renderDocumentStyleRoot();

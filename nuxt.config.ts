@@ -32,7 +32,7 @@ export default defineNuxtConfig({
       "nuxt-monaco-editor"
     ],
 	devtools: { enabled: false },
-	ssr: false,
+	ssr: true,
 	googleFonts: {
         download: true,
         families: {

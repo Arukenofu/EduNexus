@@ -18,9 +18,11 @@ const submit = async () => {
   const setToken = (value: any): void => {
 
     if (isNotSession.value) {
-      localStorage.setItem('token', value)
+      useCookie('token', {
+        expires: new Date(new Date().getTime() + 1000*60*60*24*14)
+      }).value = value;
     } else {
-      sessionStorage.setItem('token', value)
+      useCookie('token').value = value;
     }
 
   }
@@ -95,7 +97,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="submit()">
+  <form method="post" @submit.prevent="submit()">
     <input type="text" name="email" placeholder="Ваш Никнейм" v-model="form.login">
 
     <input type="password" name="password" placeholder="Ваш Пароль" v-model="form.password">

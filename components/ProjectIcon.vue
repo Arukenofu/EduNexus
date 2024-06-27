@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const theme = useState('theme');
+const theme = useState('theme', () => 'dark');
 
 const isDarkTheme = () => {
   return theme.value === 'dark';
