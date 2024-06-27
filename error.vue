@@ -5,20 +5,12 @@ onMounted(() => {
 
   renderDocumentStyleRoot();
 
-  if (isElectron) {
-    document.documentElement.style.setProperty('--electron', '30px');
-  } else {
-    document.documentElement.style.setProperty('--electron', '0px');
-  }
-
 })
 
-const {isElectron} = useUpdater();
 
 </script>
 
 <template>
-  <TitleBar v-if="isElectron" />
 
   <div class="error">
     <h1>Cтраница не найдена</h1>

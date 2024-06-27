@@ -55,7 +55,7 @@ const asideState = ref(false);
     :title="data?.assignment.title"
     v-model:state="asideState"
   />
-  <NuxtLoadingIndicator style="position: absolute; top: calc(60px + var(--electron))" color="var(--text)" />
+  <NuxtLoadingIndicator style="position: absolute; top: 60px" color="var(--text)" />
 
   <main>
     <CodeSideBar

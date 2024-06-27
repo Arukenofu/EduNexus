@@ -48,7 +48,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
-  height: calc(100dvh - 72px - var(--electron));
+  height: calc(100dvh - 72px);
 
   h1 {
     color: var(--text-soft);

@@ -78,7 +78,6 @@ const theme = useState('theme');
 
 <style scoped lang="scss">
 header {
-  top: var(--electron);
   position: fixed;
   width: 100%;
   max-width: 100dvw;

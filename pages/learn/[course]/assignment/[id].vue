@@ -43,7 +43,7 @@ const {module, course} = useRouteParams();
   margin-bottom: 72px;
   margin-left: 45px;
   width: 75%;
-  height: calc(100dvh - 72px - var(--electron));
+  height: calc(100dvh - 72px);
 
   h1 {
     color: var(--text-soft);

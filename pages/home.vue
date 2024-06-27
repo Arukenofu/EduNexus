@@ -8,7 +8,7 @@
 
   </HeaderComponent>
 
-  <NuxtLoadingIndicator color="var(--text)" :height="2" style="top: calc(60px + var(--electron))" />
+  <NuxtLoadingIndicator color="var(--text)" :height="2" style="top: 60px" />
 
   <div class="content" id="content">
 
