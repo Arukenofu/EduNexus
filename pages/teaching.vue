@@ -12,7 +12,9 @@ interface MyCourses {
   }[]
 }
 
-const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching')
+const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching', {
+  server: false
+})
 
 const route = useRouteParams();
 
@@ -29,7 +31,7 @@ const isMobile = useDevice();
       <LearningSideBar class="aside" v-if="!isMobile">
         <LearningCard class="my-projects">
           <LearningLink
-            v-for="(project, index) in myProjects!.courses"
+            v-for="(project, index) in myProjects?.courses"
             :key="index"
             :class="project.title === route.course && 'active'"
             icon="material-symbols:event-note-outline-rounded"

@@ -3,11 +3,13 @@ import type { User } from "~/interfaces/User";
 
 const isModalOpen = ref<boolean>(false);
 
-const {data: user} = await useAPI<User>('/profile')!;
+const {data: user} = await useAPI<User>('/profile', {
+  server: false
+});
 
 const updateUserValue = (newValue: User) => {
 
-  if (!newValue.profile_info.firstname) {
+  if (!newValue?.profile_info?.firstname) {
     return sendToast({
       type: 'error',
       message: 'Укажите имя'
@@ -20,7 +22,9 @@ const updateUserValue = (newValue: User) => {
 
 }
 
-const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching')
+const {data: myProjects, refresh} = await useAPI<MyCourses>('/teaching', {
+  server: false
+})
 
 const isCreateCourseModalOpen = ref(false);
 
@@ -34,9 +38,9 @@ const isCreateCourseModalOpen = ref(false);
 
         <div class="profile-avatar" :style="setAvatar(user?.profile_info?.profile)" />
 
-        <h1>{{user?.profile_info.firstname}}</h1>
+        <h1>{{user?.profile_info?.firstname}}</h1>
 
-        <p>{{user?.profile_info.description}}</p>
+        <p>{{user?.profile_info?.description}}</p>
 
         <button class="edit" @click="isModalOpen =! isModalOpen">
           <Icon class="icon" name="iconoir:edit" size="1.2em" />

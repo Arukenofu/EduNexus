@@ -14,12 +14,14 @@ const options: Monaco.editor.IStandaloneEditorConstructionOptions = {
   fontLigatures: ''
 }
 
+
+
 </script>
 
 <template>
-  <MonacoEditor v-model:model-value="model" lang="go" class="editor" :options="options">
+  <LazyMonacoEditor v-model:model-value="model" lang="go" class="editor" :options="options">
     ...Loading
-  </MonacoEditor>
+  </LazyMonacoEditor>
 </template>
 
 <style scoped lang="scss">

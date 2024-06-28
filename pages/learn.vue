@@ -2,7 +2,9 @@
 
 const route = useRouteParams();
 
-const {data: courses} = await useAPI<MyCourses>('/learning')
+const {data: courses} = await useAPI<MyCourses>('/learning', {
+  server: false
+})
 
 const isMobile = useDevice()
 
@@ -17,7 +19,7 @@ const isMobile = useDevice()
       <LearningSideBar class="aside" v-if="!isMobile">
         <LearningCard class="my-projects">
           <LearningLink
-            v-for="(project, index) in courses!.courses"
+            v-for="(project, index) in courses?.courses"
             :key="index"
             :class="project.title === route.course && 'active'"
             icon="material-symbols:event-note-outline-rounded"

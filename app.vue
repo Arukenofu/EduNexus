@@ -6,13 +6,6 @@ onMounted(() => {
   renderDocumentStyleRoot()
 })
 
-useHead({
-  title: 'EduNexus'
-});
-
-
-
-
 </script>
 
 <template>
